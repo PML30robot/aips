@@ -4,8 +4,11 @@ GUI_DIR       = gui
 OBJ_TRACK_DIR = object_track
 BIN_DIR       = bin
 OBJ_DIR       = obj
+MOC_DIR       = moc_files
 
-CPP_SRC = $(OBJ_TRACK_DIR)/object_track.cpp main.cpp
+MOC_SRC  = $(GUI_DIR)/gui.h
+CPP_SRC  = $(GUI_DIR)/gui.cpp main.cpp
+CPP_SRC += $(notdir $(MOC_SRC:.h=.moc.cpp))
 
 OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(notdir $(CPP_SRC:.cpp=.o)))
 	
@@ -18,6 +21,8 @@ all: dir $(TARGET)
 dir: 
 	if !(test -d $(BIN_DIR)); then mkdir $(BIN_DIR); fi
 	if !(test -d $(OBJ_DIR)); then mkdir $(OBJ_DIR); fi
+	if !(test -d $(MOC_DIR)); then mkdir $(MOC_DIR); fi
+	echo $(OBJ_FILES)
 
 aips: $(OBJ_FILES)
 	g++ -g $(OBJ_FILES) -o $(BIN_DIR)/$(TARGET) $(CPP_LIBS)
@@ -27,6 +32,15 @@ $(OBJ_DIR)/%.o: %.cpp
 
 $(OBJ_DIR)/%.o: $(OBJ_TRACK_DIR)/%.cpp
 	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES)
+
+$(OBJ_DIR)/%.o: $(GUI_DIR)/%.cpp
+	g++ -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES)
+
+$(OBJ_DIR)/%.moc.o: $(GUI_DIR)/$(MOC_DIR)/%.moc.cpp
+	g++ -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES)
+
+$(GUI_DIR)/$(MOC_DIR)/%.moc.cpp: $(GUI_DIR)/%.h
+	moc-qt4  $< -o $@ 
 	
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/$(TARGET)

@@ -7,14 +7,18 @@
  * Created on 14 Ноябрь 2015 г., 16:47
  */
 
-#include "object_track/object_track.h"
+#include <QApplication>
 
-using namespace std;
+#include "gui/gui.h"
 
 int main( int argc, char** argv )
 {
-   ot();
-   
-   return 0;
+    QApplication app(argc, argv);
+    
+    gui window;
+    
+    window.show();
+    
+   return app.exec();
 }
 
