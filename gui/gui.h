@@ -10,15 +10,15 @@
 #include <QMainWindow>
 #include <QObject>
 
-#include "gui_ui.h"
+#include "ui/gui_ui.h"
 
 class gui : public QMainWindow
 {
-    Q_OBJECT
+   Q_OBJECT
     
 public:
-    gui( QWidget * parent = 0 );
+   gui( QWidget * parent = 0 );
     
 private:
-    Ui::gui * ui_;
+   Ui::gui * ui_;
 };

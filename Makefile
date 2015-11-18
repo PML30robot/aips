@@ -7,8 +7,8 @@ OBJ_DIR       = obj
 MOC_DIR       = moc_files
 
 MOC_SRC  = $(GUI_DIR)/gui.h
-CPP_SRC  = $(GUI_DIR)/gui.cpp main.cpp
-CPP_SRC += $(notdir $(MOC_SRC:.h=.moc.cpp))
+CPP_SRC  = $(notdir $(MOC_SRC:.h=.moc.cpp))
+CPP_SRC += $(OBJ_TRACK)/object_track.cpp $(GUI_DIR)/gui.cpp main.cpp
 
 OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(notdir $(CPP_SRC:.cpp=.o)))
 	
@@ -21,8 +21,7 @@ all: dir $(TARGET)
 dir: 
 	if !(test -d $(BIN_DIR)); then mkdir $(BIN_DIR); fi
 	if !(test -d $(OBJ_DIR)); then mkdir $(OBJ_DIR); fi
-	if !(test -d $(MOC_DIR)); then mkdir $(MOC_DIR); fi
-	echo $(OBJ_FILES)
+	if !(test -d $(GUI_DIR)/$(MOC_DIR)); then mkdir $(GUI_DIR)/$(MOC_DIR); fi
 
 aips: $(OBJ_FILES)
 	g++ -g $(OBJ_FILES) -o $(BIN_DIR)/$(TARGET) $(CPP_LIBS)
