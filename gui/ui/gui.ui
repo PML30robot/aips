@@ -44,10 +44,21 @@
     <property name="title">
      <string>Object track</string>
     </property>
+    <widget class="QMenu" name="menuCameras">
+     <property name="title">
+      <string>Cameras settings</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../cameras.png</normaloff>../../../../cameras.png</iconset>
+     </property>
+    </widget>
     <addaction name="ot_obj_params"/>
     <addaction name="separator"/>
     <addaction name="ot_start_rec"/>
     <addaction name="ot_stop_rec"/>
+    <addaction name="separator"/>
+    <addaction name="menuCameras"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menu_obj_track"/>
@@ -57,18 +68,75 @@
    <property name="checkable">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../gear_4053.png</normaloff>../../../../gear_4053.png</iconset>
+   </property>
    <property name="text">
     <string>Object parameters</string>
    </property>
   </action>
   <action name="ot_start_rec">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../RecRun.png</normaloff>../../../../RecRun.png</iconset>
+   </property>
    <property name="text">
     <string>Start recording</string>
    </property>
   </action>
   <action name="ot_stop_rec">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../RecStop.png</normaloff>../../../../RecStop.png</iconset>
+   </property>
    <property name="text">
     <string>Stop recording</string>
+   </property>
+  </action>
+  <action name="actionCamera_1">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../camera.png</normaloff>../../../../camera.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сamera №1</string>
+   </property>
+  </action>
+  <action name="action_amera_2">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../camera.png</normaloff>../../../../camera.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сamera №2</string>
+   </property>
+  </action>
+  <action name="action_amera_3">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../camera.png</normaloff>../../../../camera.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сamera №3</string>
+   </property>
+  </action>
+  <action name="action_amera_4">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../camera.png</normaloff>../../../../camera.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сamera №4</string>
+   </property>
+  </action>
+  <action name="action_amera_5">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../camera.png</normaloff>../../../../camera.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сamera №5</string>
    </property>
   </action>
  </widget>
