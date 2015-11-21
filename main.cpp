@@ -14,17 +14,12 @@
 
 int main( int argc, char** argv )
 {
-//   QApplication app(argc, argv);
-//    
-//   gui window;
-//    
-//   window.show();
-//    
-//   return app.exec();
-   object_track_t obj;
-   
-   obj.loop();
-   
-   return 0;
+   QApplication app(argc, argv);
+    
+   gui_t window;
+    
+   window.show();
+    
+   return app.exec();
 }
 
