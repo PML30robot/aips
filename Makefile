@@ -45,6 +45,7 @@ $(MOC_DIR)/gui.moc.cpp: $(GUI_DIR)/gui.h
 ui:
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/gui.ui -o $(GUI_DIR)/$(UI_DIR)/gui_ui.h
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/object_params.ui -o $(GUI_DIR)/$(UI_DIR)/object_params_ui.h
+	uic-qt4 $(GUI_DIR)/$(UI_DIR)/camera_settings.ui -o $(GUI_DIR)/$(UI_DIR)/camera_settings_ui.h
 	
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/$(TARGET)

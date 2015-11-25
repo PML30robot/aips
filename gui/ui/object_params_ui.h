@@ -37,8 +37,6 @@ public:
     QLabel *label_3;
     QSlider *min_value;
     QLabel *label_2;
-    QSlider *max_size;
-    QSlider *min_size;
     QLabel *label_9;
     QFrame *line_2;
     QFrame *line_3;
@@ -68,6 +66,8 @@ public:
     QFrame *line_11;
     QFrame *line_12;
     QSlider *min_hue;
+    QSlider *min_size;
+    QSlider *max_size;
 
     void setupUi(QWidget *obj_params)
     {
@@ -150,23 +150,6 @@ public:
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
         gridLayout->addWidget(label_2, 1, 1, 1, 1);
-
-        max_size = new QSlider(gridLayoutWidget);
-        max_size->setObjectName(QString::fromUtf8("max_size"));
-        max_size->setCursor(QCursor(Qt::SizeHorCursor));
-        max_size->setMaximum(255);
-        max_size->setValue(255);
-        max_size->setOrientation(Qt::Horizontal);
-
-        gridLayout->addWidget(max_size, 10, 3, 1, 1);
-
-        min_size = new QSlider(gridLayoutWidget);
-        min_size->setObjectName(QString::fromUtf8("min_size"));
-        min_size->setCursor(QCursor(Qt::SizeHorCursor));
-        min_size->setMaximum(255);
-        min_size->setOrientation(Qt::Horizontal);
-
-        gridLayout->addWidget(min_size, 9, 3, 1, 1);
 
         label_9 = new QLabel(gridLayoutWidget);
         label_9->setObjectName(QString::fromUtf8("label_9"));
@@ -277,15 +260,15 @@ public:
         min_size_small = new QSpinBox(gridLayoutWidget);
         min_size_small->setObjectName(QString::fromUtf8("min_size_small"));
         min_size_small->setCursor(QCursor(Qt::IBeamCursor));
-        min_size_small->setMaximum(255);
+        min_size_small->setMaximum(10000);
 
         gridLayout->addWidget(min_size_small, 9, 5, 1, 1);
 
         max_size_small = new QSpinBox(gridLayoutWidget);
         max_size_small->setObjectName(QString::fromUtf8("max_size_small"));
         max_size_small->setCursor(QCursor(Qt::IBeamCursor));
-        max_size_small->setMaximum(255);
-        max_size_small->setValue(255);
+        max_size_small->setMaximum(10000);
+        max_size_small->setValue(10000);
 
         gridLayout->addWidget(max_size_small, 10, 5, 1, 1);
 
@@ -370,6 +353,23 @@ public:
         min_hue->setOrientation(Qt::Horizontal);
 
         gridLayout->addWidget(min_hue, 0, 3, 1, 1);
+
+        min_size = new QSlider(gridLayoutWidget);
+        min_size->setObjectName(QString::fromUtf8("min_size"));
+        min_size->setCursor(QCursor(Qt::SizeHorCursor));
+        min_size->setMaximum(10000);
+        min_size->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(min_size, 9, 3, 1, 1);
+
+        max_size = new QSlider(gridLayoutWidget);
+        max_size->setObjectName(QString::fromUtf8("max_size"));
+        max_size->setCursor(QCursor(Qt::SizeHorCursor));
+        max_size->setMaximum(10000);
+        max_size->setValue(10000);
+        max_size->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(max_size, 10, 3, 1, 1);
 
 
         retranslateUi(obj_params);

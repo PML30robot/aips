@@ -44,22 +44,13 @@
     <property name="title">
      <string>Object track</string>
     </property>
-    <widget class="QMenu" name="menuCameras">
-     <property name="title">
-      <string>Cameras settings</string>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../../../../cameras.png</normaloff>../../../../cameras.png</iconset>
-     </property>
-    </widget>
     <addaction name="ot_obj_params"/>
     <addaction name="separator"/>
     <addaction name="ot_start_rec"/>
     <addaction name="ot_stop_rec"/>
     <addaction name="separator"/>
-    <addaction name="menuCameras"/>
     <addaction name="separator"/>
+    <addaction name="ot_camera_settings"/>
    </widget>
    <addaction name="menu_obj_track"/>
   </widget>
@@ -67,6 +58,9 @@
   <action name="ot_obj_params">
    <property name="checkable">
     <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset>
@@ -137,6 +131,15 @@
    </property>
    <property name="text">
     <string>Сamera №5</string>
+   </property>
+  </action>
+  <action name="ot_camera_settings">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../../../camera.png</normaloff>../../../../camera.png</iconset>
+   </property>
+   <property name="text">
+    <string>Camera Settings</string>
    </property>
   </action>
  </widget>
