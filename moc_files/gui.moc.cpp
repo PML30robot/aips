@@ -99,51 +99,26 @@ static const uint qt_meta_data_object_params_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       0,    0, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      23,   17,   16,   16, 0x0a,
-      44,   38,   16,   16, 0x0a,
-      65,   59,   16,   16, 0x0a,
-      86,   80,   16,   16, 0x0a,
-     107,  101,   16,   16, 0x0a,
-     128,  122,   16,   16, 0x0a,
-     152,  143,   16,   16, 0x0a,
-     179,  170,   16,   16, 0x0a,
-
        0        // eod
 };
 
 static const char qt_meta_stringdata_object_params_t[] = {
-    "object_params_t\0\0min_v\0set_min_v(int)\0"
-    "max_v\0set_max_v(int)\0min_s\0set_min_s(int)\0"
-    "max_s\0set_max_s(int)\0min_h\0set_min_h(int)\0"
-    "max_h\0set_max_h(int)\0min_size\0"
-    "set_min_size(int)\0max_size\0set_max_size(int)\0"
+    "object_params_t\0"
 };
 
 void object_params_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        object_params_t *_t = static_cast<object_params_t *>(_o);
-        switch (_id) {
-        case 0: _t->set_min_v((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 1: _t->set_max_v((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 2: _t->set_min_s((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->set_max_s((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 4: _t->set_min_h((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->set_max_h((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 6: _t->set_min_size((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->set_max_size((*reinterpret_cast< int(*)>(_a[1]))); break;
-        default: ;
-        }
-    }
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData object_params_t::staticMetaObjectExtraData = {
@@ -177,11 +152,6 @@ int object_params_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
-    }
     return _id;
 }
 static const uint qt_meta_data_camera_settings_t[] = {
@@ -190,52 +160,26 @@ static const uint qt_meta_data_camera_settings_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       0,    0, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      31,   19,   18,   18, 0x0a,
-      58,   48,   18,   18, 0x0a,
-      85,   73,   18,   18, 0x0a,
-     107,  102,   18,   18, 0x0a,
-     123,  117,   18,   18, 0x0a,
-     144,  134,   18,   18, 0x0a,
-     171,  159,   18,   18, 0x0a,
-     198,  188,   18,   18, 0x0a,
-
        0        // eod
 };
 
 static const char qt_meta_stringdata_camera_settings_t[] = {
-    "camera_settings_t\0\0hBrightness\0"
-    "hBrightness(int)\0hContrast\0hContrast(int)\0"
-    "hSaturation\0hSaturation(int)\0hHue\0"
-    "hHue(int)\0hGain\0hGain(int)\0hExposure\0"
-    "hExposure(int)\0sBrightness\0sBrightness(int)\0"
-    "sContrast\0sContrast(int)\0"
+    "camera_settings_t\0"
 };
 
 void camera_settings_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        camera_settings_t *_t = static_cast<camera_settings_t *>(_o);
-        switch (_id) {
-        case 0: _t->hBrightness((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 1: _t->hContrast((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 2: _t->hSaturation((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->hHue((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 4: _t->hGain((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->hExposure((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 6: _t->sBrightness((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->sContrast((*reinterpret_cast< int(*)>(_a[1]))); break;
-        default: ;
-        }
-    }
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData camera_settings_t::staticMetaObjectExtraData = {
@@ -269,11 +213,6 @@ int camera_settings_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
-    }
     return _id;
 }
 QT_END_MOC_NAMESPACE

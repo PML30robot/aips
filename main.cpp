@@ -11,15 +11,19 @@
 
 #include "gui/gui.h"
 #include "object_track/object_track.h"
+#include "connecter/connector.h"
 
 int main( int argc, char** argv )
 {
    QApplication app(argc, argv);
-    
-   gui_t window;
+   
+   connector_t connector;
+   
+   gui_t window(&connector);
     
    window.show();
-    
+
    return app.exec();
-}
+}   
+
 
