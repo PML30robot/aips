@@ -22,7 +22,7 @@ static const uint qt_meta_data_gui_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,13 +32,15 @@ static const uint qt_meta_data_gui_t[] = {
  // slots: signature, parameters, type, tag, flags
        7,    6,    6,    6, 0x08,
       25,    6,    6,    6, 0x08,
+      54,   48,    6,    6, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_gui_t[] = {
     "gui_t\0\0call_obj_params()\0"
-    "call_camera_settings()\0"
+    "call_camera_settings()\0image\0"
+    "redraw_image(QImage)\0"
 };
 
 void gui_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -49,10 +51,10 @@ void gui_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         switch (_id) {
         case 0: _t->call_obj_params(); break;
         case 1: _t->call_camera_settings(); break;
+        case 2: _t->redraw_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData gui_t::staticMetaObjectExtraData = {
@@ -87,9 +89,9 @@ int gui_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

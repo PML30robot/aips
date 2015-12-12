@@ -7,8 +7,10 @@
  */
 
 #include <iostream>
+#include <QPixmap>
 
 #include "gui.h"
+
 
 gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    ui_( new Ui::gui )
@@ -19,6 +21,8 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    
    connect(ui_->ot_obj_params, SIGNAL(triggered()), this, SLOT(call_obj_params()));
    connect(ui_->ot_camera_settings, SIGNAL(triggered()), this, SLOT(call_camera_settings()));
+   
+   connect(ui_->label,  SIGNAL(send_image(QImage image)), this, SLOT (redraw_image(QImage image)));
 }
 
 void gui_t::closeEvent(QCloseEvent* event)
@@ -34,9 +38,15 @@ Q_SLOT void gui_t::call_obj_params()
    object_params_->show();
 }
 
+
+Q_SLOT void gui_t::redraw_image(QImage image)
+{
+   ui_->label->setPixmap(QPixmap::fromImage(image));
+}
+
 object_params_t::object_params_t( connector_t * connector, QWidget * parent ) :
-   obj_params_( new Ui::obj_params )
- , connector_      (connector)
+   obj_params_ ( new Ui::obj_params )
+ , connector_  (connector)
 {
    obj_params_->setupUi(this);
    

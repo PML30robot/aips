@@ -8,6 +8,7 @@
 #pragma once 
 
 #include <QObject>
+#include <QImage>
 
 class connector_t : public QObject
 {   
@@ -25,17 +26,18 @@ public:
    
    Q_SLOT void set_brightness_software(double sbrightness );
    Q_SLOT void set_contrast_software(double scontrast );
-
+   
+   Q_SIGNAL void send_image(QImage image);
+   
    Q_SLOT void set_min_h(int min_h);
    Q_SLOT void set_max_h(int max_h);
-
-
-Q_SLOT void set_min_s(int min_s);
-Q_SLOT void set_max_s(int max_s);
-Q_SLOT void set_min_v(int min_v);
-Q_SLOT void set_max_v(int max_v);
-Q_SLOT void set_min_size(int min_size);
-Q_SLOT void set_max_size(int max_size);
+   
+   Q_SLOT void set_min_s(int min_s);
+   Q_SLOT void set_max_s(int max_s);
+   Q_SLOT void set_min_v(int min_v);
+   Q_SLOT void set_max_v(int max_v);
+   Q_SLOT void set_min_size(int min_size);
+   Q_SLOT void set_max_size(int max_size);
    
    
    

@@ -33,7 +33,6 @@ class gui_t : public QMainWindow
 {
    Q_OBJECT
    
-
 public:
    gui_t ( connector_t * connector, QWidget * parent = 0 );
    
@@ -41,6 +40,8 @@ public:
 private:
    Q_SLOT void call_obj_params();
    Q_SLOT void call_camera_settings();
+   
+   Q_SLOT void redraw_image(QImage image);
    
    Ui::gui * ui_;
 

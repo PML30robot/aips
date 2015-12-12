@@ -5,7 +5,8 @@
 using namespace std;
 
 connector_t::connector_t()
-{// Для канала к конечной цели
+{
+   
 }
 
 Q_SLOT void connector_t::set_brightness_hardware( double value )
@@ -38,6 +39,7 @@ Q_SLOT void connector_t::set_brightness_software( double value )
 {
    cout << value << endl;
 }
+
 Q_SLOT void connector_t::set_contrast_software(double value )
 {
    cout << value << endl;
