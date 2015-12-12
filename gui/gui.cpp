@@ -7,13 +7,15 @@
  */
 
 #include <iostream>
+
 #include <QPixmap>
 
 #include "gui.h"
 
 
 gui_t::gui_t( connector_t * connector, QWidget * parent ) :
-   ui_( new Ui::gui )
+     ui_       (new Ui::gui)
+   , connector_(connector)
 {
    object_params_ = new object_params_t(connector);
    camera_settings_ = new camera_settings_t(connector);
@@ -22,11 +24,12 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    connect(ui_->ot_obj_params, SIGNAL(triggered()), this, SLOT(call_obj_params()));
    connect(ui_->ot_camera_settings, SIGNAL(triggered()), this, SLOT(call_camera_settings()));
    
-   connect(ui_->label,  SIGNAL(send_image(QImage image)), this, SLOT (redraw_image(QImage image)));
+   connect(connector_,  SIGNAL(send_image(QImage)), this, SLOT(redraw_image(QImage)));
 }
 
 void gui_t::closeEvent(QCloseEvent* event)
 {
+   connector_->stop_obj_track();
    object_params_->close();
    camera_settings_->close();
    delete object_params_;

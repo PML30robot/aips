@@ -8,6 +8,7 @@
  */
 
 #include <QApplication>
+#include <omp.h>
 
 #include "gui/gui.h"
 #include "object_track/object_track.h"
@@ -24,13 +25,26 @@ int main( int argc, char** argv )
    
    window.show();
    
- //  std::string string1 = "nameofobject";
+   object_track_t track(&connector);
    
- //  settings_t settings(string1);
+   size_t thread_idx;
    
- //  settings.import_settings();
+   omp_set_num_threads(2);
    
-   return app.exec();
+   #pragma omp parallel private(thread_idx)
+   {
+      thread_idx = omp_get_thread_num();
+      
+      cout << thread_idx << endl;
+      
+      if (thread_idx == 0)
+         app.exec();
+      
+      if (thread_idx == 1)
+         track.loop();
+   }
+   
+   return 0;
 }   
 
 

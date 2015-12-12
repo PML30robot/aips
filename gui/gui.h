@@ -47,6 +47,8 @@ private:
 
    object_params_t *   object_params_;
    camera_settings_t * camera_settings_;
+   
+   connector_t * connector_;
 };
 
 

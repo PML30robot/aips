@@ -6,34 +6,48 @@ using namespace std;
 
 connector_t::connector_t()
 {
-   
+}
+
+void connector_t::stop_obj_track()
+{
+   emit stop_obj_track_s();
+}
+
+
+Q_SLOT void connector_t::get_image( QImage image )
+{
+   emit send_image(image);
 }
 
 Q_SLOT void connector_t::set_brightness_hardware( double value )
 {
    cout << value << endl;
 }
+
 Q_SLOT void connector_t::set_contrast_hardware( double value )
 {
    cout << value << endl;
 }
+
 Q_SLOT void connector_t::set_saturation_hardware( double value )
 {
    cout << value << endl;
 }
+
 Q_SLOT void connector_t::set_hue_hardware( double value )
 {
    cout << value << endl;
 }
+
 Q_SLOT void connector_t::set_gain_hardware( double value )
 {
    cout << value << endl;
 }
+
 Q_SLOT void connector_t::set_exposure_hardware( double value )
 {
    cout << value << endl;
 }
-
 
 Q_SLOT void connector_t::set_brightness_software( double value )
 {
@@ -44,9 +58,6 @@ Q_SLOT void connector_t::set_contrast_software(double value )
 {
    cout << value << endl;
 }
-
-
-
 
 Q_SLOT void connector_t::set_min_h(int min_h)
 {

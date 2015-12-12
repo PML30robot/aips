@@ -1,5 +1,5 @@
 /* 
- * File:   object_track.h
+ * File:   object_track.cpp
  * Author: Vladislav Kupyrin
  *         Anton Fedotov
  *
@@ -11,28 +11,46 @@
 #include <vector>
 
 #include "object_track.h"
+#include "../camera/camera.h"
 
 using namespace cv;
 using namespace std;
 
+object_track_t::object_track_t( connector_t * connector ) :
+     min_h_(0)
+   , min_s_(255)
+   , min_v_(0)
+   , max_h_(255)
+   , max_s_(0)
+   , max_v_(255)
+   , min_obj_size_(0)
+   , max_obj_size_(10000)
+   , connector_   (connector)
+   , is_working_   (1)
+{
+   connect(this, SIGNAL(send_image(QImage)), connector_, SLOT(get_image(QImage)));
+
+   connect(connector_, SIGNAL(stop_obj_track_s()), this, SLOT(stop_loop()));
+}
+
+object_track_t::~object_track_t( )
+{
+}
+
+extern QImage cvMatToQImage( cv::Mat const & frame );
+
 void object_track_t::loop( )
 {
-   object_track_t obj;
-   
-   VideoCapture capture(0);
-   
-   Mat frame;
-   
-   namedWindow("Capture", WINDOW_NORMAL);
-   namedWindow("Color_detection", WINDOW_NORMAL);
-   namedWindow("Contours", WINDOW_NORMAL);
+   Mat frame, origin_frame;
    
    vector< vector<Point> > contours;
    vector< Vec4i >         hierarchy;
 
-   while (true)
+   while (is_working_)
    {
-      capture >> frame;
+      camera_.get_frame(origin_frame);
+      
+      origin_frame.copyTo(frame);
 
       cvtColor(frame, frame, CV_BGR2HSV);
       
@@ -56,7 +74,7 @@ void object_track_t::loop( )
             Moments moment = moments((Mat)contours[idx]);
 				area = moment.m00;
 
-            if (area > min_obj_size && area < max_obj_size)
+            if (area > min_obj_size_ && area < max_obj_size_)
             {
                center.x += moment.m10 / area;
                center.y += moment.m01 / area;
@@ -64,36 +82,17 @@ void object_track_t::loop( )
                contours_num++;
             }
 
-            drawContours(frame, contours, idx, Scalar(255, 255, 255), 1, 8, hierarchy);
+            drawContours(origin_frame, contours, idx, Scalar(255, 255, 255), 1, 8, hierarchy);
          }
 
          center.x /= contours_num;
          center.y /= contours_num;
 
-         circle(frame, center, 2, Scalar(0, 0, 255)); 
+         circle(origin_frame, center, 2, Scalar(0, 0, 255)); 
       }
       
-      if (waitKey(30) == 27)
-         break;
+      emit send_image(cvMatToQImage(origin_frame));
    }
-}
-
-object_track_t::object_track_t( ) :
-     min_h_(0)
-   , min_s_(255)
-   , min_v_(0)
-   , max_h_(255)
-   , max_s_(0)
-   , max_v_(255)
-   , min_obj_size(0)
-   , max_obj_size(10000)
- 
-{
-}
-
-object_track_t::~object_track_t( )
-{
-   
 }
 
 void object_track_t::set_max_v( size_t max_v_ )
@@ -154,4 +153,46 @@ void object_track_t::set_min_h( size_t min_h_ )
 size_t object_track_t::get_min_h( ) const
 {
    return min_h_;
+}
+
+void object_track_t::set_min_obj_size( size_t min_obj_size_ )
+{
+   this->min_obj_size_ = min_obj_size_;
+}
+
+size_t object_track_t::get_min_obj_size( ) const
+{
+   return  min_obj_size_;
+}
+
+void object_track_t::set_max_obj_size( size_t  max_obj_size_ )
+{
+   this->max_obj_size_ = max_obj_size_;
+}
+
+size_t object_track_t::get_max_obj_size( ) const
+{
+   return  max_obj_size_;
+}
+
+Q_SLOT void object_track_t::stop_loop()
+{
+   is_working_ = 0;
+}
+
+QImage cvMatToQImage( cv::Mat const & frame )
+{
+   QImage img;
+   
+   if (frame.channels()== 3)
+   {
+      cv::cvtColor(frame, frame, CV_BGR2RGB);
+      img = QImage((const unsigned char*)(frame.data), frame.cols, frame.rows, QImage::Format_RGB888);
+   }
+   else
+   {
+      img = QImage((const unsigned char*)(frame.data), frame.cols, frame.rows, QImage::Format_Indexed8);
+   }
+   
+   return img;
 }

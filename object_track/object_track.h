@@ -8,11 +8,18 @@
 
 #pragma once
 
-class object_track_t
+#include <QObject>
+
+#include "../camera/camera.h"
+#include "../connecter/connector.h"
+
+class object_track_t : public QObject
 {
+   Q_OBJECT
+   
 public:
    
-   object_track_t();
+   object_track_t( connector_t * connector );
    ~object_track_t();
    
    void loop();
@@ -29,13 +36,26 @@ public:
    size_t get_max_h( ) const;
    void set_min_h( size_t min_h_ );
    size_t get_min_h( ) const;
+   void set_min_obj_size( size_t min_h_ );
+   size_t get_min_obj_size( ) const;
+   void set_max_obj_size( size_t min_h_ );
+   size_t get_max_obj_size( ) const;
+   
+   Q_SIGNAL void send_image( QImage image );
+   
+   Q_SLOT void stop_loop();
    
 private:
    size_t min_h_, max_h_,
           min_s_, max_s_,
           min_v_, max_v_;
-   size_t min_obj_size = 0,
-          max_obj_size = 10000;
+   size_t min_obj_size_,
+          max_obj_size_;
    
+   camera_t camera_;
    
+   int is_working_;
+   
+   connector_t * connector_;
 };
+
