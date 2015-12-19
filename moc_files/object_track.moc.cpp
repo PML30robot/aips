@@ -22,7 +22,7 @@ static const uint qt_meta_data_object_track_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -36,6 +36,20 @@ static const uint qt_meta_data_object_track_t[] = {
       41,   15,   15,   15, 0x0a,
       65,   53,   15,   15, 0x0a,
      107,   97,   15,   15, 0x0a,
+     149,  137,   15,   15, 0x0a,
+     186,  181,   15,   15, 0x0a,
+     217,  211,   15,   15, 0x0a,
+     253,  243,   15,   15, 0x0a,
+     295,  283,   15,   15, 0x0a,
+     337,  327,   15,   15, 0x0a,
+     373,  367,   15,   15, 0x0a,
+     394,  388,   15,   15, 0x0a,
+     415,  409,   15,   15, 0x0a,
+     436,  430,   15,   15, 0x0a,
+     457,  451,   15,   15, 0x0a,
+     478,  472,   15,   15, 0x0a,
+     502,  493,   15,   15, 0x0a,
+     529,  520,   15,   15, 0x0a,
 
        0        // eod
 };
@@ -45,6 +59,17 @@ static const char qt_meta_stringdata_object_track_t[] = {
     "stop_loop()\0hbrightness\0"
     "set_brightness_hardware(double)\0"
     "hcontrast\0set_contrast_hardware(double)\0"
+    "hsaturation\0set_saturation_hardware(double)\0"
+    "hhue\0set_hue_hardware(double)\0hgain\0"
+    "set_gain_hardware(double)\0hexposure\0"
+    "set_exposure_hardware(double)\0sbrightness\0"
+    "set_brightness_software(double)\0"
+    "scontrast\0set_contrast_software(double)\0"
+    "min_h\0set_min_h(int)\0max_h\0set_max_h(int)\0"
+    "min_s\0set_min_s(int)\0max_s\0set_max_s(int)\0"
+    "min_v\0set_min_v(int)\0max_v\0set_max_v(int)\0"
+    "min_size\0set_min_size(int)\0max_size\0"
+    "set_max_size(int)\0"
 };
 
 void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -57,6 +82,20 @@ void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 1: _t->stop_loop(); break;
         case 2: _t->set_brightness_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 3: _t->set_contrast_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 4: _t->set_saturation_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 5: _t->set_hue_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 6: _t->set_gain_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 7: _t->set_exposure_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 8: _t->set_brightness_software((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 9: _t->set_contrast_software((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 10: _t->set_min_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 11: _t->set_max_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 12: _t->set_min_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->set_max_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->set_min_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->set_max_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: _t->set_min_size((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 17: _t->set_max_size((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -94,9 +133,9 @@ int object_track_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 18;
     }
     return _id;
 }

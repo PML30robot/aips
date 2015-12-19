@@ -32,15 +32,24 @@ object_track_t::object_track_t( connector_t * connector ) :
 
    connect(connector_, SIGNAL(stop_obj_track_s()), this, SLOT(stop_loop()));
    
-   connect(connector_, SIGNAL (set_brightness_hardware_sig(double)), this,  SLOT(set_brightness_hardware(double)));
-   connect(connector_, SIGNAL (set_contrast_hardware_sig(double)), this,  SLOT(set_contrast_hardware(double)));
-//   connect(camera_t_->hHue,       SIGNAL(valueChanged(double)), connector_, SLOT (set_hue_hardware(double)));
-//   connect(camera_t_->hGain,      SIGNAL(valueChanged(double)), connector_, SLOT (set_gain_hardware(double)));
-//   connect(camera_t_->hExposure,  SIGNAL(valueChanged(double)), connector_, SLOT (set_exposure_hardware(double)));
-//   connect(camera_t_->hBrightness,SIGNAL(valueChanged(double)), connector_, SLOT(set_brightness_hardware( double)));
-//   
-//   connect(camera_t_->sBrightness,SIGNAL(valueChanged(double)), connector_, SLOT (set_brightness_software(double)));
-//   connect(camera_t_->sContrast,  SIGNAL(valueChanged(double)), connector_, SLOT (set_contrast_software(double)));
+   connect(connector_, SIGNAL (set_brightness_hardware_sig(double)), this,  SLOT (set_brightness_hardware(double)));
+   connect(connector_, SIGNAL (set_contrast_hardware_sig(double)),   this,  SLOT (set_contrast_hardware(double)));
+   connect(connector_, SIGNAL (set_hue_hardware_sig(double)),        this,  SLOT (set_hue_hardware(double)));
+   connect(connector_, SIGNAL (set_saturation_hardware_sig(double)), this,  SLOT (set_saturation_hardware(double)));
+   connect(connector_, SIGNAL (set_gain_hardware_sig(double)),       this,  SLOT (set_gain_hardware(double)));
+   connect(connector_, SIGNAL (set_exposure_hardware_sig(double)),   this,  SLOT (set_exposure_hardware(double)));
+   
+   connect(connector_, SIGNAL (set_min_h_sig(int)),    this,  SLOT (set_min_h(int)));
+   connect(connector_, SIGNAL (set_max_h_sig(int)),    this,  SLOT (set_max_h(int)));
+   connect(connector_, SIGNAL (set_min_s_sig(int)),    this,  SLOT (set_min_s(int)));
+   connect(connector_, SIGNAL (set_max_s_sig(int)),    this,  SLOT (set_max_s(int)));
+   connect(connector_, SIGNAL (set_min_v_sig(int)),    this,  SLOT (set_min_v(int)));
+   connect(connector_, SIGNAL (set_max_v_sig(int)),    this,  SLOT (set_max_v(int)));
+   connect(connector_, SIGNAL (set_min_size_sig(int)), this,  SLOT (set_min_size(int)));
+   connect(connector_, SIGNAL (set_max_size_sig(int)), this,  SLOT (set_max_size(int)));
+   
+   connect(connector_, SIGNAL (set_brightness_software_sig(double)), this,  SLOT (set_brightness_software(double)));
+   connect(connector_, SIGNAL (set_contrast_software_sig(double)),   this,  SLOT (set_contrast_software(double)));
 }
 
 object_track_t::~object_track_t( )
@@ -90,15 +99,23 @@ void object_track_t::loop( )
                center.y += moment.m01 / area;
 
                contours_num++;
+            
+               drawContours(origin_frame, contours, idx, Scalar(255, 255, 255), 3, 8, hierarchy);
             }
-
-            drawContours(origin_frame, contours, idx, Scalar(255, 255, 255), 1, 8, hierarchy);
          }
 
-         center.x /= contours_num;
-         center.y /= contours_num;
+         if(contours_num == 0)
+         {
+            center.x = 0;
+            center.y = 0;
+         }
+         else
+         {
+            center.x /= contours_num;
+            center.y /= contours_num;
+         }
 
-         circle(origin_frame, center, 2, Scalar(0, 0, 255)); 
+         circle(origin_frame, center, 3, Scalar(0, 0, 255), 3); 
       }
       
       emit send_image(cvMatToQImage(origin_frame));
@@ -175,7 +192,7 @@ size_t object_track_t::get_min_obj_size( ) const
    return  min_obj_size_;
 }
 
-void object_track_t::set_max_obj_size( size_t  max_obj_size_ )
+void object_track_t::set_max_obj_size( size_t max_obj_size_ )
 {
    this->max_obj_size_ = max_obj_size_;
 }
@@ -201,25 +218,76 @@ Q_SLOT void object_track_t::set_contrast_hardware( double hcontrast )
    camera_.set_contrast( hcontrast );
 }
 
-//Q_SLOT void set_saturation_hardware( double hsaturation )
-//{
-//   this->saturation_ = hsaturation;
-//}
-//
-//Q_SLOT void set_hue_hardware( double hhue )
-//{
-//   this->hue_ = hhue;
-//}
-//
-//Q_SLOT void set_gain_hardware( double hgain )
-//{
-//   this->gain_ = hgain;
-//}
-//
-//Q_SLOT void set_exposure_hardware( double hexposure)
-//{
-//   this->exposure_ = hexposure;
-//}
+Q_SLOT void object_track_t::set_saturation_hardware( double hsaturation )
+{
+   camera_.set_saturation( hsaturation );
+}
+
+Q_SLOT void object_track_t::set_hue_hardware( double hhue )
+{
+   camera_.set_hue( hhue );
+}
+
+Q_SLOT void object_track_t::set_gain_hardware( double hgain )
+{
+   camera_.set_gain( hgain );
+}
+
+Q_SLOT void object_track_t::set_exposure_hardware( double hexposure)
+{
+  camera_.set_exposure( hexposure );
+}
+
+Q_SLOT void object_track_t::set_brightness_software( double hbrightness )
+{
+   camera_.set_brightness_s( hbrightness );
+}
+
+Q_SLOT void object_track_t::set_contrast_software( double hcontrast )
+{
+   camera_.set_contrast_s( hcontrast );
+}
+
+Q_SLOT void object_track_t::set_min_h( int min_h )
+{
+   set_min_h((size_t)min_h);
+}
+
+Q_SLOT void object_track_t::set_max_h( int max_h )
+{
+   set_max_h((size_t)max_h);
+}
+
+Q_SLOT void object_track_t::set_min_v( int min_v )
+{
+   set_min_v((size_t)min_v);
+}
+
+Q_SLOT void object_track_t::set_max_v( int max_v )
+{
+   set_max_v((size_t)max_v);
+}
+
+Q_SLOT void object_track_t::set_min_s( int min_s )
+{
+   set_min_s((size_t)min_s);
+}
+
+Q_SLOT void object_track_t::set_max_s( int max_s )
+{
+   set_max_s((size_t)max_s);
+}
+
+Q_SLOT void object_track_t::set_min_size( int min_size )
+{
+   set_min_obj_size((size_t)min_size);
+}
+
+Q_SLOT void object_track_t::set_max_size( int max_size )
+{
+   set_max_obj_size((size_t)max_size);
+}
+
 
 QImage cvMatToQImage( cv::Mat const & frame )
 {

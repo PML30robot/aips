@@ -1,6 +1,7 @@
 /* 
  * File:   connecter.h
  * Author: Razuvaev Daniil
+ *         Kupirin Vladislav
  *
  * Created on 28 ноября 2015 г., 17:06
  */
@@ -35,7 +36,6 @@ public:
 
    Q_SLOT void set_min_h( int min_h );
    Q_SLOT void set_max_h( int max_h );
-
    Q_SLOT void set_min_s( int min_s );
    Q_SLOT void set_max_s( int max_s );
    Q_SLOT void set_min_v( int min_v );
@@ -50,6 +50,22 @@ public:
    
    Q_SIGNAL void set_brightness_hardware_sig( double value );
    Q_SIGNAL void set_contrast_hardware_sig( double value );
+   Q_SIGNAL void set_hue_hardware_sig( double value );
+   Q_SIGNAL void set_saturation_hardware_sig( double value );
+   Q_SIGNAL void set_gain_hardware_sig( double value );
+   Q_SIGNAL void set_exposure_hardware_sig( double value );
+   
+   Q_SIGNAL void set_min_h_sig( int min_h );
+   Q_SIGNAL void set_max_h_sig( int max_h );
+   Q_SIGNAL void set_min_s_sig( int min_s );
+   Q_SIGNAL void set_max_s_sig( int max_s );
+   Q_SIGNAL void set_min_v_sig( int min_v );
+   Q_SIGNAL void set_max_v_sig( int max_v );
+   Q_SIGNAL void set_min_size_sig( int min_size );
+   Q_SIGNAL void set_max_size_sig( int max_size );
+   
+   Q_SIGNAL void set_brightness_software_sig( double sbrightness );
+   Q_SIGNAL void set_contrast_software_sig( double scontrast );
 
 private:
 };

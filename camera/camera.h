@@ -30,10 +30,17 @@ public:
    void set_contrast( double contrast_ );
    double get_gain() const;
    void set_gain( double gain_ );
+   double get_exposure() const;
+   void set_exposure( double gain_ );
    
+   double get_brightness_s() const;
+   void set_brightness_s( double brightness_s );
+   double get_contrast_s() const;
+   void set_contrast_s( double saturation_s );
    
    
 private:
    VideoCapture * capture_;
    double brightness_, saturation_, hue_, contrast_, gain_, exposure_;
+   double brightness_s_, contrast_s_;
 };
