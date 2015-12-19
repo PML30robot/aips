@@ -23,8 +23,8 @@ public:
 
    Q_SLOT void get_image( QImage image );
    
-   Q_SLOT void set_brightness_hardware( double hbrightness );
-   Q_SLOT void set_contrast_hardware( double hcontrast );
+   Q_SLOT void set_brightness_hardware_slt( double hbrightness );
+   Q_SLOT void set_contrast_hardware_slt( double hcontrast );
    Q_SLOT void set_saturation_hardware( double hsaturation );
    Q_SLOT void set_hue_hardware( double hhue );
    Q_SLOT void set_gain_hardware( double hgain );
@@ -47,6 +47,9 @@ public:
 
    Q_SIGNAL void send_image( QImage image );
    Q_SIGNAL void stop_obj_track_s();
+   
+   Q_SIGNAL void set_brightness_hardware_sig( double value );
+   Q_SIGNAL void set_contrast_hardware_sig( double value );
 
 private:
 };

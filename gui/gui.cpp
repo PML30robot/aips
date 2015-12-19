@@ -74,12 +74,12 @@ camera_settings_t::camera_settings_t( connector_t * connector, QWidget * parent 
 {
    camera_settings_->setupUi(this);
    
-   connect(camera_settings_->hContrast,  SIGNAL(valueChanged(double)), connector_, SLOT (set_contrast_hardware(double)));
+   connect(camera_settings_->hContrast,  SIGNAL(valueChanged(double)), connector_, SLOT (set_contrast_hardware_slt(double)));
    connect(camera_settings_->hSaturation,SIGNAL(valueChanged(double)), connector_, SLOT (set_saturation_hardware(double)));
    connect(camera_settings_->hHue,       SIGNAL(valueChanged(double)), connector_, SLOT (set_hue_hardware(double)));
    connect(camera_settings_->hGain,      SIGNAL(valueChanged(double)), connector_, SLOT (set_gain_hardware(double)));
    connect(camera_settings_->hExposure,  SIGNAL(valueChanged(double)), connector_, SLOT (set_exposure_hardware(double)));
-   connect(camera_settings_->hBrightness,SIGNAL(valueChanged(double)), connector_, SLOT(set_brightness_hardware( double)));
+   connect(camera_settings_->hBrightness,SIGNAL(valueChanged(double)), connector_, SLOT(set_brightness_hardware_slt( double)));
    
    connect(camera_settings_->sBrightness,SIGNAL(valueChanged(double)), connector_, SLOT (set_brightness_software(double)));
    connect(camera_settings_->sContrast,  SIGNAL(valueChanged(double)), connector_, SLOT (set_contrast_software(double)));

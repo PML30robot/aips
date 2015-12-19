@@ -31,6 +31,16 @@ object_track_t::object_track_t( connector_t * connector ) :
    connect(this, SIGNAL(send_image(QImage)), connector_, SLOT(get_image(QImage)));
 
    connect(connector_, SIGNAL(stop_obj_track_s()), this, SLOT(stop_loop()));
+   
+   connect(connector_, SIGNAL (set_brightness_hardware_sig(double)), this,  SLOT(set_brightness_hardware(double)));
+   connect(connector_, SIGNAL (set_contrast_hardware_sig(double)), this,  SLOT(set_contrast_hardware(double)));
+//   connect(camera_t_->hHue,       SIGNAL(valueChanged(double)), connector_, SLOT (set_hue_hardware(double)));
+//   connect(camera_t_->hGain,      SIGNAL(valueChanged(double)), connector_, SLOT (set_gain_hardware(double)));
+//   connect(camera_t_->hExposure,  SIGNAL(valueChanged(double)), connector_, SLOT (set_exposure_hardware(double)));
+//   connect(camera_t_->hBrightness,SIGNAL(valueChanged(double)), connector_, SLOT(set_brightness_hardware( double)));
+//   
+//   connect(camera_t_->sBrightness,SIGNAL(valueChanged(double)), connector_, SLOT (set_brightness_software(double)));
+//   connect(camera_t_->sContrast,  SIGNAL(valueChanged(double)), connector_, SLOT (set_contrast_software(double)));
 }
 
 object_track_t::~object_track_t( )
@@ -179,6 +189,37 @@ Q_SLOT void object_track_t::stop_loop()
 {
    is_working_ = 0;
 }
+
+
+Q_SLOT void object_track_t::set_brightness_hardware( double hbrightness )
+{
+   camera_.set_brightness( hbrightness );
+}
+
+Q_SLOT void object_track_t::set_contrast_hardware( double hcontrast )
+{
+   camera_.set_contrast( hcontrast );
+}
+
+//Q_SLOT void set_saturation_hardware( double hsaturation )
+//{
+//   this->saturation_ = hsaturation;
+//}
+//
+//Q_SLOT void set_hue_hardware( double hhue )
+//{
+//   this->hue_ = hhue;
+//}
+//
+//Q_SLOT void set_gain_hardware( double hgain )
+//{
+//   this->gain_ = hgain;
+//}
+//
+//Q_SLOT void set_exposure_hardware( double hexposure)
+//{
+//   this->exposure_ = hexposure;
+//}
 
 QImage cvMatToQImage( cv::Mat const & frame )
 {

@@ -7,6 +7,7 @@
  */
 
 #include <opencv2/opencv.hpp>
+#include "../connecter/connector.h"
 
 using namespace cv;
 
@@ -34,5 +35,5 @@ public:
    
 private:
    VideoCapture * capture_;
-   double brightness_, saturation_, hue_, contrast_, gain_;
+   double brightness_, saturation_, hue_, contrast_, gain_, exposure_;
 };

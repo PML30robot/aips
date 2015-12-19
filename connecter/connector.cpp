@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "connector.h"
+#include "../camera/camera.h"
 
 using namespace std;
 
@@ -19,45 +20,48 @@ Q_SLOT void connector_t::get_image( QImage image )
    emit send_image(image);
 }
 
-Q_SLOT void connector_t::set_brightness_hardware( double value )
+
+Q_SLOT void connector_t::set_brightness_hardware_slt( double value )
 {
-   cout << value << endl;
+   emit set_brightness_hardware_sig( value );
 }
 
-Q_SLOT void connector_t::set_contrast_hardware( double value )
+Q_SLOT void connector_t::set_contrast_hardware_slt( double value )
 {
-   cout << value << endl;
+   emit set_contrast_hardware_sig( value );
 }
+
 
 Q_SLOT void connector_t::set_saturation_hardware( double value )
 {
-   cout << value << endl;
+   
 }
 
 Q_SLOT void connector_t::set_hue_hardware( double value )
 {
-   cout << value << endl;
+  
 }
 
 Q_SLOT void connector_t::set_gain_hardware( double value )
 {
-   cout << value << endl;
+   
 }
 
 Q_SLOT void connector_t::set_exposure_hardware( double value )
 {
-   cout << value << endl;
+  
 }
 
 Q_SLOT void connector_t::set_brightness_software( double value )
 {
-   cout << value << endl;
+   
 }
 
 Q_SLOT void connector_t::set_contrast_software(double value )
 {
-   cout << value << endl;
+  
 }
+
 
 Q_SLOT void connector_t::set_min_h(int min_h)
 {

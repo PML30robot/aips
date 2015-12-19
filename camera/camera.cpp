@@ -10,6 +10,8 @@
 #include <opencv2/videoio.hpp>
 
 #include "camera.h"
+#include "../connecter/../connecter/../connecter/connector.h"
+
 
 using namespace cv;
 
@@ -26,6 +28,11 @@ camera_t::camera_t()
 
 camera_t::~camera_t()
 {
+   brightness_ = capture_->get(CV_CAP_PROP_BRIGHTNESS);
+   contrast_ = capture_->get(CV_CAP_PROP_CONTRAST);
+   saturation_ = capture_->get(CV_CAP_PROP_SATURATION);
+   hue_ = capture_->get(CV_CAP_PROP_HUE);
+   gain_ = capture_->get(CV_CAP_PROP_GAIN);
    delete capture_;
 }
 
@@ -85,3 +92,4 @@ void camera_t::get_frame( Mat & frame )
 {
    capture_->read(frame); 
 }
+

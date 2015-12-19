@@ -22,7 +22,7 @@ static const uint qt_meta_data_object_track_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -34,13 +34,17 @@ static const uint qt_meta_data_object_track_t[] = {
 
  // slots: signature, parameters, type, tag, flags
       41,   15,   15,   15, 0x0a,
+      65,   53,   15,   15, 0x0a,
+     107,   97,   15,   15, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_object_track_t[] = {
     "object_track_t\0\0image\0send_image(QImage)\0"
-    "stop_loop()\0"
+    "stop_loop()\0hbrightness\0"
+    "set_brightness_hardware(double)\0"
+    "hcontrast\0set_contrast_hardware(double)\0"
 };
 
 void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -51,6 +55,8 @@ void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         switch (_id) {
         case 0: _t->send_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
         case 1: _t->stop_loop(); break;
+        case 2: _t->set_brightness_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 3: _t->set_contrast_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -88,9 +94,9 @@ int object_track_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 4;
     }
     return _id;
 }

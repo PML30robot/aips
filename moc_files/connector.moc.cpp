@@ -22,44 +22,49 @@ static const uint qt_meta_data_connector_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   14, // methods
+      21,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       4,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       19,   13,   12,   12, 0x06,
       38,   12,   12,   12, 0x06,
+      63,   57,   12,   12, 0x06,
+      99,   57,   12,   12, 0x06,
 
  // slots: signature, parameters, type, tag, flags
-      57,   13,   12,   12, 0x0a,
-      87,   75,   12,   12, 0x0a,
-     129,  119,   12,   12, 0x0a,
-     171,  159,   12,   12, 0x0a,
-     208,  203,   12,   12, 0x0a,
-     239,  233,   12,   12, 0x0a,
-     275,  265,   12,   12, 0x0a,
-     317,  305,   12,   12, 0x0a,
+     133,   13,   12,   12, 0x0a,
+     163,  151,   12,   12, 0x0a,
+     209,  199,   12,   12, 0x0a,
+     255,  243,   12,   12, 0x0a,
+     292,  287,   12,   12, 0x0a,
+     323,  317,   12,   12, 0x0a,
      359,  349,   12,   12, 0x0a,
-     395,  389,   12,   12, 0x0a,
-     416,  410,   12,   12, 0x0a,
-     437,  431,   12,   12, 0x0a,
-     458,  452,   12,   12, 0x0a,
+     401,  389,   12,   12, 0x0a,
+     443,  433,   12,   12, 0x0a,
      479,  473,   12,   12, 0x0a,
      500,  494,   12,   12, 0x0a,
-     524,  515,   12,   12, 0x0a,
-     551,  542,   12,   12, 0x0a,
+     521,  515,   12,   12, 0x0a,
+     542,  536,   12,   12, 0x0a,
+     563,  557,   12,   12, 0x0a,
+     584,  578,   12,   12, 0x0a,
+     608,  599,   12,   12, 0x0a,
+     635,  626,   12,   12, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_connector_t[] = {
     "connector_t\0\0image\0send_image(QImage)\0"
-    "stop_obj_track_s()\0get_image(QImage)\0"
-    "hbrightness\0set_brightness_hardware(double)\0"
-    "hcontrast\0set_contrast_hardware(double)\0"
+    "stop_obj_track_s()\0value\0"
+    "set_brightness_hardware_sig(double)\0"
+    "set_contrast_hardware_sig(double)\0"
+    "get_image(QImage)\0hbrightness\0"
+    "set_brightness_hardware_slt(double)\0"
+    "hcontrast\0set_contrast_hardware_slt(double)\0"
     "hsaturation\0set_saturation_hardware(double)\0"
     "hhue\0set_hue_hardware(double)\0hgain\0"
     "set_gain_hardware(double)\0hexposure\0"
@@ -81,23 +86,25 @@ void connector_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         switch (_id) {
         case 0: _t->send_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
         case 1: _t->stop_obj_track_s(); break;
-        case 2: _t->get_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
-        case 3: _t->set_brightness_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 4: _t->set_contrast_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 5: _t->set_saturation_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 6: _t->set_hue_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 7: _t->set_gain_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 8: _t->set_exposure_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 9: _t->set_brightness_software((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 10: _t->set_contrast_software((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 11: _t->set_min_h((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->set_max_h((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: _t->set_min_s((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: _t->set_max_s((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: _t->set_min_v((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 16: _t->set_max_v((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 17: _t->set_min_size((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 18: _t->set_max_size((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: _t->set_brightness_hardware_sig((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 3: _t->set_contrast_hardware_sig((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 4: _t->get_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 5: _t->set_brightness_hardware_slt((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 6: _t->set_contrast_hardware_slt((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 7: _t->set_saturation_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 8: _t->set_hue_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 9: _t->set_gain_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 10: _t->set_exposure_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 11: _t->set_brightness_software((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 12: _t->set_contrast_software((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 13: _t->set_min_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->set_max_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->set_min_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: _t->set_max_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 17: _t->set_min_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 18: _t->set_max_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 19: _t->set_min_size((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 20: _t->set_max_size((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -135,9 +142,9 @@ int connector_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 21;
     }
     return _id;
 }
@@ -153,5 +160,19 @@ void connector_t::send_image(QImage _t1)
 void connector_t::stop_obj_track_s()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, 0);
+}
+
+// SIGNAL 2
+void connector_t::set_brightness_hardware_sig(double _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void connector_t::set_contrast_hardware_sig(double _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_END_MOC_NAMESPACE
