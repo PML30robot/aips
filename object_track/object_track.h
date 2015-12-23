@@ -13,16 +13,16 @@
 #include "../camera/camera.h"
 #include "../connecter/connector.h"
 
-class object_track_t : public QObject
+class object_detect_t : public QObject
 {
    Q_OBJECT
    
 public:
    
-   object_track_t( connector_t * connector );
-   ~object_track_t();
+   object_detect_t( connector_t * connector );
+   ~object_detect_t();
    
-   void loop();
+   void detect();
 
    void set_max_v( size_t max_v_ );
    size_t get_max_v( ) const;
@@ -79,3 +79,16 @@ private:
    connector_t * connector_;
 };
 
+class track_t
+{
+
+};
+
+class object_track_t
+{
+private:
+   object_detect_t * object_detect_t_;
+   track_t * track_t_;
+   
+   int is_working_;
+};

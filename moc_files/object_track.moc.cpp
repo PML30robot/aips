@@ -72,11 +72,11 @@ static const char qt_meta_stringdata_object_track_t[] = {
     "set_max_size(int)\0"
 };
 
-void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void object_detect_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         Q_ASSERT(staticMetaObject.cast(_o));
-        object_track_t *_t = static_cast<object_track_t *>(_o);
+        object_detect_t *_t = static_cast<object_detect_t *>(_o);
         switch (_id) {
         case 0: _t->send_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
         case 1: _t->stop_loop(); break;
@@ -101,33 +101,33 @@ void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
     }
 }
 
-const QMetaObjectExtraData object_track_t::staticMetaObjectExtraData = {
+const QMetaObjectExtraData object_detect_t::staticMetaObjectExtraData = {
     0,  qt_static_metacall 
 };
 
-const QMetaObject object_track_t::staticMetaObject = {
+const QMetaObject object_detect_t::staticMetaObject = {
     { &QObject::staticMetaObject, qt_meta_stringdata_object_track_t,
       qt_meta_data_object_track_t, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &object_track_t::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &object_detect_t::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *object_track_t::metaObject() const
+const QMetaObject *object_detect_t::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *object_track_t::qt_metacast(const char *_clname)
+void *object_detect_t::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_object_track_t))
-        return static_cast<void*>(const_cast< object_track_t*>(this));
+        return static_cast<void*>(const_cast< object_detect_t*>(this));
     return QObject::qt_metacast(_clname);
 }
 
-int object_track_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int object_detect_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -141,7 +141,7 @@ int object_track_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void object_track_t::send_image(QImage _t1)
+void object_detect_t::send_image(QImage _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
