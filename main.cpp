@@ -25,7 +25,7 @@ int main( int argc, char** argv )
    
    window.show();
    
-   object_detect_t track(&connector);
+   object_track_t track(&connector);
    
    size_t thread_idx;
    
@@ -41,7 +41,7 @@ int main( int argc, char** argv )
          app.exec();
       
       if (thread_idx == 1)
-         track.detect();
+         track.loop();
    }
    
    return 0;

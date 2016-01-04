@@ -86,9 +86,12 @@ class track_t
 
 class object_track_t
 {
+public:
+   void loop();
+   
 private:
    object_detect_t * object_detect_t_;
    track_t * track_t_;
    
-   int is_working_;
+   int is_working_, col_cnt_, row_cnt_;
 };

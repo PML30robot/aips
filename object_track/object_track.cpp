@@ -16,6 +16,22 @@
 using namespace cv;
 using namespace std;
 
+void object_track_t::loop( )
+{
+   float xStep, yStep;
+   int xS, yS;
+   xStep = 640 / col_cnt_;
+   yStep = 480 / row_cnt_;
+   while(is_working_)
+   {
+      xS = positionx / xStep;
+      yS = positiony / yStep;
+      
+      
+   }
+}
+
+// object detect
 object_detect_t::object_detect_t( connector_t * connector ) :
      min_h_(0)
    , min_s_(255)
