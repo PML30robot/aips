@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>739</width>
-    <height>612</height>
+    <width>733</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>739</width>
+     <width>733</width>
      <height>21</height>
     </rect>
    </property>
@@ -52,7 +52,15 @@
     <addaction name="separator"/>
     <addaction name="ot_camera_settings"/>
    </widget>
+   <widget class="QMenu" name="menu_Settings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="Import_settings"/>
+    <addaction name="Export_settings"/>
+   </widget>
    <addaction name="menu_obj_track"/>
+   <addaction name="menu_Settings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="ot_obj_params">
@@ -71,6 +79,15 @@
    </property>
   </action>
   <action name="ot_start_rec">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normaloff>../../RecRun.png</normaloff>../../RecRun.png</iconset>
@@ -80,6 +97,9 @@
    </property>
   </action>
   <action name="ot_stop_rec">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normaloff>../../RecStop.png</normaloff>../../RecStop.png</iconset>
@@ -140,6 +160,16 @@
    </property>
    <property name="text">
     <string>Camera Settings</string>
+   </property>
+  </action>
+  <action name="Import_settings">
+   <property name="text">
+    <string>Import settings</string>
+   </property>
+  </action>
+  <action name="Export_settings">
+   <property name="text">
+    <string>Export settings</string>
    </property>
   </action>
  </widget>

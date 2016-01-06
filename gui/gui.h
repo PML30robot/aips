@@ -35,18 +35,25 @@ class gui_t : public QMainWindow
    
 public:
    gui_t ( connector_t * connector, QWidget * parent = 0 );
-   
+
    void closeEvent(QCloseEvent* event);
+   
 private:
    Q_SLOT void call_obj_params();
    Q_SLOT void call_camera_settings();
+
    
    Q_SLOT void redraw_image(QImage image);
+   
+   Q_SLOT void export_settings_slt();
+   
+   Q_SIGNAL void export_settings_sig2();
    
    Ui::gui * ui_;
 
    object_params_t *   object_params_;
    camera_settings_t * camera_settings_;
+   
    
    connector_t * connector_;
 };
@@ -61,7 +68,7 @@ public:
 
 private:
    Ui::obj_params * obj_params_;
-   connector_t * connector_;
+   connector_t *    connector_;
 };
 
 class camera_settings_t : public QMainWindow
@@ -77,4 +84,3 @@ private:
    
    connector_t * connector_;
 };
-

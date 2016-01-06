@@ -9,6 +9,12 @@ connector_t::connector_t()
 {
 }
 
+Q_SLOT void connector_t::export_settings_slt()
+{
+   emit export_settings_s();
+}
+
+
 void connector_t::stop_obj_track()
 {
    emit stop_obj_track_s();

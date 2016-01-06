@@ -22,6 +22,8 @@ public:
 
    // slots
 
+   Q_SLOT void export_settings_slt();
+   
    Q_SLOT void get_image( QImage image );
    
    Q_SLOT void set_brightness_hardware_slt( double hbrightness );
@@ -47,6 +49,8 @@ public:
 
    Q_SIGNAL void send_image( QImage image );
    Q_SIGNAL void stop_obj_track_s();
+   
+   Q_SIGNAL void export_settings_s();
    
    Q_SIGNAL void set_brightness_hardware_sig( double value );
    Q_SIGNAL void set_contrast_hardware_sig( double value );

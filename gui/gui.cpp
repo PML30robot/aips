@@ -11,6 +11,7 @@
 #include <QPixmap>
 
 #include "gui.h"
+#include "../settings/settings.h"
 
 
 gui_t::gui_t( connector_t * connector, QWidget * parent ) :
@@ -23,6 +24,9 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    
    connect(ui_->ot_obj_params, SIGNAL(triggered()), this, SLOT(call_obj_params()));
    connect(ui_->ot_camera_settings, SIGNAL(triggered()), this, SLOT(call_camera_settings()));
+   
+   connect(ui_->Export_settings, SIGNAL(triggered()),this, SLOT(export_settings_slt()));
+   connect(this, SIGNAL(export_settings_sig2()),connector_, SLOT(export_settings_slt()));
    
    connect(connector_,  SIGNAL(send_image(QImage)), this, SLOT(redraw_image(QImage)));
 }
@@ -39,6 +43,11 @@ void gui_t::closeEvent(QCloseEvent* event)
 Q_SLOT void gui_t::call_obj_params()
 {
    object_params_->show();
+}
+
+Q_SLOT void gui_t::call_camera_settings()
+{
+   camera_settings_->show();
 }
 
 
@@ -63,11 +72,6 @@ object_params_t::object_params_t( connector_t * connector, QWidget * parent ) :
    connect(obj_params_->max_size,       SIGNAL(valueChanged(int)), connector_, SLOT(set_max_size(int)));
 }
 
-Q_SLOT void gui_t::call_camera_settings()
-{
-   camera_settings_->show();
-}
-
 camera_settings_t::camera_settings_t( connector_t * connector, QWidget * parent ) :
      camera_settings_(new Ui::camera_settings)
    , connector_      (connector)
@@ -83,5 +87,10 @@ camera_settings_t::camera_settings_t( connector_t * connector, QWidget * parent 
    
    connect(camera_settings_->sBrightness,SIGNAL(valueChanged(double)), connector_, SLOT (set_brightness_software(double)));
    connect(camera_settings_->sContrast,  SIGNAL(valueChanged(double)), connector_, SLOT (set_contrast_software(double)));
-   
+}
+
+void gui_t::export_settings_slt()
+{
+   settings_t::clean_settings_file();
+   emit export_settings_sig2();
 }

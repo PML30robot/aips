@@ -22,25 +22,30 @@ static const uint qt_meta_data_gui_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: signature, parameters, type, tag, flags
+       7,    6,    6,    6, 0x04,
 
  // slots: signature, parameters, type, tag, flags
-       7,    6,    6,    6, 0x08,
-      25,    6,    6,    6, 0x08,
-      54,   48,    6,    6, 0x08,
+      30,    6,    6,    6, 0x08,
+      48,    6,    6,    6, 0x08,
+      77,   71,    6,    6, 0x08,
+      98,    6,    6,    6, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_gui_t[] = {
-    "gui_t\0\0call_obj_params()\0"
-    "call_camera_settings()\0image\0"
-    "redraw_image(QImage)\0"
+    "gui_t\0\0export_settings_sig2()\0"
+    "call_obj_params()\0call_camera_settings()\0"
+    "image\0redraw_image(QImage)\0"
+    "export_settings_slt()\0"
 };
 
 void gui_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -49,9 +54,11 @@ void gui_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         Q_ASSERT(staticMetaObject.cast(_o));
         gui_t *_t = static_cast<gui_t *>(_o);
         switch (_id) {
-        case 0: _t->call_obj_params(); break;
-        case 1: _t->call_camera_settings(); break;
-        case 2: _t->redraw_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 0: _t->export_settings_sig2(); break;
+        case 1: _t->call_obj_params(); break;
+        case 2: _t->call_camera_settings(); break;
+        case 3: _t->redraw_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 4: _t->export_settings_slt(); break;
         default: ;
         }
     }
@@ -89,11 +96,17 @@ int gui_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     }
     return _id;
+}
+
+// SIGNAL 0
+void gui_t::export_settings_sig2()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 static const uint qt_meta_data_object_params_t[] = {
 

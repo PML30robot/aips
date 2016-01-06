@@ -35,17 +35,20 @@ public:
     QAction *action_amera_4;
     QAction *action_amera_5;
     QAction *ot_camera_settings;
+    QAction *Import_settings;
+    QAction *Export_settings;
     QWidget *centralwidget;
     QLabel *label;
     QMenuBar *menubar;
     QMenu *menu_obj_track;
+    QMenu *menu_Settings;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *gui)
     {
         if (gui->objectName().isEmpty())
             gui->setObjectName(QString::fromUtf8("gui"));
-        gui->resize(739, 612);
+        gui->resize(733, 610);
         ot_obj_params = new QAction(gui);
         ot_obj_params->setObjectName(QString::fromUtf8("ot_obj_params"));
         ot_obj_params->setCheckable(false);
@@ -55,11 +58,15 @@ public:
         ot_obj_params->setIcon(icon);
         ot_start_rec = new QAction(gui);
         ot_start_rec->setObjectName(QString::fromUtf8("ot_start_rec"));
+        ot_start_rec->setCheckable(false);
+        ot_start_rec->setChecked(false);
+        ot_start_rec->setEnabled(false);
         QIcon icon1;
         icon1.addFile(QString::fromUtf8("../../RecRun.png"), QSize(), QIcon::Normal, QIcon::Off);
         ot_start_rec->setIcon(icon1);
         ot_stop_rec = new QAction(gui);
         ot_stop_rec->setObjectName(QString::fromUtf8("ot_stop_rec"));
+        ot_stop_rec->setEnabled(false);
         QIcon icon2;
         icon2.addFile(QString::fromUtf8("../../RecStop.png"), QSize(), QIcon::Normal, QIcon::Off);
         ot_stop_rec->setIcon(icon2);
@@ -85,6 +92,10 @@ public:
         QIcon icon4;
         icon4.addFile(QString::fromUtf8("../../camera.png"), QSize(), QIcon::Normal, QIcon::Off);
         ot_camera_settings->setIcon(icon4);
+        Import_settings = new QAction(gui);
+        Import_settings->setObjectName(QString::fromUtf8("Import_settings"));
+        Export_settings = new QAction(gui);
+        Export_settings->setObjectName(QString::fromUtf8("Export_settings"));
         centralwidget = new QWidget(gui);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         label = new QLabel(centralwidget);
@@ -94,15 +105,18 @@ public:
         gui->setCentralWidget(centralwidget);
         menubar = new QMenuBar(gui);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 739, 21));
+        menubar->setGeometry(QRect(0, 0, 733, 21));
         menu_obj_track = new QMenu(menubar);
         menu_obj_track->setObjectName(QString::fromUtf8("menu_obj_track"));
+        menu_Settings = new QMenu(menubar);
+        menu_Settings->setObjectName(QString::fromUtf8("menu_Settings"));
         gui->setMenuBar(menubar);
         statusbar = new QStatusBar(gui);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         gui->setStatusBar(statusbar);
 
         menubar->addAction(menu_obj_track->menuAction());
+        menubar->addAction(menu_Settings->menuAction());
         menu_obj_track->addAction(ot_obj_params);
         menu_obj_track->addSeparator();
         menu_obj_track->addAction(ot_start_rec);
@@ -110,6 +124,8 @@ public:
         menu_obj_track->addSeparator();
         menu_obj_track->addSeparator();
         menu_obj_track->addAction(ot_camera_settings);
+        menu_Settings->addAction(Import_settings);
+        menu_Settings->addAction(Export_settings);
 
         retranslateUi(gui);
 
@@ -128,8 +144,11 @@ public:
         action_amera_4->setText(QApplication::translate("gui", "\320\241amera \342\204\2264", 0, QApplication::UnicodeUTF8));
         action_amera_5->setText(QApplication::translate("gui", "\320\241amera \342\204\2265", 0, QApplication::UnicodeUTF8));
         ot_camera_settings->setText(QApplication::translate("gui", "Camera Settings", 0, QApplication::UnicodeUTF8));
+        Import_settings->setText(QApplication::translate("gui", "Import settings", 0, QApplication::UnicodeUTF8));
+        Export_settings->setText(QApplication::translate("gui", "Export settings", 0, QApplication::UnicodeUTF8));
         label->setText(QString());
         menu_obj_track->setTitle(QApplication::translate("gui", "Object track", 0, QApplication::UnicodeUTF8));
+        menu_Settings->setTitle(QApplication::translate("gui", "Settings", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

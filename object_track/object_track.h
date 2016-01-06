@@ -1,15 +1,16 @@
 /* 
- * File:   object_track.h
- * Author: Vladislav Kupyrin
- *         Anton Fedotov
- *
+ * File:            object_track.h
+ * Author:          Vladislav Kupyrin
+ *                  Anton Fedotov
+ * Export settings: Razuvaev Daniil
+ * 
  * Created on 14 Ноябрь 2015 г., 17:42
  */
 
 #pragma once
 
 #include <QObject>
-
+#include "../settings/settings.h"
 #include "../camera/camera.h"
 #include "../connecter/connector.h"
 
@@ -41,6 +42,8 @@ public:
    void set_max_obj_size( size_t min_h_ );
    size_t get_max_obj_size( ) const;
    
+   Q_SLOT void export_settings_slt();
+   
    Q_SIGNAL void send_image( QImage image );
    
    Q_SLOT void stop_loop();
@@ -64,15 +67,16 @@ public:
    Q_SLOT void set_min_size( int min_size );
    Q_SLOT void set_max_size( int max_size );  
    
-   
 private:
-   size_t min_h_, max_h_,
+   int    min_h_, max_h_,
           min_s_, max_s_,
           min_v_, max_v_;
-   size_t min_obj_size_,
+   int    min_obj_size_,
           max_obj_size_;
    
-   camera_t camera_;
+   camera_t * camera_;
+   
+   settings_t * settings_;
    
    int is_working_;
    

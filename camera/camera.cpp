@@ -1,7 +1,8 @@
 /* 
- * File:   object_track.cpp
- * Author: Vladislav Kupyrin
- *         Anton Fedotov
+ * File:            object_track.cpp
+ * Author:          Vladislav Kupyrin
+ *                  Anton Fedotov
+ * Export settings: Razuvaev Daniil
  *
  * Created on 14 Ноябрь 2015 г., 17:42
  */
@@ -9,14 +10,26 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 
-#include "camera.h"
-#include "../connecter/../connecter/../connecter/connector.h"
+#include "../settings/settings.h"                                //add settings
 
+#include "../camera/camera.h"
+#include "../connecter/connector.h"
 
 using namespace cv;
 
-camera_t::camera_t()
+camera_t::camera_t( connector_t * connector) :
+     connector_   (connector)
+   , saturation_  (0)
+   , hue_         (0)
+   , contrast_    (0)
+   , gain_        (0)
+   , exposure_    (0)
+   , brightness_s_(0)
+   , contrast_s_  (0)
+   , brightness_  (0)
 {
+   
+   
    capture_ = new VideoCapture(0);
    
    brightness_ = capture_->get(CV_CAP_PROP_BRIGHTNESS);
@@ -27,6 +40,20 @@ camera_t::camera_t()
    exposure_ = capture_->get(CV_CAP_PROP_EXPOSURE);
    brightness_s_ = brightness_;
    contrast_s_ = contrast_;
+   
+   settings_ = new settings_t("camera");
+   
+   settings_->add_setting("hardware brightness",&brightness_);
+   settings_->add_setting("hardware saturation",&saturation_);
+   settings_->add_setting("hardware hue",&hue_);
+   settings_->add_setting("hardware contrast",&contrast_);
+   settings_->add_setting("hardware gain",&gain_);
+   settings_->add_setting("hardware exposure",&exposure_);
+   
+   settings_->add_setting("software brightness",&brightness_s_);
+   settings_->add_setting("software contrast",&contrast_s_);
+   
+   connect(connector_, SIGNAL(export_settings_s()), this,  SLOT(export_settings_slt()));
 }
 
 camera_t::~camera_t()
@@ -39,7 +66,6 @@ camera_t::~camera_t()
    capture_->set(CV_CAP_PROP_EXPOSURE, exposure_);
    delete capture_;
 }
-
 
 void camera_t::set_gain( double gain_ )
 {
@@ -127,4 +153,9 @@ void camera_t::set_contrast_s( double contrast_s )
 double camera_t::get_contrast_s( ) const
 {
    return contrast_s_;
+}
+
+Q_SLOT void camera_t::export_settings_slt()
+{
+   settings_->export_settings();
 }

@@ -1,16 +1,19 @@
 /* 
- * File:   object_track.cpp
- * Author: Vladislav Kupyrin
- *         Anton Fedotov
- *
+ * File:            object_track.cpp
+ * Author:          Vladislav Kupyrin
+ *                  Anton Fedotov
+ * Export settings: Razuvaev Daniil
+ * 
  * Created on 14 Ноябрь 2015 г., 17:42
  */
 
 #include <opencv2/opencv.hpp>
 
 #include <vector>
+ 
+#include "../settings/settings.h"
 
-#include "object_track.h"
+#include "../object_track/object_track.h"
 #include "../camera/camera.h"
 
 using namespace cv;
@@ -28,6 +31,20 @@ object_track_t::object_track_t( connector_t * connector ) :
    , connector_   (connector)
    , is_working_   (1)
 {
+   camera_   = new camera_t (connector_);
+   settings_ = new settings_t("object_track");
+   
+   settings_->add_setting("min_h",&min_h_);
+   settings_->add_setting("min_s",&min_s_);
+   settings_->add_setting("min_v",&min_v_);
+   settings_->add_setting("max_h",&max_h_);
+   settings_->add_setting("max_s",&max_s_);
+   settings_->add_setting("max_v",&max_v_);
+   settings_->add_setting("min_obj_size",&min_obj_size_);
+   settings_->add_setting("max_obj_size",&max_obj_size_);
+   
+   connect(connector_, SIGNAL (export_settings_s()), this,  SLOT (export_settings_slt()));
+   
    connect(this, SIGNAL(send_image(QImage)), connector_, SLOT(get_image(QImage)));
 
    connect(connector_, SIGNAL(stop_obj_track_s()), this, SLOT(stop_loop()));
@@ -51,7 +68,7 @@ object_track_t::object_track_t( connector_t * connector ) :
    connect(connector_, SIGNAL (set_brightness_software_sig(double)), this,  SLOT (set_brightness_software(double)));
    connect(connector_, SIGNAL (set_contrast_software_sig(double)),   this,  SLOT (set_contrast_software(double)));
 }
-
+   
 object_track_t::~object_track_t( )
 {
 }
@@ -60,14 +77,15 @@ extern QImage cvMatToQImage( cv::Mat const & frame );
 
 void object_track_t::loop( )
 {
-   Mat frame, origin_frame;
+ 
+  Mat frame, origin_frame;
    
    vector< vector<Point> > contours;
    vector< Vec4i >         hierarchy;
 
    while (is_working_)
    {
-      camera_.get_frame(origin_frame);
+      camera_->get_frame(origin_frame);
       
       origin_frame.copyTo(frame);
 
@@ -210,42 +228,42 @@ Q_SLOT void object_track_t::stop_loop()
 
 Q_SLOT void object_track_t::set_brightness_hardware( double hbrightness )
 {
-   camera_.set_brightness( hbrightness );
+   camera_->set_brightness( hbrightness );
 }
 
 Q_SLOT void object_track_t::set_contrast_hardware( double hcontrast )
 {
-   camera_.set_contrast( hcontrast );
+   camera_->set_contrast( hcontrast );
 }
 
 Q_SLOT void object_track_t::set_saturation_hardware( double hsaturation )
 {
-   camera_.set_saturation( hsaturation );
+   camera_->set_saturation( hsaturation );
 }
 
 Q_SLOT void object_track_t::set_hue_hardware( double hhue )
 {
-   camera_.set_hue( hhue );
+   camera_->set_hue( hhue );
 }
 
 Q_SLOT void object_track_t::set_gain_hardware( double hgain )
 {
-   camera_.set_gain( hgain );
+   camera_->set_gain( hgain );
 }
 
 Q_SLOT void object_track_t::set_exposure_hardware( double hexposure)
 {
-  camera_.set_exposure( hexposure );
+  camera_->set_exposure( hexposure );
 }
 
 Q_SLOT void object_track_t::set_brightness_software( double hbrightness )
 {
-   camera_.set_brightness_s( hbrightness );
+   camera_->set_brightness_s( hbrightness );
 }
 
 Q_SLOT void object_track_t::set_contrast_software( double hcontrast )
 {
-   camera_.set_contrast_s( hcontrast );
+   camera_->set_contrast_s( hcontrast );
 }
 
 Q_SLOT void object_track_t::set_min_h( int min_h )
@@ -304,4 +322,10 @@ QImage cvMatToQImage( cv::Mat const & frame )
    }
    
    return img;
+}
+
+Q_SLOT void object_track_t::export_settings_slt()
+{
+   cout << "ot" << endl;
+   settings_->export_settings();
 }

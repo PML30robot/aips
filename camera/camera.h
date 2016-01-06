@@ -1,22 +1,26 @@
 /* 
- * File:   object_track.cpp
- * Author: Vladislav Kupyrin
- *         Anton Fedotov
- *
+ * File:            object_track.cpp
+ * Author:          Vladislav Kupyrin
+ *                  Anton Fedotov
+ * Export settings: Razuvaev Daniil
+ * 
  * Created on 14 Ноябрь 2015 г., 17:42
  */
 
 #include <opencv2/opencv.hpp>
 #include "../connecter/connector.h"
+#include "../settings/settings.h"
+//#include "../connecter/connector.h"
 
 using namespace cv;
 
 #pragma once
 
-class camera_t
+class camera_t: public QObject
 {
+   Q_OBJECT
 public:
-   camera_t();
+   camera_t( connector_t * connector );
    ~camera_t();
    
    void get_frame( Mat & frame );
@@ -38,9 +42,14 @@ public:
    double get_contrast_s() const;
    void set_contrast_s( double saturation_s );
    
+   //slot for signal export settings
+   Q_SLOT void export_settings_slt();
    
 private:
    VideoCapture * capture_;
-   double brightness_, saturation_, hue_, contrast_, gain_, exposure_;
-   double brightness_s_, contrast_s_;
+   double brightness_, saturation_, hue_, contrast_, gain_, exposure_; // hardware
+   double brightness_s_, contrast_s_;                                  // software
+   
+   connector_t * connector_;
+   settings_t * settings_;
 };
