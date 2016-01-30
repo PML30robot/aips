@@ -22,42 +22,56 @@ static const uint qt_meta_data_object_track_t[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   14, // methods
+      28,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       9,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       22,   16,   15,   15, 0x06,
+      47,   41,   15,   15, 0x06,
+      68,   62,   15,   15, 0x06,
+      89,   83,   15,   15, 0x06,
+     110,  104,   15,   15, 0x06,
+     131,  125,   15,   15, 0x06,
+     152,  146,   15,   15, 0x06,
+     176,  167,   15,   15, 0x06,
+     203,  194,   15,   15, 0x06,
 
  // slots: signature, parameters, type, tag, flags
-      41,   15,   15,   15, 0x0a,
-      63,   15,   15,   15, 0x0a,
-      87,   75,   15,   15, 0x0a,
-     129,  119,   15,   15, 0x0a,
-     171,  159,   15,   15, 0x0a,
-     208,  203,   15,   15, 0x0a,
-     239,  233,   15,   15, 0x0a,
-     275,  265,   15,   15, 0x0a,
-     317,  305,   15,   15, 0x0a,
-     359,  349,   15,   15, 0x0a,
-     395,  389,   15,   15, 0x0a,
-     416,  410,   15,   15, 0x0a,
-     437,  431,   15,   15, 0x0a,
-     458,  452,   15,   15, 0x0a,
-     479,  473,   15,   15, 0x0a,
-     500,  494,   15,   15, 0x0a,
-     524,  515,   15,   15, 0x0a,
-     551,  542,   15,   15, 0x0a,
+     221,   15,   15,   15, 0x0a,
+     243,   15,   15,   15, 0x0a,
+     265,   15,   15,   15, 0x0a,
+     289,  277,   15,   15, 0x0a,
+     331,  321,   15,   15, 0x0a,
+     373,  361,   15,   15, 0x0a,
+     410,  405,   15,   15, 0x0a,
+     441,  435,   15,   15, 0x0a,
+     477,  467,   15,   15, 0x0a,
+     519,  507,   15,   15, 0x0a,
+     561,  551,   15,   15, 0x0a,
+     591,   41,   15,   15, 0x0a,
+     606,   62,   15,   15, 0x0a,
+     621,   83,   15,   15, 0x0a,
+     636,  104,   15,   15, 0x0a,
+     651,  125,   15,   15, 0x0a,
+     666,  146,   15,   15, 0x0a,
+     681,  167,   15,   15, 0x0a,
+     699,  194,   15,   15, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_object_track_t[] = {
     "object_track_t\0\0image\0send_image(QImage)\0"
-    "export_settings_slt()\0stop_loop()\0"
+    "min_h\0get_min_h(int)\0max_h\0get_max_h(int)\0"
+    "min_s\0get_min_s(int)\0max_s\0get_max_s(int)\0"
+    "min_v\0get_min_v(int)\0max_v\0get_max_v(int)\0"
+    "min_size\0get_min_size(int)\0max_size\0"
+    "get_max_size(int)\0export_settings_slt()\0"
+    "import_settings_slt()\0stop_loop()\0"
     "hbrightness\0set_brightness_hardware(double)\0"
     "hcontrast\0set_contrast_hardware(double)\0"
     "hsaturation\0set_saturation_hardware(double)\0"
@@ -66,11 +80,10 @@ static const char qt_meta_stringdata_object_track_t[] = {
     "set_exposure_hardware(double)\0sbrightness\0"
     "set_brightness_software(double)\0"
     "scontrast\0set_contrast_software(double)\0"
-    "min_h\0set_min_h(int)\0max_h\0set_max_h(int)\0"
-    "min_s\0set_min_s(int)\0max_s\0set_max_s(int)\0"
-    "min_v\0set_min_v(int)\0max_v\0set_max_v(int)\0"
-    "min_size\0set_min_size(int)\0max_size\0"
-    "set_max_size(int)\0"
+    "set_min_h(int)\0set_max_h(int)\0"
+    "set_min_s(int)\0set_max_s(int)\0"
+    "set_min_v(int)\0set_max_v(int)\0"
+    "set_min_size(int)\0set_max_size(int)\0"
 };
 
 void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -80,24 +93,33 @@ void object_track_t::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         object_track_t *_t = static_cast<object_track_t *>(_o);
         switch (_id) {
         case 0: _t->send_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
-        case 1: _t->export_settings_slt(); break;
-        case 2: _t->stop_loop(); break;
-        case 3: _t->set_brightness_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 4: _t->set_contrast_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 5: _t->set_saturation_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 6: _t->set_hue_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 7: _t->set_gain_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 8: _t->set_exposure_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 9: _t->set_brightness_software((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 10: _t->set_contrast_software((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 11: _t->set_min_h((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->set_max_h((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: _t->set_min_s((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: _t->set_max_s((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: _t->set_min_v((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 16: _t->set_max_v((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 17: _t->set_min_size((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 18: _t->set_max_size((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->get_min_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: _t->get_max_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->get_min_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->get_max_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->get_min_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->get_max_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: _t->get_min_size((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 8: _t->get_max_size((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->export_settings_slt(); break;
+        case 10: _t->import_settings_slt(); break;
+        case 11: _t->stop_loop(); break;
+        case 12: _t->set_brightness_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 13: _t->set_contrast_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 14: _t->set_saturation_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 15: _t->set_hue_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 16: _t->set_gain_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 17: _t->set_exposure_hardware((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 18: _t->set_brightness_software((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 19: _t->set_contrast_software((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 20: _t->set_min_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 21: _t->set_max_h((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 22: _t->set_min_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 23: _t->set_max_s((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 24: _t->set_min_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 25: _t->set_max_v((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 26: _t->set_min_size((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 27: _t->set_max_size((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -135,9 +157,9 @@ int object_track_t::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 28)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 28;
     }
     return _id;
 }
@@ -147,5 +169,61 @@ void object_track_t::send_image(QImage _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void object_track_t::get_min_h(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void object_track_t::get_max_h(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void object_track_t::get_min_s(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void object_track_t::get_max_s(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+}
+
+// SIGNAL 5
+void object_track_t::get_min_v(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
+}
+
+// SIGNAL 6
+void object_track_t::get_max_v(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 6, _a);
+}
+
+// SIGNAL 7
+void object_track_t::get_min_size(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 7, _a);
+}
+
+// SIGNAL 8
+void object_track_t::get_max_size(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 8, _a);
 }
 QT_END_MOC_NAMESPACE

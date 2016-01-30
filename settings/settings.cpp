@@ -7,9 +7,12 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+
 #include <yaml-cpp/yaml.h>
 
 #include "settings.h"
+
 
 using namespace YAML;
 using namespace std;
@@ -21,17 +24,47 @@ settings_t::settings_t(std::string object_name)
 
 void settings_t::import_settings()
 {
+   YAML::Node const objects = LoadFile("settings.yaml");
+   
+   for (size_t obj_idx = 0; obj_idx < objects.size(); ++obj_idx)
+   {
+      if (objects[obj_idx]["object name"].as<string>().compare(object_name_))
+         continue;
+
+      Node const settings = objects[obj_idx]["settings"];
+      
+      string setting_name;
+      
+      for (size_t i = 0; i < settings.size(); i++)
+      {
+         setting_name = (settings[i])["name"].as<string>();
+
+         for (auto it = double_settings_.begin(); it != double_settings_.end(); ++it)
+         {
+            if (!it->first.compare(setting_name))
+               *(it->second) = (settings[i])["value"].as<double>();
+         }
+
+         for (auto it = int_settings_.begin(); it != int_settings_.end(); ++it)
+         {
+            if (!it->first.compare(setting_name))
+               *(it->second) = (settings[i])["value"].as<int>();
+         }
+      }
+      
+      break;
+   }
 
 }
 
 void settings_t::clean_settings_file()
 {
    std::ofstream fout("settings.yaml");
+   
 }
 
 void settings_t::export_settings()
 {
-   
    std::ofstream fout("settings.yaml", ios::app);
    YAML::Emitter out;
    out << BeginSeq << BeginMap
@@ -48,6 +81,7 @@ void settings_t::export_settings()
           << Key << "value" 
           << Value << *(it->second) 
           << EndMap;
+
    }  
 
    for (auto it = int_settings_.begin(); it != int_settings_.end(); ++it)

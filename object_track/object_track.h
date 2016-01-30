@@ -1,8 +1,8 @@
 /* 
- * File:            object_track.h
- * Author:          Vladislav Kupyrin
- *                  Anton Fedotov
- * Export settings: Razuvaev Daniil
+ * File:                   object_track.h
+ * Author:                 Vladislav Kupyrin
+ *                         Anton Fedotov
+ * Export/inport settings: Razuvaev Daniil
  * 
  * Created on 14 Ноябрь 2015 г., 17:42
  */
@@ -43,8 +43,7 @@ public:
    size_t get_max_obj_size( ) const;
    
    Q_SLOT void export_settings_slt();
-   
-   Q_SIGNAL void send_image( QImage image );
+   Q_SLOT void import_settings_slt();
    
    Q_SLOT void stop_loop();
    
@@ -66,6 +65,19 @@ public:
    Q_SLOT void set_max_v( int max_v );
    Q_SLOT void set_min_size( int min_size );
    Q_SLOT void set_max_size( int max_size );  
+   
+   //   SIGNALS
+      
+   Q_SIGNAL void send_image( QImage image );
+   
+   Q_SIGNAL void get_min_h( int min_h );
+   Q_SIGNAL void get_max_h( int max_h );
+   Q_SIGNAL void get_min_s( int min_s );
+   Q_SIGNAL void get_max_s( int max_s );
+   Q_SIGNAL void get_min_v( int min_v );
+   Q_SIGNAL void get_max_v( int max_v );
+   Q_SIGNAL void get_min_size( int min_size );
+   Q_SIGNAL void get_max_size( int max_size );
    
 private:
    int    min_h_, max_h_,

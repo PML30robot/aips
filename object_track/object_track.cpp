@@ -1,16 +1,16 @@
-/* 
- * File:            object_track.cpp
- * Author:          Vladislav Kupyrin
- *                  Anton Fedotov
- * Export settings: Razuvaev Daniil
- * 
+/*
+ * File:                   object_track.cpp
+ * Author:                 Vladislav Kupyrin
+ *                         Anton Fedotov
+ * Export/inport settings: Razuvaev Daniil
+ *
  * Created on 14 Ноябрь 2015 г., 17:42
  */
 
 #include <opencv2/opencv.hpp>
 
 #include <vector>
- 
+
 #include "../settings/settings.h"
 
 #include "../object_track/object_track.h"
@@ -33,7 +33,7 @@ object_track_t::object_track_t( connector_t * connector ) :
 {
    camera_   = new camera_t (connector_);
    settings_ = new settings_t("object_track");
-   
+
    settings_->add_setting("min_h",&min_h_);
    settings_->add_setting("min_s",&min_s_);
    settings_->add_setting("min_v",&min_v_);
@@ -42,20 +42,23 @@ object_track_t::object_track_t( connector_t * connector ) :
    settings_->add_setting("max_v",&max_v_);
    settings_->add_setting("min_obj_size",&min_obj_size_);
    settings_->add_setting("max_obj_size",&max_obj_size_);
+
+   connect(connector_, SIGNAL (export_settings_s()), this, SLOT (export_settings_slt()));
+   connect(connector_, SIGNAL (import_settings_s()), this, SLOT (import_settings_slt()));
    
-   connect(connector_, SIGNAL (export_settings_s()), this,  SLOT (export_settings_slt()));
-   
+   connect(this, SIGNAL (import_settings()), connector_, SLOT (import_settings_slt()));  
+
    connect(this, SIGNAL(send_image(QImage)), connector_, SLOT(get_image(QImage)));
 
    connect(connector_, SIGNAL(stop_obj_track_s()), this, SLOT(stop_loop()));
-   
+
    connect(connector_, SIGNAL (set_brightness_hardware_sig(double)), this,  SLOT (set_brightness_hardware(double)));
    connect(connector_, SIGNAL (set_contrast_hardware_sig(double)),   this,  SLOT (set_contrast_hardware(double)));
    connect(connector_, SIGNAL (set_hue_hardware_sig(double)),        this,  SLOT (set_hue_hardware(double)));
    connect(connector_, SIGNAL (set_saturation_hardware_sig(double)), this,  SLOT (set_saturation_hardware(double)));
    connect(connector_, SIGNAL (set_gain_hardware_sig(double)),       this,  SLOT (set_gain_hardware(double)));
    connect(connector_, SIGNAL (set_exposure_hardware_sig(double)),   this,  SLOT (set_exposure_hardware(double)));
-   
+
    connect(connector_, SIGNAL (set_min_h_sig(int)),    this,  SLOT (set_min_h(int)));
    connect(connector_, SIGNAL (set_max_h_sig(int)),    this,  SLOT (set_max_h(int)));
    connect(connector_, SIGNAL (set_min_s_sig(int)),    this,  SLOT (set_min_s(int)));
@@ -64,11 +67,11 @@ object_track_t::object_track_t( connector_t * connector ) :
    connect(connector_, SIGNAL (set_max_v_sig(int)),    this,  SLOT (set_max_v(int)));
    connect(connector_, SIGNAL (set_min_size_sig(int)), this,  SLOT (set_min_size(int)));
    connect(connector_, SIGNAL (set_max_size_sig(int)), this,  SLOT (set_max_size(int)));
-   
+
    connect(connector_, SIGNAL (set_brightness_software_sig(double)), this,  SLOT (set_brightness_software(double)));
    connect(connector_, SIGNAL (set_contrast_software_sig(double)),   this,  SLOT (set_contrast_software(double)));
 }
-   
+
 object_track_t::~object_track_t( )
 {
 }
@@ -77,33 +80,33 @@ extern QImage cvMatToQImage( cv::Mat const & frame );
 
 void object_track_t::loop( )
 {
- 
+
   Mat frame, origin_frame;
-   
+
    vector< vector<Point> > contours;
    vector< Vec4i >         hierarchy;
 
    while (is_working_)
    {
       camera_->get_frame(origin_frame);
-      
+
       origin_frame.copyTo(frame);
 
       cvtColor(frame, frame, CV_BGR2HSV);
-      
+
       inRange(frame, Scalar(min_h_, min_s_, min_v_), Scalar(max_h_, max_s_, max_v_), frame);
 
       findContours(frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-      
+
       double area;
-      
+
       Point center;
 
       center.x = 0;
       center.y = 0;
 
       size_t contours_num = 0;
-      
+
       if (hierarchy.size())
       {
          for (int idx = 0; idx >= 0; idx = hierarchy[idx][0])
@@ -117,7 +120,7 @@ void object_track_t::loop( )
                center.y += moment.m01 / area;
 
                contours_num++;
-            
+
                drawContours(origin_frame, contours, idx, Scalar(255, 255, 255), 3, 8, hierarchy);
             }
          }
@@ -133,9 +136,9 @@ void object_track_t::loop( )
             center.y /= contours_num;
          }
 
-         circle(origin_frame, center, 3, Scalar(0, 0, 255), 3); 
+         circle(origin_frame, center, 3, Scalar(0, 0, 255), 3);
       }
-      
+
       emit send_image(cvMatToQImage(origin_frame));
    }
 }
@@ -310,7 +313,7 @@ Q_SLOT void object_track_t::set_max_size( int max_size )
 QImage cvMatToQImage( cv::Mat const & frame )
 {
    QImage img;
-   
+
    if (frame.channels()== 3)
    {
       cv::cvtColor(frame, frame, CV_BGR2RGB);
@@ -320,12 +323,24 @@ QImage cvMatToQImage( cv::Mat const & frame )
    {
       img = QImage((const unsigned char*)(frame.data), frame.cols, frame.rows, QImage::Format_Indexed8);
    }
-   
+
    return img;
 }
 
 Q_SLOT void object_track_t::export_settings_slt()
 {
-   cout << "ot" << endl;
    settings_->export_settings();
+}
+
+Q_SLOT void object_track_t::import_settings_slt()
+{
+   settings_->import_settings(); 
+   connector_->get_min_h(min_h_);
+   connector_->get_max_h(max_h_);
+   connector_->get_min_s(min_s_);
+   connector_->get_max_s(max_s_);
+   connector_->get_min_v(min_v_);
+   connector_->get_max_v(max_v_);
+   connector_->get_min_size(min_obj_size_);
+   connector_->get_max_size(max_obj_size_);
 }

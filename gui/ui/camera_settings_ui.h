@@ -98,8 +98,8 @@ public:
         hContrast = new QDoubleSpinBox(formLayoutWidget);
         hContrast->setObjectName(QString::fromUtf8("hContrast"));
         hContrast->setDecimals(2);
-        hContrast->setMinimum(-100);
-        hContrast->setMaximum(100);
+        hContrast->setMinimum(0);
+        hContrast->setMaximum(1);
         hContrast->setSingleStep(0.01);
 
         formLayout->setWidget(1, QFormLayout::FieldRole, hContrast);
@@ -107,8 +107,8 @@ public:
         hSaturation = new QDoubleSpinBox(formLayoutWidget);
         hSaturation->setObjectName(QString::fromUtf8("hSaturation"));
         hSaturation->setDecimals(2);
-        hSaturation->setMinimum(-100);
-        hSaturation->setMaximum(100);
+        hSaturation->setMinimum(0);
+        hSaturation->setMaximum(1);
         hSaturation->setSingleStep(0.01);
 
         formLayout->setWidget(2, QFormLayout::FieldRole, hSaturation);
@@ -116,8 +116,8 @@ public:
         hHue = new QDoubleSpinBox(formLayoutWidget);
         hHue->setObjectName(QString::fromUtf8("hHue"));
         hHue->setDecimals(2);
-        hHue->setMinimum(-100);
-        hHue->setMaximum(100);
+        hHue->setMinimum(0);
+        hHue->setMaximum(1);
         hHue->setSingleStep(0.01);
 
         formLayout->setWidget(3, QFormLayout::FieldRole, hHue);
@@ -125,8 +125,8 @@ public:
         hGain = new QDoubleSpinBox(formLayoutWidget);
         hGain->setObjectName(QString::fromUtf8("hGain"));
         hGain->setDecimals(2);
-        hGain->setMinimum(-100);
-        hGain->setMaximum(100);
+        hGain->setMinimum(0);
+        hGain->setMaximum(1);
         hGain->setSingleStep(0.01);
 
         formLayout->setWidget(4, QFormLayout::FieldRole, hGain);
@@ -134,8 +134,8 @@ public:
         hExposure = new QDoubleSpinBox(formLayoutWidget);
         hExposure->setObjectName(QString::fromUtf8("hExposure"));
         hExposure->setDecimals(2);
-        hExposure->setMinimum(-100);
-        hExposure->setMaximum(100);
+        hExposure->setMinimum(0);
+        hExposure->setMaximum(1);
         hExposure->setSingleStep(0.01);
 
         formLayout->setWidget(5, QFormLayout::FieldRole, hExposure);
@@ -143,8 +143,8 @@ public:
         hBrightness = new QDoubleSpinBox(formLayoutWidget);
         hBrightness->setObjectName(QString::fromUtf8("hBrightness"));
         hBrightness->setDecimals(2);
-        hBrightness->setMinimum(-100);
-        hBrightness->setMaximum(100);
+        hBrightness->setMinimum(0);
+        hBrightness->setMaximum(1);
         hBrightness->setSingleStep(0.01);
 
         formLayout->setWidget(0, QFormLayout::FieldRole, hBrightness);
@@ -190,7 +190,7 @@ public:
 
         retranslateUi(camera_settings);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(camera_settings);
