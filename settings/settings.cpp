@@ -24,38 +24,46 @@ settings_t::settings_t(std::string object_name)
 
 void settings_t::import_settings()
 {
-   YAML::Node const objects = LoadFile("settings.yaml");
+   ifstream file123("settings.yaml");
+   if (file123.is_open()) {
+      YAML::Node const objects = LoadFile("settings.yaml");
    
-   for (size_t obj_idx = 0; obj_idx < objects.size(); ++obj_idx)
-   {
-      if (objects[obj_idx]["object name"].as<string>().compare(object_name_))
-         continue;
-
-      Node const settings = objects[obj_idx]["settings"];
-      
-      string setting_name;
-      
-      for (size_t i = 0; i < settings.size(); i++)
+      for (size_t obj_idx = 0; obj_idx < objects.size(); ++obj_idx)
       {
-         setting_name = (settings[i])["name"].as<string>();
+         if (objects[obj_idx]["object name"].as<string>().compare(object_name_))
+             continue;
 
-         for (auto it = double_settings_.begin(); it != double_settings_.end(); ++it)
-         {
-            if (!it->first.compare(setting_name))
-               *(it->second) = (settings[i])["value"].as<double>();
-         }
-
-         for (auto it = int_settings_.begin(); it != int_settings_.end(); ++it)
-         {
-            if (!it->first.compare(setting_name))
-               *(it->second) = (settings[i])["value"].as<int>();
-         }
-      }
+         Node const settings = objects[obj_idx]["settings"];
       
-      break;
-   }
+         string setting_name;
+      
+         for (size_t i = 0; i < settings.size(); i++)
+         {
+            setting_name = (settings[i])["name"].as<string>();
 
+            for (auto it = double_settings_.begin(); it != double_settings_.end(); ++it)
+            {
+               if (!it->first.compare(setting_name))
+                  *(it->second) = (settings[i])["value"].as<double>();
+            }
+
+            for (auto it = int_settings_.begin(); it != int_settings_.end(); ++it)
+            {
+               if (!it->first.compare(setting_name))
+               *(it->second) = (settings[i])["value"].as<int>();
+            }
+         }
+      
+         break;
+      }
+   std::cout<< "SETTINGS: Setting \""<<object_name_<<"\" have been successfully imported."<< std::endl;
+   }
+   else
+   {
+      std::cout<< "WARNING: SETTINGS: Settings file does not exist. ( Setting \""<<object_name_<<"\" is not imported )"<< std::endl;
+   }
 }
+
 
 void settings_t::clean_settings_file()
 {
