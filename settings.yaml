@@ -5,17 +5,17 @@
     - name: hardware contrast
       value: 1
     - name: hardware exposure
-      value: 1
+      value: -1
     - name: hardware gain
-      value: 1
+      value: -1
     - name: hardware hue
       value: 1
     - name: hardware saturation
       value: 1
     - name: software brightness
-      value: 1
+      value: 1.01
     - name: software contrast
-      value: 1
+      value: 1.02
 
 - object name: object_track
   settings:
@@ -24,7 +24,7 @@
     - name: max_obj_size
       value: 10000
     - name: max_s
-      value: 255
+      value: 0
     - name: max_v
       value: 255
     - name: min_h
@@ -32,7 +32,7 @@
     - name: min_obj_size
       value: 0
     - name: min_s
-      value: 0
+      value: 255
     - name: min_v
       value: 0
 
