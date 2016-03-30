@@ -11,7 +11,7 @@
 #include <omp.h>
 
 #include "gui/gui.h"
-#include "object_track/object_track.h"
+#include "pos_system/pos_sys.h"
 #include "connecter/connector.h"
 #include "settings/settings.h"
 
@@ -25,7 +25,7 @@ int main( int argc, char** argv )
    
    window.show();
    
-   object_track_t track(&connector);
+   pos_system_t track(&connector);
    
    size_t thread_idx;
    

@@ -24,8 +24,10 @@ settings_t::settings_t(std::string object_name)
 
 void settings_t::import_settings()
 {
-   ifstream file123("settings.yaml");
-   if (file123.is_open()) {
+   ifstream input_file("settings.yaml");
+   
+   if (input_file.is_open())
+   {
       YAML::Node const objects = LoadFile("settings.yaml");
    
       for (size_t obj_idx = 0; obj_idx < objects.size(); ++obj_idx)
@@ -44,13 +46,25 @@ void settings_t::import_settings()
             for (auto it = double_settings_.begin(); it != double_settings_.end(); ++it)
             {
                if (!it->first.compare(setting_name))
+               {
                   *(it->second) = (settings[i])["value"].as<double>();
+               }
             }
 
             for (auto it = int_settings_.begin(); it != int_settings_.end(); ++it)
             {
                if (!it->first.compare(setting_name))
-               *(it->second) = (settings[i])["value"].as<int>();
+               {
+                  *(it->second) = (settings[i])["value"].as<int>();
+               }
+            }
+            
+            for (auto it = size_t_settings_.begin(); it != size_t_settings_.end(); ++it)
+            {
+               if (!it->first.compare(setting_name))
+               {
+                  *(it->second) = (settings[i])["value"].as<int>();
+               }
             }
          }
       
@@ -101,6 +115,16 @@ void settings_t::export_settings()
           << Value << *(it->second) 
           << EndMap;
    }
+   
+   for (auto it = size_t_settings_.begin(); it != size_t_settings_.end(); ++it)
+   {
+      out << BeginMap
+          << Key << "name"  
+          << Value << it->first 
+          << Key << "value" 
+          << Value << *(it->second) 
+          << EndMap;
+   }
 
      out << EndSeq << EndMap << EndSeq
          << Newline << Newline;
@@ -110,6 +134,11 @@ void settings_t::export_settings()
 void settings_t::add_setting(string setting_name,double* value)
 {
    double_settings_.insert(pair<string, double*>(setting_name,value));
+}
+
+void settings_t::add_setting(string setting_name,size_t* value)
+{   
+   size_t_settings_.insert(pair<string, size_t*>(setting_name,value));
 }
 
 void settings_t::add_setting(string setting_name,int* value)

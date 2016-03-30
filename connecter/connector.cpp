@@ -17,181 +17,190 @@ connector_t::connector_t()
 {
 }
 
+/////////////////////////
+//        COMMON       //
+/////////////////////////
+
 Q_SLOT void connector_t::export_settings_slt()
 {
-   emit export_settings_s();
+   emit connector_t::export_settings_s();
 }
 
 Q_SLOT void connector_t::import_settings_slt()
 {
-   emit import_settings_s();
+   emit connector_t::import_settings_s();
 }
-
-void connector_t::stop_obj_track()
-{
-   emit stop_obj_track_s();
-}
-
 
 Q_SLOT void connector_t::get_image( QImage image )
 {
    emit send_image(image);
 }
 
+/////////////////////////
+//        CAMERA       //
+/////////////////////////
 
-Q_SLOT void connector_t::set_brightness_hardware_slt( double value )
+Q_SLOT void connector_t::set_brightness_h_q_slt_g_cam( double value )
 {
-   emit set_brightness_hardware_sig( value );
-}
-
-Q_SLOT void connector_t::set_contrast_hardware_slt( double value )
-{
-   emit set_contrast_hardware_sig( value );
+   emit set_brightness_h_q_sig_g_cam( value );
 }
 
-
-Q_SLOT void connector_t::set_saturation_hardware( double value )
+Q_SLOT void connector_t::set_contrast_h_q_slt_g_cam( double value )
 {
-   emit set_saturation_hardware_sig( value );
+   emit set_contrast_h_q_sig_g_cam( value );
 }
 
-Q_SLOT void connector_t::set_hue_hardware( double value )
+
+Q_SLOT void connector_t::set_saturation_h_q_slt_g_cam( double value )
 {
-   emit set_hue_hardware_sig( value );
+   emit set_saturation_h_q_sig_g_cam( value );
 }
 
-Q_SLOT void connector_t::set_gain_hardware( double value )
+Q_SLOT void connector_t::set_hue_h_q_slt_g_cam( double value )
 {
-   emit set_gain_hardware_sig( value );
+   emit set_hue_h_q_sig_g_cam( value );
 }
 
-Q_SLOT void connector_t::set_exposure_hardware( double value )
+Q_SLOT void connector_t::set_gain_h_q_slt_g_cam( double value )
 {
-   emit set_exposure_hardware_sig( value );
+   emit set_gain_h_q_sig_g_cam( value );
 }
 
-Q_SLOT void connector_t::set_brightness_software( double value )
+Q_SLOT void connector_t::set_exposure_h_q_slt_g_cam( double value )
 {
-   emit set_brightness_software_sig( value );
+   emit set_exposure_h_q_sig_g_cam( value );
 }
 
-Q_SLOT void connector_t::set_contrast_software(double value )
+Q_SLOT void connector_t::set_brightness_s_q_slt_g_cam( double value )
 {
-   emit set_contrast_software_sig( value );
+   emit set_brightness_s_q_sig_g_cam( value );
 }
 
-Q_SLOT void connector_t::set_min_h(int min_h)
+Q_SLOT void connector_t::set_contrast_s_q_slt_g_cam(double value )
 {
-   emit set_min_h_sig( min_h );
+   emit set_contrast_s_q_sig_g_cam( value );
 }
 
-Q_SLOT void connector_t::set_max_h(int max_h)
+Q_SLOT void connector_t::set_brightness_h_q_slt_cam_g(double brightness_h)
 {
-   emit set_max_h_sig( max_h );   
+   emit set_brightness_h_q_sig_cam_g(brightness_h);
 }
 
-Q_SLOT void connector_t::set_min_s(int min_s)
+Q_SLOT void connector_t::set_hue_h_q_slt_cam_g(double hue_h)
 {
-   emit set_min_s_sig( min_s );   
+   emit set_hue_h_q_sig_cam_g(hue_h);
 }
 
-Q_SLOT void connector_t::set_max_s(int max_s)
+Q_SLOT void connector_t::set_contrast_h_q_slt_cam_g(double contrast_h)
 {
-   emit set_max_s_sig( max_s );   
+   emit set_contrast_h_q_sig_cam_g(contrast_h);
 }
 
-Q_SLOT void connector_t::set_min_v(int min_v)
+Q_SLOT void connector_t::set_gain_h_q_slt_cam_g(double gain_h)
 {
-   emit set_min_v_sig( min_v );   
+   emit set_gain_h_q_sig_cam_g(gain_h);
 }
 
-Q_SLOT void connector_t::set_max_v(int max_v)
+Q_SLOT void connector_t::set_exposure_h_q_slt_cam_g(double exposure_h)
 {
-   emit set_max_v_sig( max_v );   
+   emit set_exposure_h_q_sig_cam_g(exposure_h);
 }
 
-Q_SLOT void connector_t::set_min_size(int min_size)
+Q_SLOT void connector_t::set_saturation_h_q_slt_cam_g(double saturation_h)
 {
-   emit set_min_size_sig( min_size );   
+   emit set_saturation_h_q_sig_cam_g(saturation_h);
 }
 
-Q_SLOT void connector_t::set_max_size(int max_size)
+Q_SLOT void connector_t::set_brightness_s_q_slt_cam_g(double brightness_s)
 {
-   emit set_max_size_sig( max_size );   
-}
-
-Q_SLOT void connector_t::get_min_h(int min_h)
-{
-   emit get_min_h_sig( min_h );
-}
-
-Q_SLOT void connector_t::get_max_h(int max_h)
-{
-   emit get_max_h_sig( max_h );
-}
-
-Q_SLOT void connector_t::get_min_s(int min_s)
-{
-   emit get_min_s_sig( min_s );
-}
-
-Q_SLOT void connector_t::get_max_s(int max_s)
-{
-   emit get_max_s_sig( max_s );
-}
-
-Q_SLOT void connector_t::get_min_v(int min_v)
-{
-   emit get_min_v_sig( min_v );
-}
-
-Q_SLOT void connector_t::get_max_v(int max_v)
-{
-   emit get_max_v_sig( max_v );
-}
-
-Q_SLOT void connector_t::get_min_size(int min_obj_size_)
-{
-   emit get_min_size_sig( min_obj_size_ );
-}
-
-Q_SLOT void connector_t::get_max_size(int max_size)
-{
-   emit get_max_size_sig( max_size );
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Q_SLOT void connector_t::get_brightness_h_slt(double brightness_h)
-{
-   emit get_brightness_h(brightness_h);
-}
-Q_SLOT void connector_t::get_hue_h_slt(double hue_h)
-{
-   emit get_hue_h(hue_h);
-}
-Q_SLOT void connector_t::get_contrast_h_slt(double contrast_h)
-{
-   emit get_contrast_h(contrast_h);
-}
-Q_SLOT void connector_t::get_gain_h_slt(double gain_h)
-{
-   emit get_gain_h(gain_h);
-}
-Q_SLOT void connector_t::get_exposure_h_slt(double exposure_h)
-{
-   emit get_exposure_h(exposure_h);
-}
-Q_SLOT void connector_t::get_saturation_h_slt(double saturation_h)
-{
-   emit get_saturation_h(saturation_h);
-}
-
-Q_SLOT void connector_t::get_brightness_s_slt(double brightness_s)
-{
-   emit get_brightness_s(brightness_s);
+   emit set_brightness_s_q_sig_cam_g(brightness_s);
 } 
-Q_SLOT void connector_t::get_contrast_s_slt(double contrast_s)
+
+Q_SLOT void connector_t::set_contrast_s_q_slt_cam_g(double contrast_s)
 {
-   emit get_contrast_s(contrast_s);
+   emit set_contrast_s_q_sig_cam_g(contrast_s);
+}
+
+/////////////////////////
+//      OBJ DETECT     //
+/////////////////////////
+
+Q_SLOT void connector_t::set_min_h_q_slt_g_ot(int min_h)
+{
+   emit set_min_h_q_sig_g_ot( min_h );
+}
+
+Q_SLOT void connector_t::set_max_h_q_slt_g_ot(int max_h)
+{
+   emit set_max_h_q_sig_g_ot( max_h );
+}
+
+Q_SLOT void connector_t::set_min_s_q_slt_g_ot(int min_s)
+{
+   emit set_min_s_q_sig_g_ot( min_s );   
+}
+
+Q_SLOT void connector_t::set_max_s_q_slt_g_ot(int max_s)
+{
+   emit set_max_s_q_sig_g_ot( max_s );   
+}
+
+Q_SLOT void connector_t::set_min_v_q_slt_g_ot(int min_v)
+{
+   emit set_min_v_q_sig_g_ot( min_v );   
+}
+
+Q_SLOT void connector_t::set_max_v_q_slt_g_ot(int max_v)
+{
+   emit set_max_v_q_sig_g_ot( max_v );   
+}
+
+Q_SLOT void connector_t::set_min_size_q_slt_g_ot(int min_size)
+{
+   emit set_min_size_q_sig_g_ot( min_size );   
+}
+
+Q_SLOT void connector_t::set_max_size_q_slt_g_ot(int max_size)
+{
+   emit set_max_size_q_sig_g_ot( max_size );   
+}
+
+Q_SLOT void connector_t::set_min_h_q_slt_ot_g(int min_h)
+{
+   emit set_min_h_q_sig_ot_g( min_h );
+}
+
+Q_SLOT void connector_t::set_max_h_q_slt_ot_g(int max_h)
+{
+   emit set_max_h_q_sig_ot_g( max_h );
+}
+
+Q_SLOT void connector_t::set_min_s_q_slt_ot_g(int min_s)
+{
+   emit set_min_s_q_sig_ot_g( min_s );
+}
+
+Q_SLOT void connector_t::set_max_s_q_slt_ot_g(int max_s)
+{
+   emit set_max_s_q_sig_ot_g( max_s );
+}
+
+Q_SLOT void connector_t::set_min_v_q_slt_ot_g(int min_v)
+{
+   emit set_min_v_q_sig_ot_g( min_v );
+}
+
+Q_SLOT void connector_t::set_max_v_q_slt_ot_g(int max_v)
+{
+   emit set_max_v_q_sig_ot_g( max_v );
+}
+
+Q_SLOT void connector_t::set_min_size_q_slt_ot_g(int min_obj_size_)
+{
+   emit set_min_size_q_sig_ot_g( min_obj_size_ );
+}
+
+Q_SLOT void connector_t::set_max_size_q_slt_ot_g(int max_size)
+{
+   emit set_max_size_q_sig_ot_g( max_size );
 }

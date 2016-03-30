@@ -10,7 +10,6 @@
 #include <opencv2/opencv.hpp>
 #include "../connecter/connector.h"
 #include "../settings/settings.h"
-//#include "../connecter/connector.h"
 
 using namespace cv;
 
@@ -24,47 +23,51 @@ public:
    ~camera_t();
    
    void get_frame( Mat & frame );
+
    double get_brightness() const;
-   void set_brightness( double brightness_ );
    double get_saturation() const;
-   void set_saturation( double saturation_ );
    double get_hue() const;
-   void set_hue( double hue_ );
    double get_contrast() const;
-   void set_contrast( double contrast_ );
    double get_gain() const;
-   void set_gain( double gain_ );
    double get_exposure() const;
-   void set_exposure( double gain_ );
-   
+
    double get_brightness_s() const;
-   void set_brightness_s( double brightness_s );
    double get_contrast_s() const;
-   void set_contrast_s( double saturation_s );
+
+   void printwindowinfo();
    
-   //slot for signal export settings
-   Q_SLOT void export_settings_slt();
+public slots:
+   void export_settings_slt();
+   void import_settings_slt();   
    
-   Q_SLOT void import_settings_slt();
+   void set_brightness_h_slt(double brightness);
+   void set_saturation_h_slt(double saturation);
+   void set_hue_h_slt       (double hue);
+   void set_contrast_h_slt  (double contrast);
+   void set_gain_h_slt      (double gain);
+   void set_exposure_h_slt  (double gain);
    
-   //                                                  <-----------------<<
-   Q_SIGNAL void get_brightness_h(double);
-   Q_SIGNAL void get_hue_h(double);
-   Q_SIGNAL void get_contrast_h(double);
-   Q_SIGNAL void get_gain_h(double);
-   Q_SIGNAL void get_exposure_h(double);
-   Q_SIGNAL void get_saturation_h(double);
+   void set_brightness_s_slt(double brightness_s);
+   void set_contrast_s_slt  (double saturation_s);
+
+public:
+   Q_SIGNAL void set_brightness_h_sig(double);
+   Q_SIGNAL void set_hue_h_sig       (double);
+   Q_SIGNAL void set_contrast_h_sig  (double);
+   Q_SIGNAL void set_gain_h_sig      (double);
+   Q_SIGNAL void set_exposure_h_sig  (double);
+   Q_SIGNAL void set_saturation_h_sig(double);
    
-   Q_SIGNAL void get_brightness_s(double);
-   Q_SIGNAL void get_contrast_s(double);
-   
+   Q_SIGNAL void set_brightness_s_sig(double);
+   Q_SIGNAL void set_contrast_s_sig  (double);
+
 private:
    VideoCapture * capture_;
 
-   double brightness_, saturation_, hue_, contrast_, gain_, exposure_; // hardware
-   double brightness_s_, contrast_s_;                                  // software
-   double work_brightness_, work_saturation_, work_hue_, work_contrast_, work_gain_, work_exposure_; // hardware work
-   double work_brightness_s_, work_contrast_s_;                                  // software work
+   double brightness_, saturation_, hue_, contrast_, gain_, exposure_;                                // hardware
+   double brightness_s_, contrast_s_;                                                                 // software
+   double work_brightness_, work_saturation_, work_hue_, work_contrast_, work_gain_, work_exposure_;  // hardware work
+   double work_brightness_s_, work_contrast_s_;                                                       // software work
    
    connector_t * connector_;
    settings_t * settings_;

@@ -101,6 +101,7 @@ public:
         hContrast->setMinimum(0);
         hContrast->setMaximum(1);
         hContrast->setSingleStep(0.01);
+        hContrast->setValue(1);
 
         formLayout->setWidget(1, QFormLayout::FieldRole, hContrast);
 
@@ -110,6 +111,7 @@ public:
         hSaturation->setMinimum(0);
         hSaturation->setMaximum(1);
         hSaturation->setSingleStep(0.01);
+        hSaturation->setValue(1);
 
         formLayout->setWidget(2, QFormLayout::FieldRole, hSaturation);
 
@@ -119,6 +121,7 @@ public:
         hHue->setMinimum(0);
         hHue->setMaximum(1);
         hHue->setSingleStep(0.01);
+        hHue->setValue(0.5);
 
         formLayout->setWidget(3, QFormLayout::FieldRole, hHue);
 
@@ -128,6 +131,7 @@ public:
         hGain->setMinimum(0);
         hGain->setMaximum(1);
         hGain->setSingleStep(0.01);
+        hGain->setValue(1);
 
         formLayout->setWidget(4, QFormLayout::FieldRole, hGain);
 
@@ -137,15 +141,17 @@ public:
         hExposure->setMinimum(0);
         hExposure->setMaximum(1);
         hExposure->setSingleStep(0.01);
+        hExposure->setValue(1);
 
         formLayout->setWidget(5, QFormLayout::FieldRole, hExposure);
 
         hBrightness = new QDoubleSpinBox(formLayoutWidget);
         hBrightness->setObjectName(QString::fromUtf8("hBrightness"));
         hBrightness->setDecimals(2);
-        hBrightness->setMinimum(0);
+        hBrightness->setMinimum(-1);
         hBrightness->setMaximum(1);
         hBrightness->setSingleStep(0.01);
+        hBrightness->setValue(0.5);
 
         formLayout->setWidget(0, QFormLayout::FieldRole, hBrightness);
 
@@ -174,6 +180,7 @@ public:
         sBrightness->setMinimum(-100);
         sBrightness->setMaximum(100);
         sBrightness->setSingleStep(0.01);
+        sBrightness->setValue(1);
 
         formLayout_2->setWidget(0, QFormLayout::FieldRole, sBrightness);
 
@@ -183,6 +190,7 @@ public:
         sContrast->setMinimum(-100);
         sContrast->setMaximum(100);
         sContrast->setSingleStep(0.01);
+        sContrast->setValue(1);
 
         formLayout_2->setWidget(1, QFormLayout::FieldRole, sContrast);
 
@@ -205,9 +213,17 @@ public:
         label_4->setText(QApplication::translate("camera_settings", "Hue", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("camera_settings", "Gain", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("camera_settings", "Exposure", 0, QApplication::UnicodeUTF8));
+        hContrast->setSpecialValueText(QApplication::translate("camera_settings", "0,00", 0, QApplication::UnicodeUTF8));
+        hSaturation->setSpecialValueText(QApplication::translate("camera_settings", "0,00", 0, QApplication::UnicodeUTF8));
+        hHue->setSpecialValueText(QApplication::translate("camera_settings", "0,00", 0, QApplication::UnicodeUTF8));
+        hGain->setSpecialValueText(QApplication::translate("camera_settings", "0,00", 0, QApplication::UnicodeUTF8));
+        hExposure->setSpecialValueText(QApplication::translate("camera_settings", "0,00", 0, QApplication::UnicodeUTF8));
+        hBrightness->setSpecialValueText(QApplication::translate("camera_settings", "0,00", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("camera_settings", "Hardware", 0, QApplication::UnicodeUTF8));
         label_7->setText(QApplication::translate("camera_settings", "Brightness", 0, QApplication::UnicodeUTF8));
         label_8->setText(QApplication::translate("camera_settings", "Contrast", 0, QApplication::UnicodeUTF8));
+        sBrightness->setSpecialValueText(QApplication::translate("camera_settings", "-", 0, QApplication::UnicodeUTF8));
+        sContrast->setSpecialValueText(QApplication::translate("camera_settings", "-", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("camera_settings", "Software", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

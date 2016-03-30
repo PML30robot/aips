@@ -21,10 +21,12 @@ public:
    void export_settings();
    void add_setting(string setting_name, double* value);
    void add_setting(string setting_name, int* value);
+   void add_setting(string setting_name, size_t* value);
    static void clean_settings_file();
 private:
    string object_name_;
    
-   map <string,int*> int_settings_;
-   map <string,double*> double_settings_;
+   map <string, int*>    int_settings_;
+   map <string, double*> double_settings_;
+   map <string, size_t*> size_t_settings_;
 };

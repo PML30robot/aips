@@ -71,14 +71,14 @@ class object_params_t : public QMainWindow
 public:
    object_params_t(connector_t * connector, QWidget * parent = 0 );
    
-   Q_SLOT void get_min_h_slt(int);
-   Q_SLOT void get_max_h_slt(int);
-   Q_SLOT void get_min_s_slt(int);
-   Q_SLOT void get_max_s_slt(int);
-   Q_SLOT void get_min_v_slt(int);
-   Q_SLOT void get_max_v_slt(int);
-   Q_SLOT void get_min_size_slt(int);
-   Q_SLOT void get_max_size_slt(int);
+   Q_SLOT void set_min_h_q_slt_ot_g(int);
+   Q_SLOT void set_max_h_q_slt_ot_g(int);
+   Q_SLOT void set_min_s_q_slt_ot_g(int);
+   Q_SLOT void set_max_s_q_slt_ot_g(int);
+   Q_SLOT void set_min_v_q_slt_ot_g(int);
+   Q_SLOT void set_max_v_q_slt_ot_g(int);
+   Q_SLOT void set_min_size_q_slt_ot_g(int);
+   Q_SLOT void set_max_size_q_slt_ot_g(int);
 
 private:
    Ui::obj_params * obj_params_;
@@ -92,18 +92,19 @@ class camera_settings_t : public QMainWindow
 public:
    camera_settings_t( connector_t * connector, QWidget * parent = 0 );
    
-   Q_SLOT void get_brightness_h_slt   (double);
-   Q_SLOT void get_hue_h_slt       (double);
-   Q_SLOT void get_contrast_h_slt  (double);
-   Q_SLOT void get_gain_h_slt      (double);
-   Q_SLOT void get_exposure_h_slt  (double);
-   Q_SLOT void get_saturation_h_slt(double);
-   
-   Q_SLOT void get_brightness_s_slt(double);
-   Q_SLOT void get_contrast_s_slt  (double);
+   Q_SLOT void set_brightness_h_slt (double);
+   Q_SLOT void set_hue_h_slt        (double);
+   Q_SLOT void set_contrast_h_slt   (double);
+   Q_SLOT void set_gain_h_slt       (double);
+   Q_SLOT void set_exposure_h_slt   (double);
+   Q_SLOT void set_saturation_h_slt (double);
+    
+   Q_SLOT void set_brightness_s_slt (double);
+   Q_SLOT void set_contrast_s_slt   (double);
   
 private:
    Ui::camera_settings * camera_settings_;
    
    connector_t * connector_;
+   
 };
