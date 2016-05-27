@@ -13,7 +13,7 @@ CAM_DIR        = camera
 
 MOC_SRC  = $(POS_SYSTEM_DIR)/pos_sys.h $(GUI_DIR)/gui.h $(CONNECT_DIR)/connector.h $(SETTINGS_DIR)/camera.h $(OBJ_DETECT_DIR)/obj_detect.h
 CPP_SRC  = $(notdir $(MOC_SRC:.h=.moc.cpp))
-CPP_SRC +=  $(SETTINGS_DIR)/settings.cpp $(CONNECT_DIR)/connector.cpp $(CAM_DIR)/camera.cpp $(OBJ_DETECT_DIR)/obj_detect.cpp $(POS_SYSTEM_DIR)/pos_sys.cpp $(GUI_DIR)/gui.cpp main.cpp
+CPP_SRC += $(SETTINGS_DIR)/settings.cpp $(CONNECT_DIR)/connector.cpp $(CAM_DIR)/camera.cpp $(OBJ_DETECT_DIR)/obj_detect.cpp $(POS_SYSTEM_DIR)/pos_sys.cpp $(GUI_DIR)/gui.cpp main.cpp
 
 OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(notdir $(CPP_SRC:.cpp=.o)))
 	     
@@ -66,6 +66,7 @@ ui:
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/gui.ui -o $(GUI_DIR)/$(UI_DIR)/gui_ui.h
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/object_params.ui -o $(GUI_DIR)/$(UI_DIR)/object_params_ui.h
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/camera_settings.ui -o $(GUI_DIR)/$(UI_DIR)/camera_settings_ui.h
+	uic-qt4 $(GUI_DIR)/$(UI_DIR)/calibration_coordinates.ui -o $(GUI_DIR)/$(UI_DIR)/calibration_coordinates_ui.h
 	
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/$(TARGET)

@@ -22,9 +22,10 @@ int main( int argc, char** argv )
    connector_t connector;
    
    gui_t window(&connector);
-   
-   window.show();
-   
+
+   window.show();  
+   window.setStartSize();
+
    pos_system_t track(&connector);
    
    size_t thread_idx;

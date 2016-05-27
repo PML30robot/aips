@@ -37,6 +37,7 @@ public:
     QAction *ot_camera_settings;
     QAction *Import_settings;
     QAction *Export_settings;
+    QAction *ot_calibration_coordinates;
     QWidget *centralwidget;
     QLabel *label;
     QMenuBar *menubar;
@@ -48,7 +49,7 @@ public:
     {
         if (gui->objectName().isEmpty())
             gui->setObjectName(QString::fromUtf8("gui"));
-        gui->resize(733, 610);
+        gui->resize(724, 600);
         ot_obj_params = new QAction(gui);
         ot_obj_params->setObjectName(QString::fromUtf8("ot_obj_params"));
         ot_obj_params->setCheckable(false);
@@ -96,16 +97,19 @@ public:
         Import_settings->setObjectName(QString::fromUtf8("Import_settings"));
         Export_settings = new QAction(gui);
         Export_settings->setObjectName(QString::fromUtf8("Export_settings"));
+        ot_calibration_coordinates = new QAction(gui);
+        ot_calibration_coordinates->setObjectName(QString::fromUtf8("ot_calibration_coordinates"));
         centralwidget = new QWidget(gui);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(10, 0, 721, 571));
+        label->setMaximumSize(QSize(721, 16777215));
         label->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 0, 0)"));
         gui->setCentralWidget(centralwidget);
         menubar = new QMenuBar(gui);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 733, 21));
+        menubar->setGeometry(QRect(0, 0, 724, 21));
         menu_obj_track = new QMenu(menubar);
         menu_obj_track->setObjectName(QString::fromUtf8("menu_obj_track"));
         menu_Settings = new QMenu(menubar);
@@ -124,6 +128,7 @@ public:
         menu_obj_track->addSeparator();
         menu_obj_track->addSeparator();
         menu_obj_track->addAction(ot_camera_settings);
+        menu_obj_track->addAction(ot_calibration_coordinates);
         menu_Settings->addAction(Import_settings);
         menu_Settings->addAction(Export_settings);
 
@@ -146,6 +151,7 @@ public:
         ot_camera_settings->setText(QApplication::translate("gui", "Camera Settings", 0, QApplication::UnicodeUTF8));
         Import_settings->setText(QApplication::translate("gui", "Import settings", 0, QApplication::UnicodeUTF8));
         Export_settings->setText(QApplication::translate("gui", "Export settings", 0, QApplication::UnicodeUTF8));
+        ot_calibration_coordinates->setText(QApplication::translate("gui", "Calibration coordinates", 0, QApplication::UnicodeUTF8));
         label->setText(QString());
         menu_obj_track->setTitle(QApplication::translate("gui", "Object track", 0, QApplication::UnicodeUTF8));
         menu_Settings->setTitle(QApplication::translate("gui", "Settings", 0, QApplication::UnicodeUTF8));

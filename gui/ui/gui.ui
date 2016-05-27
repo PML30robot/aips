@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>733</width>
-    <height>610</height>
+    <width>724</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,12 @@
       <height>571</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>721</width>
+      <height>16777215</height>
+     </size>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(0, 0, 0)</string>
     </property>
@@ -36,7 +42,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>733</width>
+     <width>724</width>
      <height>21</height>
     </rect>
    </property>
@@ -51,6 +57,7 @@
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="ot_camera_settings"/>
+    <addaction name="ot_calibration_coordinates"/>
    </widget>
    <widget class="QMenu" name="menu_Settings">
     <property name="title">
@@ -170,6 +177,11 @@
   <action name="Export_settings">
    <property name="text">
     <string>Export settings</string>
+   </property>
+  </action>
+  <action name="ot_calibration_coordinates">
+   <property name="text">
+    <string>Calibration coordinates</string>
    </property>
   </action>
  </widget>
