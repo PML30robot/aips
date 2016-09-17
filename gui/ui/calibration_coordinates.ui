@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>669</width>
+    <width>662</width>
     <height>171</height>
    </rect>
   </property>
@@ -41,6 +41,9 @@
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
       </property>
+      <property name="singleStep">
+       <double>0.010000000000000</double>
+      </property>
      </widget>
     </item>
     <item row="4" column="0">
@@ -62,12 +65,18 @@
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
       </property>
+      <property name="singleStep">
+       <double>0.010000000000000</double>
+      </property>
      </widget>
     </item>
     <item row="5" column="2">
      <widget class="QDoubleSpinBox" name="WorldCoordMark2_X">
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
+      </property>
+      <property name="singleStep">
+       <double>0.010000000000000</double>
       </property>
       <property name="value">
        <double>1.000000000000000</double>
@@ -79,6 +88,9 @@
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
       </property>
+      <property name="singleStep">
+       <double>0.010000000000000</double>
+      </property>
      </widget>
     </item>
     <item row="5" column="3">
@@ -86,15 +98,8 @@
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
       </property>
-     </widget>
-    </item>
-    <item row="7" column="3">
-     <widget class="QDoubleSpinBox" name="WorldCoordMark3_Y">
-      <property name="cursor">
-       <cursorShape>IBeamCursor</cursorShape>
-      </property>
-      <property name="value">
-       <double>1.000000000000000</double>
+      <property name="singleStep">
+       <double>0.010000000000000</double>
       </property>
      </widget>
     </item>
@@ -312,20 +317,20 @@
       </property>
      </widget>
     </item>
+    <item row="7" column="3">
+     <widget class="QDoubleSpinBox" name="WorldCoordMark3_Y">
+      <property name="cursor">
+       <cursorShape>IBeamCursor</cursorShape>
+      </property>
+      <property name="singleStep">
+       <double>0.010000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>390</x>
-     <y>170</y>
-     <width>128</width>
-     <height>42</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>World coordinates</string>
-   </property>
   </widget>
  </widget>
  <resources/>

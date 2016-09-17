@@ -82,7 +82,6 @@ void settings_t::import_settings()
 void settings_t::clean_settings_file()
 {
    std::ofstream fout("settings.yaml");
-   
 }
 
 void settings_t::export_settings()
@@ -103,8 +102,7 @@ void settings_t::export_settings()
           << Key << "value" 
           << Value << *(it->second) 
           << EndMap;
-
-   }  
+   }
 
    for (auto it = int_settings_.begin(); it != int_settings_.end(); ++it)
    {

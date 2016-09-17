@@ -1,7 +1,6 @@
 /* 
  * File:   connecter.h
  * Author: Razuvaev Daniil
- *         Kupirin Vladislav
  *
  * Created on 28 ноября 2015 г., 17:06
  */
@@ -75,6 +74,18 @@ public:
    Q_SLOT void set_min_size_q_slt_ot_g( int min_size );
    Q_SLOT void set_max_size_q_slt_ot_g( int max_size );
   
+//                                     gui --> PosSys
+   Q_SLOT void set_Marker1_cam_coord_slt(int, int);
+   Q_SLOT void set_Marker2_cam_coord_slt(int, int);
+   Q_SLOT void set_Marker3_cam_coord_slt(int, int);
+   
+   Q_SLOT void set_Marker1_X_world_coord_slt (double);
+   Q_SLOT void set_Marker2_X_world_coord_slt (double);
+   Q_SLOT void set_Marker3_X_world_coord_slt (double);
+   Q_SLOT void set_Marker1_Y_world_coord_slt (double);
+   Q_SLOT void set_Marker2_Y_world_coord_slt (double);
+   Q_SLOT void set_Marker3_Y_world_coord_slt (double);
+   
    /////////////
 ///// SIGNALS /////////////////////////////////////////////////////////////////////////////////////////////
    /////////////
@@ -135,5 +146,19 @@ public:
 
    Q_SIGNAL void set_min_size_q_sig_g_ot( int min_size );
    Q_SIGNAL void set_max_size_q_sig_g_ot( int max_size );
+   
+//                          gui --> PosSys
+   
+   Q_SIGNAL void set_Marker1_cam_coord_sig(int, int);
+   Q_SIGNAL void set_Marker2_cam_coord_sig(int, int);
+   Q_SIGNAL void set_Marker3_cam_coord_sig(int, int);
+   
+   Q_SIGNAL void set_Marker1_X_world_coord_sig(double);
+   Q_SIGNAL void set_Marker2_X_world_coord_sig(double);
+   Q_SIGNAL void set_Marker3_X_world_coord_sig(double);
+   Q_SIGNAL void set_Marker1_Y_world_coord_sig(double);
+   Q_SIGNAL void set_Marker2_Y_world_coord_sig(double);
+   Q_SIGNAL void set_Marker3_Y_world_coord_sig(double);
+   
 private:
 };

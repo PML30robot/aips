@@ -27,7 +27,7 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
 
 /////////////////////////////////////////MENU/////////////////////////////////////////
    m_pContextMenu = new QMenu(this);                                                //
-                                                                                   //
+                                                                                    //
 // setWindowTitle("Show Menu on Right Click and Trigger Actions");                  //
    setContextMenuPolicy(Qt::CustomContextMenu);                                     //
                                                                                     //
@@ -252,14 +252,11 @@ void gui_t::mousePressEvent(QMouseEvent * event)
    QPoint coord = event->pos();
    //cout << coord.x() << " " << coord.y() << endl;
 }
-void VideoLayout_t::mousePressEvent(QMouseEvent * event)
+void VideoLayout_t::mousePressEvent(QMouseEvent * event)//слушатель VideoLayout_t - нажатие
 {
    QPoint coord = event->pos();
    
-   
-   //QPoint test1 = ui_->label->pos();
-   cout <<"Video"<< coord.x() << " " << coord.y() << endl;
-   //cout << "lable-cursore: " << test1.x() << " " << test1.y() << endl;
+   cout <<"Video ( "<< coord.x() << " x " << coord.y() <<" )" << endl;
    ClickPos = coord;
 }
 void gui_t::resizeEvent(QResizeEvent* event)
@@ -292,7 +289,7 @@ void gui_t::resizeEvent(QResizeEvent* event)
       double NLSw = NewLableSize.width();
       double SIw  = SizeImage.width();
       SizeProportionCoordinates = NLSw/SIw;
-      cout<<SizeProportionCoordinates<<endl;
+      //cout<<SizeProportionCoordinates<<endl;
    }
 }
 
@@ -330,7 +327,7 @@ Q_SLOT void gui_t::setMarker1()
    yy = yy/SPC;
    int xint = xx/1;
    int yint = yy/1;
-   calibration_coordinates_->set_Marker1(xint,yint);
+   calibration_coordinates_->set_Marker1_cam_coord(xint,yint);
 }
 
 Q_SLOT void gui_t::setMarker2()
@@ -343,7 +340,7 @@ Q_SLOT void gui_t::setMarker2()
    yy = yy/SPC;
    int xint = xx/1;
    int yint = yy/1;
-   calibration_coordinates_->set_Marker2(xint,yint);
+   calibration_coordinates_->set_Marker2_cam_coord(xint,yint);
 }
 
 Q_SLOT void gui_t::setMarker3()
@@ -356,9 +353,9 @@ Q_SLOT void gui_t::setMarker3()
    yy = yy/SPC;
    int xint = xx/1;
    int yint = yy/1;
-   calibration_coordinates_->set_Marker3(xint,yint);
+   calibration_coordinates_->set_Marker3_cam_coord(xint,yint);
 }
-
+// На всякий пожарный:
 //Q_SLOT void gui_t::setMarker0()
 //{
 //   std::cout << "0000" << endl;
@@ -368,44 +365,143 @@ Q_SLOT void gui_t::setMarker3()
 
 calibration_coordinates_t::calibration_coordinates_t( connector_t * connector, QWidget * parent ) :
    calibration_coordinates_ ( new Ui::calibration_coordinates )
+  , connector_  ( connector )
 {
+//   QPoint Marker1_CamCoordinates;                |
+//   QPoint Marker2_CamCoordinates;                |
+//   QPoint Marker3_CamCoordinates;                |
+//                                                 |>   MARKERS   <<<<<-----
+//   QPoint Marker1_WorldCoordinates;              |
+//   QPoint Marker2_WorldCoordinates;              |
+//   QPoint Marker3_WorldCoordinates;              |
+   
    calibration_coordinates_->setupUi(this);
+   
+   connect(this, SIGNAL(set_Marker1_cam_coord_sig(int, int)), connector_, SLOT(set_Marker1_cam_coord_slt(int, int)));
+   connect(this, SIGNAL(set_Marker2_cam_coord_sig(int, int)), connector_, SLOT(set_Marker2_cam_coord_slt(int, int)));
+   connect(this, SIGNAL(set_Marker3_cam_coord_sig(int, int)), connector_, SLOT(set_Marker3_cam_coord_slt(int, int)));
+   
+   connect(calibration_coordinates_->WorldCoordMark1_X, SIGNAL(valueChanged(double)),
+               this, SLOT(set_Marker1_X_world_coord_slt(double)));
+   connect(calibration_coordinates_->WorldCoordMark2_X, SIGNAL(valueChanged(double)),
+               this, SLOT(set_Marker2_X_world_coord_slt(double)));
+   connect(calibration_coordinates_->WorldCoordMark3_X, SIGNAL(valueChanged(double)),
+               this, SLOT(set_Marker3_X_world_coord_slt(double)));
+   connect(calibration_coordinates_->WorldCoordMark1_Y, SIGNAL(valueChanged(double)),
+               this, SLOT(set_Marker1_Y_world_coord_slt(double)));
+   connect(calibration_coordinates_->WorldCoordMark2_Y, SIGNAL(valueChanged(double)),
+               this, SLOT(set_Marker2_Y_world_coord_slt(double)));
+   connect(calibration_coordinates_->WorldCoordMark3_Y, SIGNAL(valueChanged(double)),
+               this, SLOT(set_Marker3_Y_world_coord_slt(double)));
+   
+   connect(this, SIGNAL(set_Marker1_X_world_coord_sig(double)), connector_, SLOT(set_Marker1_X_world_coord_slt(double)));
+   connect(this, SIGNAL(set_Marker2_X_world_coord_sig(double)), connector_, SLOT(set_Marker2_X_world_coord_slt(double)));
+   connect(this, SIGNAL(set_Marker3_X_world_coord_sig(double)), connector_, SLOT(set_Marker3_X_world_coord_slt(double)));
+   connect(this, SIGNAL(set_Marker1_Y_world_coord_sig(double)), connector_, SLOT(set_Marker1_Y_world_coord_slt(double)));
+   connect(this, SIGNAL(set_Marker2_Y_world_coord_sig(double)), connector_, SLOT(set_Marker2_Y_world_coord_slt(double)));
+   connect(this, SIGNAL(set_Marker3_Y_world_coord_sig(double)), connector_, SLOT(set_Marker3_Y_world_coord_slt(double)));
+   
+   
 }
 
-void calibration_coordinates_t::set_Marker1(int x, int y)  //  int---->String
+void calibration_coordinates_t::set_Marker1_cam_coord(int x, int y)
 {
-   if(Marker_Set(x,y))
+   if(Marker_Cam_Set(x,y))
    {
       Marker1_CamCoordinates.setX(x);
       Marker1_CamCoordinates.setY(y);
       calibration_coordinates_->CameraCoordMark1_X->setNum(x);
       calibration_coordinates_->CameraCoordMark1_Y->setNum(y);
+      
+      emit set_Marker1_cam_coord_sig(x, y);//GUI >>CONNECTER >>PosSys
+      
+      cout<<"The position marker was successfully updated"<<endl;
    }
 }
 
-void calibration_coordinates_t::set_Marker2(int x, int y)
+void calibration_coordinates_t::set_Marker2_cam_coord(int x, int y)
 {
-   if(Marker_Set(x,y))
+   if(Marker_Cam_Set(x,y))
    {
       Marker2_CamCoordinates.setX(x);
       Marker2_CamCoordinates.setY(y);
       calibration_coordinates_->CameraCoordMark2_X->setNum(x);
       calibration_coordinates_->CameraCoordMark2_Y->setNum(y);
+      
+      emit set_Marker2_cam_coord_sig(x, y);//GUI >>CONNECTER >>PosSys
+      
+      cout<<"The position marker was successfully updated"<<endl;
    }
 }
 
-void calibration_coordinates_t::set_Marker3(int x, int y)
+void calibration_coordinates_t::set_Marker3_cam_coord(int x, int y)
 {
-   if(Marker_Set(x,y))
+   if(Marker_Cam_Set(x,y))
    {
       Marker3_CamCoordinates.setX(x);
       Marker3_CamCoordinates.setY(y);
       calibration_coordinates_->CameraCoordMark3_X->setNum(x);
       calibration_coordinates_->CameraCoordMark3_Y->setNum(y);
+      
+      emit set_Marker3_cam_coord_sig(x, y);//GUI >> CONNECTER >> PosSys
+      
+      cout<<"The position marker was successfully updated"<<endl;
    }
 }
 
-bool calibration_coordinates_t::Marker_Set(int x, int y){
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Q_SLOT void calibration_coordinates_t::set_Marker1_X_world_coord_slt (double x)
+{
+      Marker1_WorldCoordinates.setX(x);
+      emit set_Marker1_X_world_coord_sig(x);
+      
+      cout<<"The position marker was successfully updated"<<endl;
+}
+
+Q_SLOT void calibration_coordinates_t::set_Marker2_X_world_coord_slt (double x)
+{
+      Marker2_WorldCoordinates.setX(x);
+      emit set_Marker2_X_world_coord_sig(x);
+      
+      cout<<"The position marker was successfully updated"<<endl;
+}
+
+Q_SLOT void calibration_coordinates_t::set_Marker3_X_world_coord_slt (double x)
+{
+      Marker3_WorldCoordinates.setX(x);
+      emit set_Marker3_X_world_coord_sig(x);
+      
+      cout<<"The position marker was successfully updated"<<endl;
+}
+
+Q_SLOT void calibration_coordinates_t::set_Marker1_Y_world_coord_slt (double y)
+{
+      Marker1_WorldCoordinates.setY(y);
+      emit set_Marker1_Y_world_coord_sig(y);
+      
+      cout<<"The position marker was successfully updated"<<endl;
+}
+
+Q_SLOT void calibration_coordinates_t::set_Marker2_Y_world_coord_slt (double y)
+{
+      Marker2_WorldCoordinates.setY(y);
+      emit set_Marker2_Y_world_coord_sig(y);
+      
+      cout<<"The position marker was successfully updated"<<endl;
+}
+
+Q_SLOT void calibration_coordinates_t::set_Marker3_Y_world_coord_slt (double y)
+{
+      Marker3_WorldCoordinates.setY(y);
+      emit set_Marker3_Y_world_coord_sig(y);
+      
+      cout<<"The position marker was successfully updated"<<endl;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+bool calibration_coordinates_t::Marker_Cam_Set(int x, int y){
    if ((x==Marker1_CamCoordinates.x())&&(y==Marker1_CamCoordinates.y())){
       cout<<"The marker position has not been changed!"<<endl;
       return false;
@@ -418,7 +514,6 @@ bool calibration_coordinates_t::Marker_Set(int x, int y){
       cout<<"The marker position has not been changed!"<<endl;
       return false;
    }
-   cout<<"The position marker was successfully updated"<<endl;
    return true;
 }
 

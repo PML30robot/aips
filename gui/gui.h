@@ -20,6 +20,7 @@
 #include "ui/camera_settings_ui.h"
 #include "ui/calibration_coordinates_ui.h"
 #include "../connecter/connector.h"
+#include "../settings/settings.h"
 
 namespace Ui
 {
@@ -38,14 +39,14 @@ class VideoLayout_t;
 class gui_t : public QMainWindow
 {
    Q_OBJECT
-   
+
 /////////////////////MENU/////////////////////////////
 private slots:                                      //
    void contextMenuRequested(const QPoint& point);  //
    void setMarker1();                               //
    void setMarker2();                               //
    void setMarker3();                               //
-   //void setMarker0();                             //
+ //void setMarker0();                               //
                                                     //
     private:                                        //
       QMenu*   m_pContextMenu;                      //
@@ -63,14 +64,15 @@ public:
    
    double SizeProportion;
    double SizeProportionCoordinates;
-   QSize SizeImage;
+   QSize  SizeImage;
    QPoint ClickPos;
 
-   const int START_WINDOW_SIZE = 650;
+   const int START_WINDOW_SIZE = 674;
    
 private:
    int StartSize;
    int StopSetStartSize;
+
    Q_SLOT void call_obj_params();
    Q_SLOT void call_camera_settings();
    Q_SLOT void call_calibration_coordinates();
@@ -78,14 +80,10 @@ private:
    Q_SLOT void redraw_image(QImage image);
    
    Q_SLOT void export_settings_slt();
-   
    Q_SLOT void import_settings_slt();
-   
+
    Q_SIGNAL void export_settings_sig2();
-   
    Q_SIGNAL void import_settings_sig();
-   
-   
    
    Ui::gui * ui_;
 
@@ -104,14 +102,14 @@ class object_params_t : public QMainWindow
 public:
    object_params_t(connector_t * connector, QWidget * parent = 0 );
    
-   Q_SLOT void set_min_h_q_slt_ot_g(int);
-   Q_SLOT void set_max_h_q_slt_ot_g(int);
-   Q_SLOT void set_min_s_q_slt_ot_g(int);
-   Q_SLOT void set_max_s_q_slt_ot_g(int);
-   Q_SLOT void set_min_v_q_slt_ot_g(int);
-   Q_SLOT void set_max_v_q_slt_ot_g(int);
-   Q_SLOT void set_min_size_q_slt_ot_g(int);
-   Q_SLOT void set_max_size_q_slt_ot_g(int);
+   Q_SLOT void set_min_h_q_slt_ot_g    (int);
+   Q_SLOT void set_max_h_q_slt_ot_g    (int);
+   Q_SLOT void set_min_s_q_slt_ot_g    (int);
+   Q_SLOT void set_max_s_q_slt_ot_g    (int);
+   Q_SLOT void set_min_v_q_slt_ot_g    (int);
+   Q_SLOT void set_max_v_q_slt_ot_g    (int);
+   Q_SLOT void set_min_size_q_slt_ot_g (int);
+   Q_SLOT void set_max_size_q_slt_ot_g (int);
 
 private:
    Ui::obj_params * obj_params_;
@@ -139,7 +137,6 @@ private:
    Ui::camera_settings * camera_settings_;
    
    connector_t * connector_;
-   
 };
 
 class calibration_coordinates_t : public QMainWindow
@@ -151,13 +148,33 @@ public:
    QPoint Marker2_CamCoordinates;
    QPoint Marker3_CamCoordinates;
    
-   void set_Marker1(int x, int y);
-   void set_Marker2(int x, int y);
-   void set_Marker3(int x, int y);
-   bool Marker_Set(int x, int y);
+   QPoint Marker1_WorldCoordinates;
+   QPoint Marker2_WorldCoordinates;
+   QPoint Marker3_WorldCoordinates;
+   
+//   Q_SLOT void export_settings_slt();        <<-----  <???>   Не используется
+//   Q_SLOT void import_settings_slt();
+   
+   void set_Marker1_cam_coord (int, int);
+   Q_SIGNAL void set_Marker1_cam_coord_sig (int, int);
+   void set_Marker2_cam_coord (int, int);
+   Q_SIGNAL void set_Marker2_cam_coord_sig (int, int);
+   void set_Marker3_cam_coord (int, int);
+   Q_SIGNAL void set_Marker3_cam_coord_sig (int, int);
+   
+   Q_SLOT void set_Marker1_X_world_coord_slt (double); Q_SIGNAL void set_Marker1_X_world_coord_sig (double);
+   Q_SLOT void set_Marker2_X_world_coord_slt (double); Q_SIGNAL void set_Marker2_X_world_coord_sig (double);
+   Q_SLOT void set_Marker3_X_world_coord_slt (double); Q_SIGNAL void set_Marker3_X_world_coord_sig (double);
+   Q_SLOT void set_Marker1_Y_world_coord_slt (double); Q_SIGNAL void set_Marker1_Y_world_coord_sig (double);
+   Q_SLOT void set_Marker2_Y_world_coord_slt (double); Q_SIGNAL void set_Marker2_Y_world_coord_sig (double);
+   Q_SLOT void set_Marker3_Y_world_coord_slt (double); Q_SIGNAL void set_Marker3_Y_world_coord_sig (double);
+   
+   bool Marker_Cam_Set (int, int);
 private:
    Ui::gui * ui_;
    Ui::calibration_coordinates * calibration_coordinates_;
+   settings_t * settings_;
+   connector_t * connector_;
 };
 
 class VideoLayout_t : public QLabel

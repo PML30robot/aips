@@ -1,8 +1,7 @@
 /* 
  * File:                   object_track.cpp
- * Author:                 Vladislav Kupyrin
- *                         Anton Fedotov
- * Export/import settings: Razuvaev Daniil
+ * Author:                 Anton Fedotov
+ *                         Razuvaev Daniil
  * 
  * Created on 14 Ноябрь 2015 г., 17:42
  */

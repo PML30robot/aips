@@ -1,9 +1,9 @@
 - object name: camera
   settings:
     - name: hardware brightness
-      value: 0.5078125
-    - name: hardware contrast
       value: 0.515625
+    - name: hardware contrast
+      value: 0.53125
     - name: hardware exposure
       value: -1
     - name: hardware gain
@@ -11,7 +11,7 @@
     - name: hardware hue
       value: 0.5027777552604675
     - name: hardware saturation
-      value: 0.5078125
+      value: 0.515625
     - name: software brightness
       value: 1
     - name: software contrast

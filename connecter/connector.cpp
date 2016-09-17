@@ -1,7 +1,6 @@
 /* 
  * File:   connecter.cpp
  * Author: Razuvaev Daniil
- *         Kupirin Vladislav
  *
  * Created on 28 ноября 2015 г., 17:09
  */
@@ -18,7 +17,7 @@ connector_t::connector_t()
 }
 
 /////////////////////////
-//        COMMON       //
+//        COMMON       /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////
 
 Q_SLOT void connector_t::export_settings_slt()
@@ -37,7 +36,7 @@ Q_SLOT void connector_t::get_image( QImage image )
 }
 
 /////////////////////////
-//        CAMERA       //
+//        CAMERA       /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////
 
 Q_SLOT void connector_t::set_brightness_h_q_slt_g_cam( double value )
@@ -122,7 +121,7 @@ Q_SLOT void connector_t::set_contrast_s_q_slt_cam_g(double contrast_s)
 }
 
 /////////////////////////
-//      OBJ DETECT     //
+//      OBJ DETECT     /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////
 
 Q_SLOT void connector_t::set_min_h_q_slt_g_ot(int min_h)
@@ -203,4 +202,57 @@ Q_SLOT void connector_t::set_min_size_q_slt_ot_g(int min_obj_size_)
 Q_SLOT void connector_t::set_max_size_q_slt_ot_g(int max_size)
 {
    emit set_max_size_q_sig_ot_g( max_size );
+}
+
+/////////////////////////
+//        PosSys       /////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////
+
+// Camera coordinations
+
+Q_SLOT void connector_t::set_Marker1_cam_coord_slt(int x, int y)
+{
+   emit set_Marker1_cam_coord_sig(x, y);
+}
+
+Q_SLOT void connector_t::set_Marker2_cam_coord_slt(int x, int y)
+{
+   emit set_Marker2_cam_coord_sig(x, y);
+}
+
+Q_SLOT void connector_t::set_Marker3_cam_coord_slt(int x, int y)
+{
+   emit set_Marker3_cam_coord_sig(x, y);
+}
+
+// World coordinations
+
+Q_SLOT void connector_t::set_Marker1_X_world_coord_slt (double x)
+{
+   emit set_Marker1_X_world_coord_sig (x);
+}
+
+Q_SLOT void connector_t::set_Marker2_X_world_coord_slt (double x)
+{
+   emit set_Marker2_X_world_coord_sig (x);
+}
+
+Q_SLOT void connector_t::set_Marker3_X_world_coord_slt (double x)
+{
+   emit set_Marker3_X_world_coord_sig (x);
+}
+
+Q_SLOT void connector_t::set_Marker1_Y_world_coord_slt (double y)
+{
+   emit set_Marker1_Y_world_coord_sig (y);
+}
+
+Q_SLOT void connector_t::set_Marker2_Y_world_coord_slt (double y)
+{
+   emit set_Marker2_Y_world_coord_sig (y);
+}
+
+Q_SLOT void connector_t::set_Marker3_Y_world_coord_slt (double y)
+{
+   emit set_Marker3_Y_world_coord_sig (y);
 }
