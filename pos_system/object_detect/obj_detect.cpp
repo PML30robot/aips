@@ -53,7 +53,7 @@ obj_detect_t::obj_detect_t( connector_t * connector ) :
    connect(this, SIGNAL (get_max_size_sig(int)), connector_, SLOT(set_max_size_q_slt_ot_g(int)));
 }
 
-void obj_detect_t::detect( const Mat & frame )
+Point obj_detect_t::detect( const Mat & frame )
 {  
    Mat origin_frame;
    
@@ -100,6 +100,7 @@ void obj_detect_t::detect( const Mat & frame )
       }
       
    }
+   return center_;
 }
 
 Q_SLOT size_t obj_detect_t::get_max_v( ) const

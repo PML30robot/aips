@@ -56,12 +56,14 @@ void pos_system_t::loop()
 
       camera_->get_frame(frame);
       
-      obj_detect_->detect(frame);
+      Point center = obj_detect_->detect(frame);
 
       obj_detect_->drawContour(frame);
       obj_detect_->drawPosition(frame);
       
       emit send_image(cvMatToQImage(frame));
+      
+      thinking(center.x,center.y);
    }
 }
 
@@ -87,6 +89,8 @@ QImage cvMatToQImage( cv::Mat const & frame )
    return img;
 }
 
+///////////////////////////////////SETTERS COORDINATES///////////////////////////////////
+//cam. coordinates
 Q_SLOT void pos_system_t::set_Marker1_cam_coord_slt(int x, int y)
 {
    MarkerCameraPos1_X = x;
@@ -105,8 +109,7 @@ Q_SLOT void pos_system_t::set_Marker3_cam_coord_slt(int x, int y)
    MarkerCameraPos3_Y = y;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//world coordinates
 Q_SLOT void pos_system_t::set_Marker1_X_world_coord_slt (double x)
 {
    MarkerWorldPos1_X = x;
@@ -135,4 +138,28 @@ Q_SLOT void pos_system_t::set_Marker2_Y_world_coord_slt (double y)
 Q_SLOT void pos_system_t::set_Marker3_Y_world_coord_slt (double y)
 {
    MarkerWorldPos3_Y = y;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void pos_system_t::thinking(int center_x,int center_y) // new
+{
+     // коорд. X относ. А
+   //Point pos_obj_A_of_marker;
+   
+   int obj_X = center_x;
+   int obj_Y = center_y;
+   int camera_pos_obj_of_null_marker_x = obj_X - MarkerCameraPos1_X;
+   int camera_pos_obj_of_null_marker_y = obj_Y - MarkerCameraPos1_Y;
+   
+   //cout << camera_pos_obj_of_null_marker_x << " " << camera_pos_obj_of_null_marker_y << endl;
+     // перевести координаты X относ. мировых координат
+   
+   double k = MarkerWorldPos2_X / MarkerCameraPos2_X;
+   //cout << MarkerWorldPos2_X << "/" << MarkerCameraPos2_X  <<"=" << k<< endl;
+   double world_pos_obj_of_null_marker_x = camera_pos_obj_of_null_marker_x * k;
+   double world_pos_obj_of_null_marker_y = camera_pos_obj_of_null_marker_y * k;
+   
+   //cout << "world_pos_obj_of_null_marker_x = " << world_pos_obj_of_null_marker_x << endl
+   //   << "world_pos_obj_of_null_marker_y = " << world_pos_obj_of_null_marker_y << endl;
 }

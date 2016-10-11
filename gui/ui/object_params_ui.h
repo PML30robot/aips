@@ -83,6 +83,7 @@ public:
         max_hue = new QSlider(gridLayoutWidget);
         max_hue->setObjectName(QString::fromUtf8("max_hue"));
         max_hue->setCursor(QCursor(Qt::SizeHorCursor));
+        max_hue->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         max_hue->setMaximum(255);
         max_hue->setValue(255);
         max_hue->setOrientation(Qt::Horizontal);
@@ -104,6 +105,7 @@ public:
         min_saturation = new QSlider(gridLayoutWidget);
         min_saturation->setObjectName(QString::fromUtf8("min_saturation"));
         min_saturation->setCursor(QCursor(Qt::SizeHorCursor));
+        min_saturation->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         min_saturation->setMaximum(255);
         min_saturation->setOrientation(Qt::Horizontal);
 
@@ -112,6 +114,7 @@ public:
         max_saturation = new QSlider(gridLayoutWidget);
         max_saturation->setObjectName(QString::fromUtf8("max_saturation"));
         max_saturation->setCursor(QCursor(Qt::SizeHorCursor));
+        max_saturation->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         max_saturation->setMaximum(255);
         max_saturation->setValue(255);
         max_saturation->setOrientation(Qt::Horizontal);
@@ -121,6 +124,7 @@ public:
         max_value = new QSlider(gridLayoutWidget);
         max_value->setObjectName(QString::fromUtf8("max_value"));
         max_value->setCursor(QCursor(Qt::SizeHorCursor));
+        max_value->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         max_value->setMaximum(255);
         max_value->setValue(255);
         max_value->setOrientation(Qt::Horizontal);
@@ -140,6 +144,7 @@ public:
         min_value = new QSlider(gridLayoutWidget);
         min_value->setObjectName(QString::fromUtf8("min_value"));
         min_value->setCursor(QCursor(Qt::SizeHorCursor));
+        min_value->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         min_value->setMaximum(255);
         min_value->setValue(0);
         min_value->setOrientation(Qt::Horizontal);
@@ -349,6 +354,7 @@ public:
         min_hue = new QSlider(gridLayoutWidget);
         min_hue->setObjectName(QString::fromUtf8("min_hue"));
         min_hue->setCursor(QCursor(Qt::SizeHorCursor));
+        min_hue->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         min_hue->setMaximum(255);
         min_hue->setOrientation(Qt::Horizontal);
 
@@ -357,6 +363,7 @@ public:
         min_size = new QSlider(gridLayoutWidget);
         min_size->setObjectName(QString::fromUtf8("min_size"));
         min_size->setCursor(QCursor(Qt::SizeHorCursor));
+        min_size->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         min_size->setMaximum(10000);
         min_size->setOrientation(Qt::Horizontal);
 
@@ -365,6 +372,7 @@ public:
         max_size = new QSlider(gridLayoutWidget);
         max_size->setObjectName(QString::fromUtf8("max_size"));
         max_size->setCursor(QCursor(Qt::SizeHorCursor));
+        max_size->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
         max_size->setMaximum(10000);
         max_size->setValue(10000);
         max_size->setOrientation(Qt::Horizontal);

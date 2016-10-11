@@ -39,14 +39,14 @@ class VideoLayout_t;
 class gui_t : public QMainWindow
 {
    Q_OBJECT
-
+   QImage IMAGE_;
 /////////////////////MENU/////////////////////////////
 private slots:                                      //
    void contextMenuRequested(const QPoint& point);  //
    void setMarker1();                               //
    void setMarker2();                               //
    void setMarker3();                               //
- //void setMarker0();                               //
+   void setColor();                                 //
                                                     //
     private:                                        //
       QMenu*   m_pContextMenu;                      //
@@ -110,6 +110,8 @@ public:
    Q_SLOT void set_max_v_q_slt_ot_g    (int);
    Q_SLOT void set_min_size_q_slt_ot_g (int);
    Q_SLOT void set_max_size_q_slt_ot_g (int);
+   
+   //void set_min_max_hue_ui_obj_params (int min, int max);
 
 private:
    Ui::obj_params * obj_params_;

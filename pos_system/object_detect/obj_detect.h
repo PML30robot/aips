@@ -21,7 +21,7 @@ class obj_detect_t : public QObject
 public:
    obj_detect_t( connector_t * connector );
    
-   void detect( const Mat & frame );
+   Point detect( const Mat & frame );
    
    void drawPosition(Mat &);
    void drawContour(Mat &);

@@ -25,6 +25,7 @@ public:
    ~pos_system_t();
    
    void loop();
+   void thinking(int,int);
 
 public slots:
    void stop_loop();
@@ -47,9 +48,9 @@ public:
    int MarkerCameraPos2_X; int MarkerCameraPos2_Y;  //  << Camera coordinates
    int MarkerCameraPos3_X; int MarkerCameraPos3_Y;
    
-   double MarkerWorldPos1_X; double MarkerWorldPos1_Y;
-   double MarkerWorldPos2_X; double MarkerWorldPos2_Y;    //  << World coordinates
-   double MarkerWorldPos3_X; double MarkerWorldPos3_Y;
+   double MarkerWorldPos1_X = 0; double MarkerWorldPos1_Y = 0;
+   double MarkerWorldPos2_X = 1; double MarkerWorldPos2_Y = 0;    //  << World coordinates
+   double MarkerWorldPos3_X = 0; double MarkerWorldPos3_Y = 1;
    ////////////////////////////////////
    
    

@@ -13,8 +13,11 @@
 #include <QPixmap>
 #include <unistd.h>
 #include <stdlib.h>
+#include <opencv2/imgproc/imgproc_c.h>
+#include <opencv2/imgproc.hpp>
 
 #include "gui.h"
+#include "math.h"
 #include "../settings/settings.h"
 
 
@@ -34,14 +37,14 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    m_pAction1 = m_pContextMenu->addAction("Set marker 1");                          //
    m_pAction2 = m_pContextMenu->addAction("Set marker 2");                          //
    m_pAction3 = m_pContextMenu->addAction("Set marker 3");                          //
-// m_pAction4 = m_pContextMenu->addAction("Something...");                          //
+   m_pAction4 = m_pContextMenu->addAction("Set color mask");                          //
                                                                                     //
    connect(this, SIGNAL(customContextMenuRequested(const QPoint)),this,             //
       SLOT(contextMenuRequested(const QPoint&)));                                   //
    connect(m_pAction1,SIGNAL(triggered()),this,SLOT(setMarker1()));                 //
    connect(m_pAction2,SIGNAL(triggered()),this,SLOT(setMarker2()));                 //
    connect(m_pAction3,SIGNAL(triggered()),this,SLOT(setMarker3()));                 //
-// connect(m_pAction4,SIGNAL(triggered()),this,SLOT(setMarker0()));                 //
+   connect(m_pAction4,SIGNAL(triggered()),this,SLOT(setColor()));                 //
 //////////////////////////////////////////////////////////////////////////////////////
    object_params_   = new object_params_t(connector);
    camera_settings_ = new camera_settings_t(connector);
@@ -101,6 +104,7 @@ Q_SLOT void gui_t::call_calibration_coordinates()
 
 Q_SLOT void gui_t::redraw_image(QImage image)
 {
+   IMAGE_ = image;
    VideoLayout_->setPixmap(QPixmap::fromImage(image));
    StartSize = 1;
    // берем пропорцию отсюда и сохраняем ее
@@ -355,12 +359,119 @@ Q_SLOT void gui_t::setMarker3()
    int yint = yy/1;
    calibration_coordinates_->set_Marker3_cam_coord(xint,yint);
 }
-// На всякий пожарный:
-//Q_SLOT void gui_t::setMarker0()
-//{
-//   std::cout << "0000" << endl;
-//}
 
+Q_SLOT void gui_t::setColor()
+{
+   QPoint ClickVar = VideoLayout_->getClickPos();
+   double xx = ClickVar.x();
+   double yy = ClickVar.y();
+   double SPC = SizeProportionCoordinates; 
+   xx = xx/SPC;
+   yy = yy/SPC;
+   int x = xx/1;
+   int y = yy/1;
+   //////////////////
+   QImage image = gui_t::IMAGE_;
+   
+   QPoint PixelPoint;
+   PixelPoint.setX(x);
+   PixelPoint.setY(y);
+   
+   QRgb RGB = image.pixel(PixelPoint);
+   
+   QColor color; color.setRgb(RGB);
+   
+   int R,G,B,A;
+   color.getRgb(&R, &G, &B, &A);
+   int H,S,V;
+   color.getHsv(&H, &S, &V);
+   if (H=-1)
+      H = 0;
+   cout << "Red =   " << R << endl
+      <<   "Green = " << G << endl
+      <<   "Blue =  " << B << endl;
+   int SProcent = (int) S/255*100; // %
+   int VProcent = (int) V/255*100; // %
+   cout << "H (цветовой тон) = " << H << endl
+      <<   "S (насыщенность) = " << SProcent << "%" << endl
+      <<   "V (яркость) =      " << VProcent << "%" << endl;
+   
+   const int POGRESHNOST = 25;
+   
+   if (H<POGRESHNOST)
+   {
+      gui_t::object_params_->set_min_h_q_slt_ot_g(H);
+      gui_t::object_params_->set_max_h_q_slt_ot_g(H+POGRESHNOST);
+      gui_t::object_params_->set_min_h_q_slt_ot_g(H);
+      gui_t::object_params_->set_max_h_q_slt_ot_g(H+POGRESHNOST);
+      
+   }
+   if (H>255-POGRESHNOST)
+   {
+      gui_t::object_params_->set_min_h_q_slt_ot_g(H-POGRESHNOST);
+      gui_t::object_params_->set_max_h_q_slt_ot_g(H);
+      gui_t::object_params_->set_min_h_q_slt_ot_g(H-POGRESHNOST);
+      gui_t::object_params_->set_max_h_q_slt_ot_g(H);
+   }
+   if ((H>POGRESHNOST) && (H<(255-POGRESHNOST)))
+   {
+      gui_t::object_params_->set_min_h_q_slt_ot_g(H-POGRESHNOST);
+      gui_t::object_params_->set_max_h_q_slt_ot_g(H+POGRESHNOST);
+      gui_t::object_params_->set_min_h_q_slt_ot_g(H-POGRESHNOST);
+      gui_t::object_params_->set_max_h_q_slt_ot_g(H+POGRESHNOST);
+   }
+   
+   if (S<POGRESHNOST)
+   {
+      gui_t::object_params_->set_min_s_q_slt_ot_g(S);
+      gui_t::object_params_->set_max_s_q_slt_ot_g(S+POGRESHNOST);
+      gui_t::object_params_->set_min_s_q_slt_ot_g(S);
+      gui_t::object_params_->set_max_s_q_slt_ot_g(S+POGRESHNOST);
+      
+   }
+   if (S>255-POGRESHNOST)
+   {
+      gui_t::object_params_->set_min_s_q_slt_ot_g(S-POGRESHNOST);
+      gui_t::object_params_->set_max_s_q_slt_ot_g(S);
+      gui_t::object_params_->set_min_s_q_slt_ot_g(S-POGRESHNOST);
+      gui_t::object_params_->set_max_s_q_slt_ot_g(S);
+   }
+   if ((S>POGRESHNOST) && (S<(255-POGRESHNOST)))
+   {
+      gui_t::object_params_->set_min_s_q_slt_ot_g(S-POGRESHNOST);
+      gui_t::object_params_->set_max_s_q_slt_ot_g(S+POGRESHNOST);
+      gui_t::object_params_->set_min_s_q_slt_ot_g(S-POGRESHNOST);
+      gui_t::object_params_->set_max_s_q_slt_ot_g(S+POGRESHNOST);
+   }
+   
+   if (V<POGRESHNOST)
+   {
+      gui_t::object_params_->set_min_v_q_slt_ot_g(V);
+      gui_t::object_params_->set_max_v_q_slt_ot_g(V+POGRESHNOST);
+      gui_t::object_params_->set_min_v_q_slt_ot_g(V);
+      gui_t::object_params_->set_max_v_q_slt_ot_g(V+POGRESHNOST);
+   }
+   if (V>255-POGRESHNOST)
+   {
+      gui_t::object_params_->set_min_v_q_slt_ot_g(V-POGRESHNOST);
+      gui_t::object_params_->set_max_v_q_slt_ot_g(V);
+      gui_t::object_params_->set_min_v_q_slt_ot_g(V-POGRESHNOST);
+      gui_t::object_params_->set_max_v_q_slt_ot_g(V);
+   }
+   if ((V>POGRESHNOST) && (V<(255-POGRESHNOST)))
+   {
+      gui_t::object_params_->set_min_v_q_slt_ot_g(V-POGRESHNOST);
+      gui_t::object_params_->set_max_v_q_slt_ot_g(V+POGRESHNOST);
+      gui_t::object_params_->set_min_v_q_slt_ot_g(V-POGRESHNOST);
+      gui_t::object_params_->set_max_v_q_slt_ot_g(V+POGRESHNOST);
+   }
+}
+
+//void object_params_t::set_min_max_hue_ui_obj_params (int min, int max)
+//{
+//   Ui_obj_params->min_hue->setValue(min);
+//   Ui_obj_params->max_hue->setValue(max);
+//}
 ////////////////////////////////////////////////////////////////////////////////////////
 
 calibration_coordinates_t::calibration_coordinates_t( connector_t * connector, QWidget * parent ) :

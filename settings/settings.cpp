@@ -124,9 +124,10 @@ void settings_t::export_settings()
           << EndMap;
    }
 
-     out << EndSeq << EndMap << EndSeq
-         << Newline << Newline;
-     fout << out.c_str();
+out << EndSeq << EndMap << EndSeq
+   << Newline << Newline;
+fout << out.c_str();
+cout << "SETTINGS: Settings \""<< object_name_ <<"\" have been successfully exported." << endl;
 }
 
 void settings_t::add_setting(string setting_name,double* value)
