@@ -9,6 +9,9 @@
 
 #include <QObject>
 #include <QImage>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
 
 class connector_t : public QObject
 {
@@ -27,6 +30,11 @@ public:
    Q_SLOT void import_settings_slt();
 
    Q_SLOT void get_image( QImage image );
+   //Q_SLOT void get_Frame( cv::Mat f );
+   Q_SLOT void set_color_pos_slt(int, int);
+   
+   Q_SLOT void get_HSV(int , int ,int);
+//   Q_SLOT void test (Mat);
    
 //                           gui --> camera
    
@@ -92,6 +100,7 @@ public:
 
    // common 
    Q_SIGNAL void send_image( QImage image );
+   Q_SIGNAL void send_HSV( int,int,int );
 
    Q_SIGNAL void stop_all_sig();
    
@@ -148,6 +157,8 @@ public:
    Q_SIGNAL void set_max_size_q_sig_g_ot( int max_size );
    
 //                          gui --> PosSys
+   
+   Q_SIGNAL void set_color_pos_sig(int x, int y);
    
    Q_SIGNAL void set_Marker1_cam_coord_sig(int, int);
    Q_SIGNAL void set_Marker2_cam_coord_sig(int, int);

@@ -37,14 +37,14 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    m_pAction1 = m_pContextMenu->addAction("Set marker 1");                          //
    m_pAction2 = m_pContextMenu->addAction("Set marker 2");                          //
    m_pAction3 = m_pContextMenu->addAction("Set marker 3");                          //
-   m_pAction4 = m_pContextMenu->addAction("Set color mask");                          //
+   m_pAction4 = m_pContextMenu->addAction("Set color mask");                        //
                                                                                     //
    connect(this, SIGNAL(customContextMenuRequested(const QPoint)),this,             //
       SLOT(contextMenuRequested(const QPoint&)));                                   //
    connect(m_pAction1,SIGNAL(triggered()),this,SLOT(setMarker1()));                 //
    connect(m_pAction2,SIGNAL(triggered()),this,SLOT(setMarker2()));                 //
    connect(m_pAction3,SIGNAL(triggered()),this,SLOT(setMarker3()));                 //
-   connect(m_pAction4,SIGNAL(triggered()),this,SLOT(setColor()));                 //
+   connect(m_pAction4,SIGNAL(triggered()),this,SLOT(setColor()));                   //
 //////////////////////////////////////////////////////////////////////////////////////
    object_params_   = new object_params_t(connector);
    camera_settings_ = new camera_settings_t(connector);
@@ -60,8 +60,10 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    connect(ui_->Export_settings, SIGNAL(triggered()),this      , SLOT(export_settings_slt()));
    
    connect(this, SIGNAL(export_settings_sig2()), connector_, SLOT(export_settings_slt()));
+   connect(this, SIGNAL(set_color_pos_sig(int, int)),connector_, SLOT (set_color_pos_slt(int, int)));
    
    connect(connector_, SIGNAL(send_image(QImage)), this, SLOT(redraw_image(QImage)));
+   connect(connector_, SIGNAL(send_HSV(int,int,int)), this, SLOT(set_HSV(int,int,int)));
 
    ui_->label->setMinimumSize(1,1);
    
@@ -115,6 +117,14 @@ Q_SLOT void gui_t::redraw_image(QImage image)
    if(StopSetStartSize == 0)
       setStartSize();
 }
+
+Q_SLOT void gui_t::set_HSV(int h,int s,int v)
+{
+   H = h;
+   S = s;
+   V = v;
+}
+
 
 object_params_t::object_params_t( connector_t * connector, QWidget * parent ) :
    obj_params_ ( new Ui::obj_params )
@@ -371,32 +381,40 @@ Q_SLOT void gui_t::setColor()
    int x = xx/1;
    int y = yy/1;
    //////////////////
-   QImage image = gui_t::IMAGE_;
+   //QImage image = gui_t::IMAGE_;
+   
+   
    
    QPoint PixelPoint;
    PixelPoint.setX(x);
    PixelPoint.setY(y);
    
-   QRgb RGB = image.pixel(PixelPoint);
+//   QRgb RGB = image.pixel(PixelPoint);
+//   
+//   QColor color; color.setRgb(RGB);
+//   
+//   int R,G,B,A;
+//   color.getRgb(&R, &G, &B, &A);
+//   int H,S,V;
+//   color.getHsv(&H, &S, &V);
+//   if (H=-1)
+//      H = 0;
+//   cout << "Red =   " << R << endl
+//      <<   "Green = " << G << endl
+//      <<   "Blue =  " << B << endl;
+//   int SProcent = (int) S/255*100; // %
+//   int VProcent = (int) V/255*100; // %
+//   cout << "H (цветовой тон) = " << H << endl
+//      <<   "S (насыщенность) = " << SProcent << "%" << endl
+//      <<   "V (яркость) =      " << VProcent << "%" << endl;
    
-   QColor color; color.setRgb(RGB);
+   emit set_color_pos_sig(x,y);
    
-   int R,G,B,A;
-   color.getRgb(&R, &G, &B, &A);
-   int H,S,V;
-   color.getHsv(&H, &S, &V);
-   if (H=-1)
-      H = 0;
-   cout << "Red =   " << R << endl
-      <<   "Green = " << G << endl
-      <<   "Blue =  " << B << endl;
-   int SProcent = (int) S/255*100; // %
-   int VProcent = (int) V/255*100; // %
-   cout << "H (цветовой тон) = " << H << endl
-      <<   "S (насыщенность) = " << SProcent << "%" << endl
-      <<   "V (яркость) =      " << VProcent << "%" << endl;
    
-   const int POGRESHNOST = 25;
+
+   
+   
+   const int POGRESHNOST = 15;
    
    if (H<POGRESHNOST)
    {

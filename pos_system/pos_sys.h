@@ -26,6 +26,7 @@ public:
    
    void loop();
    void thinking(int,int);
+   Mat FRAME_;
 
 public slots:
    void stop_loop();
@@ -43,6 +44,10 @@ public slots:
 
 public:
    Q_SIGNAL void send_image( QImage image );
+   Q_SIGNAL void send_HSV( int,int,int );
+   //Q_SLOT void get_HSV(int , int ,int);
+   Q_SLOT void set_color_pos_slt(int x, int y);
+   int X_test = 0,Y_test = 0;
    ////////////COORDINATES////////////
    int MarkerCameraPos1_X; int MarkerCameraPos1_Y;
    int MarkerCameraPos2_X; int MarkerCameraPos2_Y;  //  << Camera coordinates

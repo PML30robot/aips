@@ -6,10 +6,15 @@
  */
 
 #include <iostream>
+#include <QMetaType>
 
 #include "connector.h"
 #include "../camera/camera.h"
+#include <opencv2/opencv.hpp>
 
+Q_DECLARE_METATYPE(cv::Mat)
+
+using namespace cv;
 using namespace std;
 
 connector_t::connector_t()
@@ -34,6 +39,21 @@ Q_SLOT void connector_t::get_image( QImage image )
 {
    emit send_image(image);
 }
+
+Q_SLOT void connector_t::get_HSV( int H,int S, int V )
+{
+   emit send_HSV(H,S,V);
+}
+
+Q_SLOT void connector_t::set_color_pos_slt(int x, int y)
+{
+   emit set_color_pos_sig(x, y);
+}
+
+//Q_SLOT void connector_t::test(Mat t )
+//{
+//   //emit send_Frame(t);
+//}
 
 /////////////////////////
 //        CAMERA       /////////////////////////////////////////////////////////////////////////////////////

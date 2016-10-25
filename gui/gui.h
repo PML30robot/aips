@@ -72,18 +72,22 @@ public:
 private:
    int StartSize;
    int StopSetStartSize;
-
+   int H,S,V;
+   
+   
    Q_SLOT void call_obj_params();
    Q_SLOT void call_camera_settings();
    Q_SLOT void call_calibration_coordinates();
    
    Q_SLOT void redraw_image(QImage image);
+   Q_SLOT void set_HSV (int,int,int);
    
    Q_SLOT void export_settings_slt();
    Q_SLOT void import_settings_slt();
 
    Q_SIGNAL void export_settings_sig2();
    Q_SIGNAL void import_settings_sig();
+   Q_SIGNAL void set_color_pos_sig(int, int);
    
    Ui::gui * ui_;
 

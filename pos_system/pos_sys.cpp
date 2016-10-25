@@ -10,6 +10,7 @@
 #include <opencv2/opencv.hpp>
 
 #include <vector>
+#include <QMetaType>
 
 #include "../settings/settings.h"
 
@@ -27,6 +28,11 @@ pos_system_t::pos_system_t( connector_t * connector ) :
    obj_detect_ = new obj_detect_t(connector_);
 
    connect(this, SIGNAL(send_image(QImage)), connector_, SLOT(get_image(QImage)));
+   
+   qRegisterMetaType<cv::Mat>("Mat");
+   
+   connect(connector_,SIGNAL(set_color_pos_sig(int, int)),this,SLOT(set_color_pos_slt(int, int)));
+   connect(this, SIGNAL(send_HSV(int,int,int)), connector_, SLOT(get_HSV(int,int,int)));
    
    connect(connector_, SIGNAL(stop_all_sig()), this, SLOT(stop_loop()));
    
@@ -53,15 +59,22 @@ void pos_system_t::loop()
    while (is_working_)
    {
       Mat frame;
-
+      
       camera_->get_frame(frame);
       
       Point center = obj_detect_->detect(frame);
-
+      
       obj_detect_->drawContour(frame);
       obj_detect_->drawPosition(frame);
       
+      //cv::Point pointXYtest;
+      //pointXYtest.x = X_test;
+      //pointXYtest.y = Y_test;
+      //circle(frame, pointXYtest, 2, Scalar(255, 0, 0), 2);
+      
       emit send_image(cvMatToQImage(frame));
+      FRAME_ = frame;
+      
       
       thinking(center.x,center.y);
    }
@@ -138,6 +151,21 @@ Q_SLOT void pos_system_t::set_Marker2_Y_world_coord_slt (double y)
 Q_SLOT void pos_system_t::set_Marker3_Y_world_coord_slt (double y)
 {
    MarkerWorldPos3_Y = y;
+}
+
+Q_SLOT void pos_system_t::set_color_pos_slt(int x, int y){
+   cv::Mat newHSWframe;
+   cvtColor(FRAME_, newHSWframe, CV_RGB2HSV);
+   cv::Vec3b color_hsv = newHSWframe.at<cv::Vec3b>(cv::Point(x,y));///////////////////////////////////////////////<<< (!!!!!!)
+   
+   int H = color_hsv.val[0];
+   int S = color_hsv.val[1];
+   int V = color_hsv.val[2];
+   
+   X_test = x;
+   Y_test = y;
+   
+   emit send_HSV(H,S,V);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

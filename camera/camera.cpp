@@ -176,6 +176,7 @@ double camera_t::get_brightness( ) const
 void camera_t::get_frame( Mat & frame )
 {
    capture_->read(frame);
+   //frame = cv::imread("picture.png");
    frame.convertTo(frame, -1, contrast_s_, brightness_s_);
 }
 
