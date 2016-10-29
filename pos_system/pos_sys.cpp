@@ -67,10 +67,10 @@ void pos_system_t::loop()
       obj_detect_->drawContour(frame);
       obj_detect_->drawPosition(frame);
       
-      //cv::Point pointXYtest;
-      //pointXYtest.x = X_test;
-      //pointXYtest.y = Y_test;
-      //circle(frame, pointXYtest, 2, Scalar(255, 0, 0), 2);
+      cv::Point pointXYtest;
+      pointXYtest.x = X_test;
+      pointXYtest.y = Y_test;
+      circle(frame, pointXYtest, 2, Scalar(255, 0, 0), 2);
       
       emit send_image(cvMatToQImage(frame));
       FRAME_ = frame;
@@ -179,15 +179,17 @@ void pos_system_t::thinking(int center_x,int center_y) // new
    int obj_Y = center_y;
    int camera_pos_obj_of_null_marker_x = obj_X - MarkerCameraPos1_X;
    int camera_pos_obj_of_null_marker_y = obj_Y - MarkerCameraPos1_Y;
-   
-   //cout << camera_pos_obj_of_null_marker_x << " " << camera_pos_obj_of_null_marker_y << endl;
+   int MarkerCameraPos2_of_null_marker_x = MarkerCameraPos2_X - MarkerCameraPos1_X;
+   int MarkerCameraPos2_of_null_marker_y = MarkerCameraPos2_Y - MarkerCameraPos1_Y;
+   cout <<"Object's coordinates of camera (x,y):  "<< camera_pos_obj_of_null_marker_x << ", " << camera_pos_obj_of_null_marker_y << endl;
      // перевести координаты X относ. мировых координат
    
-   double k = MarkerWorldPos2_X / MarkerCameraPos2_X;
+   double k = MarkerWorldPos2_X / MarkerCameraPos2_of_null_marker_x;//пропорция ОТНОСИТЕЛЬНО НУЛЬ-МАРКЕРА!!!
+   
    //cout << MarkerWorldPos2_X << "/" << MarkerCameraPos2_X  <<"=" << k<< endl;
    double world_pos_obj_of_null_marker_x = camera_pos_obj_of_null_marker_x * k;
    double world_pos_obj_of_null_marker_y = camera_pos_obj_of_null_marker_y * k;
    
-   //cout << "world_pos_obj_of_null_marker_x = " << world_pos_obj_of_null_marker_x << endl
-   //   << "world_pos_obj_of_null_marker_y = " << world_pos_obj_of_null_marker_y << endl;
+   cout << "world_pos_obj_of_null_marker_x = " << world_pos_obj_of_null_marker_x << endl
+      << "world_pos_obj_of_null_marker_y = " << world_pos_obj_of_null_marker_y << endl;
 }

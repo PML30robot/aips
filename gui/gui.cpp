@@ -66,7 +66,6 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    connect(connector_, SIGNAL(send_HSV(int,int,int)), this, SLOT(set_HSV(int,int,int)));
 
    ui_->label->setMinimumSize(1,1);
-   
    VideoLayout_ = new VideoLayout_t;
    VideoLayout_->setScaledContents(true);
    VideoLayout_->setMinimumSize(1,1);
@@ -74,6 +73,13 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    VideoLayout_->setParent(ui_->label);
    VideoLayout_->show();
    SizeProportionCoordinates = 1;
+   
+   calibration_coordinates_->set_Marker1_cam_coord(10,10);
+   calibration_coordinates_->set_Marker2_cam_coord(11,10);
+   calibration_coordinates_->set_Marker3_cam_coord(10,11);
+   calibration_coordinates_->set_Marker1_cam_coord(0,0);
+   calibration_coordinates_->set_Marker2_cam_coord(1,0);
+   calibration_coordinates_->set_Marker3_cam_coord(0,1);
 }
 
 void gui_t::closeEvent(QCloseEvent* event)
@@ -114,8 +120,11 @@ Q_SLOT void gui_t::redraw_image(QImage image)
    double W = image.size().width();
    SizeImage = image.size();
    SizeProportion = H/W;
-   if(StopSetStartSize == 0)
-      setStartSize();
+   if(StopSetStartSize == 0)// если resize запускается первый раз
+   {
+      gui_t::resize(START_WINDOW_SIZE,START_WINDOW_SIZE);// запустить resize со стартовыми значениями
+      setStartSize();//делаем перерасчет пропорции, переresize
+   }
 }
 
 Q_SLOT void gui_t::set_HSV(int h,int s,int v)
@@ -414,7 +423,7 @@ Q_SLOT void gui_t::setColor()
 
    
    
-   const int POGRESHNOST = 15;
+   
    
    if (H<POGRESHNOST)
    {

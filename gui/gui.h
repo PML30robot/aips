@@ -68,7 +68,7 @@ public:
    QPoint ClickPos;
 
    const int START_WINDOW_SIZE = 674;
-   
+   const int POGRESHNOST = 10;// погрешность пипетки
 private:
    int StartSize;
    int StopSetStartSize;
