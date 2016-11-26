@@ -46,6 +46,8 @@ pos_system_t::pos_system_t( connector_t * connector ) :
    connect(connector_, SIGNAL(set_Marker1_Y_world_coord_sig (double)), this, SLOT(set_Marker1_Y_world_coord_slt (double)));
    connect(connector_, SIGNAL(set_Marker2_Y_world_coord_sig (double)), this, SLOT(set_Marker2_Y_world_coord_slt (double)));
    connect(connector_, SIGNAL(set_Marker3_Y_world_coord_sig (double)), this, SLOT(set_Marker3_Y_world_coord_slt (double)));
+   
+   connect(connector_, SIGNAL(NumberToPosSys_sig (int)), this, SLOT(NumberToPosSys_slt (int)));
 }
 
 pos_system_t::~pos_system_t( )
@@ -61,11 +63,12 @@ void pos_system_t::loop()
       Mat frame;
       
       camera_->get_frame(frame);
-      
-      Point center = obj_detect_->detect(frame);
-      
-      obj_detect_->drawContour(frame);
-      obj_detect_->drawPosition(frame);
+      if (Nummm > 0)
+      {
+         Point center = obj_detect_->detect(frame);
+         
+         obj_detect_->drawContour(frame);
+         obj_detect_->drawPosition(frame);
       
       cv::Point pointXYtest;
       pointXYtest.x = X_test;
@@ -77,6 +80,7 @@ void pos_system_t::loop()
       
       
       thinking(center.x,center.y);
+      }
    }
 }
 
@@ -192,4 +196,9 @@ void pos_system_t::thinking(int center_x,int center_y) // new
    
    cout << "world_pos_obj_of_null_marker_x = " << world_pos_obj_of_null_marker_x << endl
       << "world_pos_obj_of_null_marker_y = " << world_pos_obj_of_null_marker_y << endl;
+}
+
+Q_SLOT void pos_system_t::NumberToPosSys_slt (int num)
+{
+   Nummm = num;
 }

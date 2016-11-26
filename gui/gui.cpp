@@ -15,10 +15,12 @@
 #include <stdlib.h>
 #include <opencv2/imgproc/imgproc_c.h>
 #include <opencv2/imgproc.hpp>
+#include <qt4/QtGui/qabstractitemview.h>
 
 #include "gui.h"
 #include "math.h"
 #include "../settings/settings.h"
+
 
 
 gui_t::gui_t( connector_t * connector, QWidget * parent ) :
@@ -49,6 +51,8 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    object_params_   = new object_params_t(connector);
    camera_settings_ = new camera_settings_t(connector);
    calibration_coordinates_ = new calibration_coordinates_t(connector);
+   qNumber_ = new qNumber_t(connector);
+   qNumber_->show();
    setMouseTracking(true);
    ui_->setupUi(this);
    
@@ -64,7 +68,7 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    
    connect(connector_, SIGNAL(send_image(QImage)), this, SLOT(redraw_image(QImage)));
    connect(connector_, SIGNAL(send_HSV(int,int,int)), this, SLOT(set_HSV(int,int,int)));
-
+   
    ui_->label->setMinimumSize(1,1);
    VideoLayout_ = new VideoLayout_t;
    VideoLayout_->setScaledContents(true);
@@ -539,7 +543,6 @@ calibration_coordinates_t::calibration_coordinates_t( connector_t * connector, Q
    connect(this, SIGNAL(set_Marker2_Y_world_coord_sig(double)), connector_, SLOT(set_Marker2_Y_world_coord_slt(double)));
    connect(this, SIGNAL(set_Marker3_Y_world_coord_sig(double)), connector_, SLOT(set_Marker3_Y_world_coord_slt(double)));
    
-   
 }
 
 void calibration_coordinates_t::set_Marker1_cam_coord(int x, int y)
@@ -662,4 +665,19 @@ VideoLayout_t::VideoLayout_t(){
 }
 QPoint VideoLayout_t::getClickPos(){
    return ClickPos;
+}
+
+qNumber_t::qNumber_t( connector_t * connector ):
+ qNumber_ ( new Ui::qNumber )
+, connector_  ( connector )
+{
+   qNumber_->setupUi(this);
+   
+   connect(qNumber_->OK, SIGNAL(clicked()), this, SLOT(OK()));
+   connect(this, SIGNAL(NumberToPosSys_sig(int)), connector_, SLOT(NumberToPosSys_slt(int)));
+}
+
+Q_SLOT void qNumber_t::OK()
+{
+   emit NumberToPosSys_sig(qNumber_->number->value());
 }

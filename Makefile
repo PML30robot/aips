@@ -67,6 +67,7 @@ ui:
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/object_params.ui -o $(GUI_DIR)/$(UI_DIR)/object_params_ui.h
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/camera_settings.ui -o $(GUI_DIR)/$(UI_DIR)/camera_settings_ui.h
 	uic-qt4 $(GUI_DIR)/$(UI_DIR)/calibration_coordinates.ui -o $(GUI_DIR)/$(UI_DIR)/calibration_coordinates_ui.h
+	uic-qt4 $(GUI_DIR)/$(UI_DIR)/qNumber.ui -o $(GUI_DIR)/$(UI_DIR)/qNumber_ui.h
 	
 clean:
 	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/$(TARGET)

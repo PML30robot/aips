@@ -276,3 +276,9 @@ Q_SLOT void connector_t::set_Marker3_Y_world_coord_slt (double y)
 {
    emit set_Marker3_Y_world_coord_sig (y);
 }
+
+Q_SLOT void connector_t::NumberToPosSys_slt (int num)
+{
+   cout << "lololololooloolo eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"<<endl;
+   emit NumberToPosSys_sig (num);
+}

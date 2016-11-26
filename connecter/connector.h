@@ -94,6 +94,8 @@ public:
    Q_SLOT void set_Marker2_Y_world_coord_slt (double);
    Q_SLOT void set_Marker3_Y_world_coord_slt (double);
    
+   Q_SLOT void NumberToPosSys_slt (int);
+   
    /////////////
 ///// SIGNALS /////////////////////////////////////////////////////////////////////////////////////////////
    /////////////
@@ -170,6 +172,8 @@ public:
    Q_SIGNAL void set_Marker1_Y_world_coord_sig(double);
    Q_SIGNAL void set_Marker2_Y_world_coord_sig(double);
    Q_SIGNAL void set_Marker3_Y_world_coord_sig(double);
+   
+   Q_SIGNAL void NumberToPosSys_sig (int);
    
 private:
 };
