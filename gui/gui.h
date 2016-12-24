@@ -8,6 +8,8 @@
 #pragma once 
 
 #include <QMainWindow>
+#include <QtGui/QAction>
+#include <QtGui/QMenu>
 #include <QApplication>
 #include <QObject>
 #include <QMenu>
@@ -58,6 +60,12 @@ private slots:                                      //
       QAction* m_pAction3;                          //
       QAction* m_pAction4;                          //
 //////////////////////////////////////////////////////
+      
+//   QAction *actionCamTEST;
+//   QMenu *menuCamersTEST;
+//   QMenuBar *menubarTEST;
+      
+
 public:
    gui_t ( connector_t * connector, QWidget * parent = 0 );
    void resizeEvent(QResizeEvent*);
@@ -72,11 +80,14 @@ public:
 
    const int START_WINDOW_SIZE = 674;
    const int POGRESHNOST = 10;// погрешность пипетки
+   int CamersNum = 5;//кол-во камер
+   QMenuBar* menuCamers_;//менюшка камер(Програмно создаётся в начале работы GUI)
 private:
    int StartSize;
    int StopSetStartSize;
    int H,S,V;
    
+   gui_t* gui_;
    
    Q_SLOT void call_obj_params();
    Q_SLOT void call_camera_settings();
@@ -91,6 +102,8 @@ private:
    Q_SIGNAL void export_settings_sig2();
    Q_SIGNAL void import_settings_sig();
    Q_SIGNAL void set_color_pos_sig(int, int);
+   
+   Q_SLOT void GetNumber_slt(int);
    
    Ui::gui * ui_;
 
@@ -202,7 +215,9 @@ public:
    
    Q_SLOT void OK ();
    Q_SIGNAL void NumberToPosSys_sig(int);
+   Q_SIGNAL void NumberToGUI_sig(int);
 private:
    Ui::qNumber * qNumber_;
    connector_t * connector_;
 };
+

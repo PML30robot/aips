@@ -16,6 +16,8 @@
 #include <opencv2/imgproc/imgproc_c.h>
 #include <opencv2/imgproc.hpp>
 #include <qt4/QtGui/qabstractitemview.h>
+#include <qt4/QtGui/qwidget.h>
+#include <qt4/QtGui/qmainwindow.h>
 
 #include "gui.h"
 #include "math.h"
@@ -29,11 +31,10 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
 {
    StartSize = 0;
    StopSetStartSize = 0;
-
+   
 /////////////////////////////////////////MENU/////////////////////////////////////////
    m_pContextMenu = new QMenu(this);                                                //
                                                                                     //
-// setWindowTitle("Show Menu on Right Click and Trigger Actions");                  //
    setContextMenuPolicy(Qt::CustomContextMenu);                                     //
                                                                                     //
    m_pAction1 = m_pContextMenu->addAction("Set marker 1");                          //
@@ -48,6 +49,7 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    connect(m_pAction3,SIGNAL(triggered()),this,SLOT(setMarker3()));                 //
    connect(m_pAction4,SIGNAL(triggered()),this,SLOT(setColor()));                   //
 //////////////////////////////////////////////////////////////////////////////////////
+   
    object_params_   = new object_params_t(connector);
    camera_settings_ = new camera_settings_t(connector);
    calibration_coordinates_ = new calibration_coordinates_t(connector);
@@ -69,6 +71,10 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    connect(connector_, SIGNAL(send_image(QImage)), this, SLOT(redraw_image(QImage)));
    connect(connector_, SIGNAL(send_HSV(int,int,int)), this, SLOT(set_HSV(int,int,int)));
    
+   Q_SLOT void GetNumber_slt(int);
+   connect(connector_, SIGNAL(NumberToGUI_sig(int)), this, SLOT(GetNumber_slt(int)));
+   
+   
    ui_->label->setMinimumSize(1,1);
    VideoLayout_ = new VideoLayout_t;
    VideoLayout_->setScaledContents(true);
@@ -84,6 +90,24 @@ gui_t::gui_t( connector_t * connector, QWidget * parent ) :
    calibration_coordinates_->set_Marker1_cam_coord(0,0);
    calibration_coordinates_->set_Marker2_cam_coord(1,0);
    calibration_coordinates_->set_Marker3_cam_coord(0,1);
+   
+   /////////////////////////////////////////////CAMERS MENU////////////////////////////////
+//   QWidget* centralWidget = new QWidget(this);
+//	menuCamers_ = new QMenuBar(centralWidget);
+//	QMenu* menu1 = new QMenu("Camers");
+//   
+//   QAction** CamersMenu = new QAction*[CamersNum+1];
+//   for (int i = 1;i<CamersNum+1;i++)
+//   {
+//      QString str = "Camera " + QString::number(i);
+//      CamersMenu[i] = menu1->addAction(str);	
+//   //menu1->addMenu(new QMenu("SubMenu"));
+//   }
+//	menuCamers_->addMenu(menu1);
+//   menuCamers_->show();
+//	
+//   this->show();
+//   
 }
 
 void gui_t::closeEvent(QCloseEvent* event)
@@ -93,6 +117,7 @@ void gui_t::closeEvent(QCloseEvent* event)
    object_params_->close();
    camera_settings_->close();
    calibration_coordinates_->close();
+   qNumber_->close();
 
    delete object_params_;
    delete camera_settings_;
@@ -675,9 +700,38 @@ qNumber_t::qNumber_t( connector_t * connector ):
    
    connect(qNumber_->OK, SIGNAL(clicked()), this, SLOT(OK()));
    connect(this, SIGNAL(NumberToPosSys_sig(int)), connector_, SLOT(NumberToPosSys_slt(int)));
+   connect(this, SIGNAL(NumberToGUI_sig(int)), connector_, SLOT(NumberToGUI_slt(int)));
 }
 
 Q_SLOT void qNumber_t::OK()
 {
    emit NumberToPosSys_sig(qNumber_->number->value());
+   emit NumberToGUI_sig(qNumber_->number->value());
+}
+
+//Q_SLOT void GetNumber_slt(int);
+//   connect(this, SIGNAL(NumberToGUI_sig(int)), connector_, SLOT(NumberToGUI_slt(int)));
+Q_SLOT void gui_t::GetNumber_slt(int num)
+{
+   CamersNum = num;
+//  /////////////////////////////////////////////CAMERS MENU////////////////////////////////
+   QMenu *menu_camers;
+   menu_camers = new QMenu(ui_->menubar);
+   menu_camers->setObjectName(QString::fromUtf8("menu_camers"));
+   
+   QAction** CamersMenu = new QAction*[CamersNum+1];
+   for (int i = 1;i<CamersNum+1;i++)
+   {
+      QString str = "Camera " + QString::number(i);
+      CamersMenu[i] = menu_camers->addAction(str);	
+   //menu1->addMenu(new QMenu("SubMenu"));
+   }
+
+	
+//   this->update();
+   
+
+   ui_->menubar->addAction(menu_camers->menuAction());
+   //menu_camers->addAction();
+   menu_camers->setTitle(QApplication::translate("gui", "Camers", 0, QApplication::UnicodeUTF8));
 }

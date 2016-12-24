@@ -38,6 +38,8 @@ public:
     QAction *Import_settings;
     QAction *Export_settings;
     QAction *ot_calibration_coordinates;
+    QAction *actionCammmmm12121;
+    QAction *actionCAMERA000001;
     QWidget *centralwidget;
     QLabel *label;
     QMenuBar *menubar;
@@ -99,6 +101,10 @@ public:
         Export_settings->setObjectName(QString::fromUtf8("Export_settings"));
         ot_calibration_coordinates = new QAction(gui);
         ot_calibration_coordinates->setObjectName(QString::fromUtf8("ot_calibration_coordinates"));
+        actionCammmmm12121 = new QAction(gui);
+        actionCammmmm12121->setObjectName(QString::fromUtf8("actionCammmmm12121"));
+        actionCAMERA000001 = new QAction(gui);
+        actionCAMERA000001->setObjectName(QString::fromUtf8("actionCAMERA000001"));
         centralwidget = new QWidget(gui);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         label = new QLabel(centralwidget);
@@ -152,6 +158,8 @@ public:
         Import_settings->setText(QApplication::translate("gui", "Import settings", 0, QApplication::UnicodeUTF8));
         Export_settings->setText(QApplication::translate("gui", "Export settings", 0, QApplication::UnicodeUTF8));
         ot_calibration_coordinates->setText(QApplication::translate("gui", "Calibration coordinates", 0, QApplication::UnicodeUTF8));
+        actionCammmmm12121->setText(QApplication::translate("gui", "Cammmmm12121", 0, QApplication::UnicodeUTF8));
+        actionCAMERA000001->setText(QApplication::translate("gui", "CAMERA000001", 0, QApplication::UnicodeUTF8));
         label->setText(QString());
         menu_obj_track->setTitle(QApplication::translate("gui", "Object track", 0, QApplication::UnicodeUTF8));
         menu_Settings->setTitle(QApplication::translate("gui", "Settings", 0, QApplication::UnicodeUTF8));
