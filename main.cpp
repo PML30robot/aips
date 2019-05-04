@@ -7,7 +7,7 @@
  * Created on 14 Ноябрь 2015 г., 16:47
  */
 
-#include <QApplication>
+#include <qt5/QtWidgets/QApplication>
 #include <omp.h>
 
 #include "gui/gui.h"
@@ -36,7 +36,7 @@ int main( int argc, char** argv )
    {
       thread_idx = omp_get_thread_num();
       
-      //cout << thread_idx << endl;
+      cout << thread_idx << endl;
       
       if (thread_idx == 0)
          app.exec();

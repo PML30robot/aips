@@ -6,7 +6,7 @@
  */
 
 #pragma once
-#include <QObject>
+#include <qt5/QtCore/QObject>
 
 #include <opencv2/opencv.hpp>
 
@@ -64,7 +64,7 @@ private:
    size_t    min_h_, max_h_,
              min_s_, max_s_,
              min_v_, max_v_;
-   int    min_obj_size_,
+   int       min_obj_size_,
              max_obj_size_;
    
    vector< vector<Point> > contours_;

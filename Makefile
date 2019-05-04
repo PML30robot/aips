@@ -1,73 +1,128 @@
-TARGET = aips
+#
+#  There exist several targets which are by default empty and which can be 
+#  used for execution of your targets. These targets are usually executed 
+#  before and after some main targets. They are: 
+#
+#     .build-pre:              called before 'build' target
+#     .build-post:             called after 'build' target
+#     .clean-pre:              called before 'clean' target
+#     .clean-post:             called after 'clean' target
+#     .clobber-pre:            called before 'clobber' target
+#     .clobber-post:           called after 'clobber' target
+#     .all-pre:                called before 'all' target
+#     .all-post:               called after 'all' target
+#     .help-pre:               called before 'help' target
+#     .help-post:              called after 'help' target
+#
+#  Targets beginning with '.' are not intended to be called on their own.
+#
+#  Main targets can be executed directly, and they are:
+#  
+#     build                    build a specific configuration
+#     clean                    remove built files from a configuration
+#     clobber                  remove all built files
+#     all                      build all configurations
+#     help                     print help mesage
+#  
+#  Targets .build-impl, .clean-impl, .clobber-impl, .all-impl, and
+#  .help-impl are implemented in nbproject/makefile-impl.mk.
+#
+#  Available make variables:
+#
+#     CND_BASEDIR                base directory for relative paths
+#     CND_DISTDIR                default top distribution directory (build artifacts)
+#     CND_BUILDDIR               default top build directory (object files, ...)
+#     CONF                       name of current configuration
+#     CND_PLATFORM_${CONF}       platform name (current configuration)
+#     CND_ARTIFACT_DIR_${CONF}   directory of build artifact (current configuration)
+#     CND_ARTIFACT_NAME_${CONF}  name of build artifact (current configuration)
+#     CND_ARTIFACT_PATH_${CONF}  path to build artifact (current configuration)
+#     CND_PACKAGE_DIR_${CONF}    directory of package (current configuration)
+#     CND_PACKAGE_NAME_${CONF}   name of package (current configuration)
+#     CND_PACKAGE_PATH_${CONF}   path to package (current configuration)
+#
+# NOCDDL
 
-GUI_DIR        = gui
-POS_SYSTEM_DIR = pos_system
-OBJ_DETECT_DIR = $(POS_SYSTEM_DIR)/object_detect
-BIN_DIR        = bin
-OBJ_DIR        = obj
-MOC_DIR        = moc_files
-UI_DIR	       = ui
-CONNECT_DIR    = connecter
-SETTINGS_DIR   = settings
-CAM_DIR        = camera
 
-MOC_SRC  = $(POS_SYSTEM_DIR)/pos_sys.h $(GUI_DIR)/gui.h $(CONNECT_DIR)/connector.h $(SETTINGS_DIR)/camera.h $(OBJ_DETECT_DIR)/obj_detect.h
-CPP_SRC  = $(notdir $(MOC_SRC:.h=.moc.cpp))
-CPP_SRC += $(SETTINGS_DIR)/settings.cpp $(CONNECT_DIR)/connector.cpp $(CAM_DIR)/camera.cpp $(OBJ_DETECT_DIR)/obj_detect.cpp $(POS_SYSTEM_DIR)/pos_sys.cpp $(GUI_DIR)/gui.cpp main.cpp
+# Environment 
+MKDIR=mkdir
+CP=cp
+CCADMIN=CCadmin
 
-OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(notdir $(CPP_SRC:.cpp=.o)))
-	     
-CPP_INCLUDE_FILES = -I/usr/local/include/opencv -I/usr/local/include -I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore -I/usr/include
-CPP_LIBS = -L/usr/local/lib -lopencv_shape -lopencv_stitching -lopencv_objdetect -lopencv_superres -lopencv_videostab -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_imgcodecs -lopencv_video -lopencv_photo -lopencv_ml -lopencv_imgproc -lopencv_flann -lopencv_core -lopencv_hal -L/usr/lib/x86_64-linux-gnu -lQtCore -lQtGui -lyaml-cpp
-CPP_FLG = -std=c++11
 
-all: dir ui moc $(TARGET)
-	
-dir: 
-	if !(test -d $(BIN_DIR)); then mkdir $(BIN_DIR); fi
-	if !(test -d $(OBJ_DIR)); then mkdir $(OBJ_DIR); fi
-	if !(test -d $(MOC_DIR)); then mkdir $(MOC_DIR); fi
+# build
+build: .build-post
 
-$(TARGET): $(OBJ_FILES)
-	g++ -g $(OBJ_FILES) -o $(BIN_DIR)/$(TARGET) $(CPP_LIBS) -fopenmp
-	
-$(OBJ_DIR)/%.o: %.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp
+.build-pre:
+# Add your pre 'build' code here...
 
-$(OBJ_DIR)/%.o: $(POS_SYSTEM_DIR)/%.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp
+.build-post: .build-impl
+# Add your post 'build' code here...
 
-$(OBJ_DIR)/%.o: $(OBJ_DETECT_DIR)/%.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp
 
-$(OBJ_DIR)/%.o: $(CAM_DIR)/%.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp
+# clean
+clean: .clean-post
 
-$(OBJ_DIR)/%.o: $(GUI_DIR)/%.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp
+.clean-pre:
+# Add your pre 'clean' code here...
 
-$(OBJ_DIR)/%.o: $(CONNECT_DIR)/%.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp
+.clean-post: .clean-impl
+# Add your post 'clean' code here...
 
-$(OBJ_DIR)/%.o: $(MOC_DIR)/%.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp
 
-$(OBJ_DIR)/%.o: $(SETTINGS_DIR)/%.cpp
-	g++ -g -c $< -o $@ $(CPP_FLG) $(CPP_INCLUDE_FILES) -fopenmp  
+# clobber
+clobber: .clobber-post
 
-moc:
-	moc-qt4  $(GUI_DIR)/gui.h -o $(MOC_DIR)/gui.moc.cpp
-	moc-qt4  $(CONNECT_DIR)/connector.h -o $(MOC_DIR)/connector.moc.cpp
-	moc-qt4  $(CAM_DIR)/camera.h -o $(MOC_DIR)/camera.moc.cpp
-	moc-qt4  $(POS_SYSTEM_DIR)/pos_sys.h -o $(MOC_DIR)/pos_sys.moc.cpp
-	moc-qt4  $(OBJ_DETECT_DIR)/obj_detect.h -o $(MOC_DIR)/obj_detect.moc.cpp
-	
-ui:
-	uic-qt4 $(GUI_DIR)/$(UI_DIR)/gui.ui -o $(GUI_DIR)/$(UI_DIR)/gui_ui.h
-	uic-qt4 $(GUI_DIR)/$(UI_DIR)/object_params.ui -o $(GUI_DIR)/$(UI_DIR)/object_params_ui.h
-	uic-qt4 $(GUI_DIR)/$(UI_DIR)/camera_settings.ui -o $(GUI_DIR)/$(UI_DIR)/camera_settings_ui.h
-	uic-qt4 $(GUI_DIR)/$(UI_DIR)/calibration_coordinates.ui -o $(GUI_DIR)/$(UI_DIR)/calibration_coordinates_ui.h
-	uic-qt4 $(GUI_DIR)/$(UI_DIR)/qNumber.ui -o $(GUI_DIR)/$(UI_DIR)/qNumber_ui.h
-	
-clean:
-	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/$(TARGET)
+.clobber-pre:
+# Add your pre 'clobber' code here...
+
+.clobber-post: .clobber-impl
+# Add your post 'clobber' code here...
+
+
+# all
+all: .all-post
+
+.all-pre:
+# Add your pre 'all' code here...
+
+.all-post: .all-impl
+# Add your post 'all' code here...
+
+
+# build tests
+build-tests: .build-tests-post
+
+.build-tests-pre:
+# Add your pre 'build-tests' code here...
+
+.build-tests-post: .build-tests-impl
+# Add your post 'build-tests' code here...
+
+
+# run tests
+test: .test-post
+
+.test-pre: build-tests
+# Add your pre 'test' code here...
+
+.test-post: .test-impl
+# Add your post 'test' code here...
+
+
+# help
+help: .help-post
+
+.help-pre:
+# Add your pre 'help' code here...
+
+.help-post: .help-impl
+# Add your post 'help' code here...
+
+
+
+# include project implementation makefile
+include nbproject/Makefile-impl.mk
+
+# include project make variables
+include nbproject/Makefile-variables.mk

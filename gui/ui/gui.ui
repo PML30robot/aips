@@ -184,16 +184,6 @@
     <string>Calibration coordinates</string>
    </property>
   </action>
-  <action name="actionCammmmm12121">
-   <property name="text">
-    <string>Cammmmm12121</string>
-   </property>
-  </action>
-  <action name="actionCAMERA000001">
-   <property name="text">
-    <string>CAMERA000001</string>
-   </property>
-  </action>
  </widget>
  <resources/>
  <connections/>

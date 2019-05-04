@@ -35,7 +35,7 @@ camera_t::camera_t( connector_t * connector) :
    , work_contrast_s_  (1)
    , work_brightness_  (0.5)
 {
-   capture_ = new VideoCapture(0);// 0 - встроенная камера, 1 - внешняя камера ...
+   capture_ = new VideoCapture(CV_CAP_ANY);// 0 - встроенная камера, 1 - внешняя камера, CV_CAP_ANY - автоматическое определение ...
    
    brightness_   = capture_->get(CV_CAP_PROP_BRIGHTNESS);
    contrast_     = capture_->get(CV_CAP_PROP_CONTRAST);

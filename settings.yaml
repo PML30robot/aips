@@ -1,0 +1,38 @@
+- object name: camera
+  settings:
+    - name: hardware brightness
+      value: 0.5
+    - name: hardware contrast
+      value: 1
+    - name: hardware exposure
+      value: 1
+    - name: hardware gain
+      value: 0.5714285714285714
+    - name: hardware hue
+      value: 0.07000000000000001
+    - name: hardware saturation
+      value: 0.64
+    - name: software brightness
+      value: 1
+    - name: software contrast
+      value: 1
+
+- object name: object_track
+  settings:
+    - name: max_obj_size
+      value: 10000
+    - name: min_obj_size
+      value: 0
+    - name: max_h
+      value: 255
+    - name: max_s
+      value: 255
+    - name: max_v
+      value: 255
+    - name: min_h
+      value: 0
+    - name: min_s
+      value: 0
+    - name: min_v
+      value: 0
+

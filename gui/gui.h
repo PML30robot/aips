@@ -7,21 +7,18 @@
 
 #pragma once 
 
-#include <QMainWindow>
-#include <QtGui/QAction>
-#include <QtGui/QMenu>
-#include <QApplication>
-#include <QObject>
-#include <QMenu>
-#include <QTimer>
-#include <QMenuBar>
-#include <QMouseEvent>
+#include <qt5/QtWidgets/QMainWindow>
+#include <qt5/QtWidgets/QApplication>
+#include <qt5/QtCore/QObject>
+#include <qt5/QtWidgets/QMenu>
+#include <qt5/QtCore/QTimer>
+#include <qt5/QtWidgets/QMenuBar>
+#include <qt5/QtGui/QMouseEvent>
 
-#include "ui/gui_ui.h"
-#include "ui/object_params_ui.h"
-#include "ui/camera_settings_ui.h"
-#include "ui/calibration_coordinates_ui.h"
-#include "ui/qNumber_ui.h"
+#include "./ui_gui.h"
+#include "./ui_object_params.h"
+#include "./ui_camera_settings.h"
+#include "./ui_calibration_coordinates.h"
 #include "../connecter/connector.h"
 #include "../settings/settings.h"
 
@@ -32,14 +29,12 @@ namespace Ui
    class camera_settings;
    class calibration_coordinates;
    class VideoLayout;
-   class qNumber;
 }
 
 class object_params_t;
 class camera_settings_t;
 class calibration_coordinates_t;
 class VideoLayout_t;
-class qNumber_t;
 
 class gui_t : public QMainWindow
 {
@@ -60,12 +55,6 @@ private slots:                                      //
       QAction* m_pAction3;                          //
       QAction* m_pAction4;                          //
 //////////////////////////////////////////////////////
-      
-//   QAction *actionCamTEST;
-//   QMenu *menuCamersTEST;
-//   QMenuBar *menubarTEST;
-      
-
 public:
    gui_t ( connector_t * connector, QWidget * parent = 0 );
    void resizeEvent(QResizeEvent*);
@@ -79,15 +68,12 @@ public:
    QPoint ClickPos;
 
    const int START_WINDOW_SIZE = 674;
-   const int POGRESHNOST = 10;// погрешность пипетки
-   int CamersNum = 5;//кол-во камер
-   QMenuBar* menuCamers_;//менюшка камер(Програмно создаётся в начале работы GUI)
+   const int POGRESHNOST = 15;// погрешность пипетки
 private:
    int StartSize;
    int StopSetStartSize;
    int H,S,V;
    
-   gui_t* gui_;
    
    Q_SLOT void call_obj_params();
    Q_SLOT void call_camera_settings();
@@ -103,8 +89,6 @@ private:
    Q_SIGNAL void import_settings_sig();
    Q_SIGNAL void set_color_pos_sig(int, int);
    
-   Q_SLOT void GetNumber_slt(int);
-   
    Ui::gui * ui_;
 
    object_params_t *   object_params_;
@@ -112,7 +96,6 @@ private:
    calibration_coordinates_t * calibration_coordinates_;
    connector_t * connector_;
    VideoLayout_t * VideoLayout_;
-   qNumber_t * qNumber_;
 };
 
 
@@ -133,7 +116,7 @@ public:
    Q_SLOT void set_max_size_q_slt_ot_g (int);
    
    //void set_min_max_hue_ui_obj_params (int min, int max);
-   
+
 private:
    Ui::obj_params * obj_params_;
    connector_t *    connector_;
@@ -175,6 +158,9 @@ public:
    QPoint Marker2_WorldCoordinates;
    QPoint Marker3_WorldCoordinates;
    
+//   Q_SLOT void export_settings_slt();        <<-----  <???>   Не используется
+//   Q_SLOT void import_settings_slt();
+   
    void set_Marker1_cam_coord (int, int);
    Q_SIGNAL void set_Marker1_cam_coord_sig (int, int);
    void set_Marker2_cam_coord (int, int);
@@ -206,18 +192,3 @@ public:
 private:
    void mousePressEvent(QMouseEvent * event);
 };
-
-class qNumber_t : public QMainWindow
-{
-   Q_OBJECT
-public:
-   qNumber_t(connector_t * connector);
-   
-   Q_SLOT void OK ();
-   Q_SIGNAL void NumberToPosSys_sig(int);
-   Q_SIGNAL void NumberToGUI_sig(int);
-private:
-   Ui::qNumber * qNumber_;
-   connector_t * connector_;
-};
-

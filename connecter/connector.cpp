@@ -6,7 +6,7 @@
  */
 
 #include <iostream>
-#include <QMetaType>
+#include <qt5/QtCore/QMetaType>
 
 #include "connector.h"
 #include "../camera/camera.h"
@@ -275,10 +275,4 @@ Q_SLOT void connector_t::set_Marker2_Y_world_coord_slt (double y)
 Q_SLOT void connector_t::set_Marker3_Y_world_coord_slt (double y)
 {
    emit set_Marker3_Y_world_coord_sig (y);
-}
-
-Q_SLOT void connector_t::NumberToPosSys_slt (int num)
-{
-   cout << "lololololooloolo eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"<<endl;
-   emit NumberToPosSys_sig (num);
 }

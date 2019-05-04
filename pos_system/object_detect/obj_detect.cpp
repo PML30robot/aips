@@ -17,7 +17,7 @@ obj_detect_t::obj_detect_t( connector_t * connector ) :
    , max_s_(255)
    , max_v_(255)
    , min_obj_size_(0)
-   , max_obj_size_(10000)
+   , max_obj_size_(500000)
    , connector_   (connector)
 {
    settings_ = new settings_t("object_track");
@@ -270,12 +270,22 @@ void obj_detect_t::drawContour (Mat & frame)
 {
    if (hierarchy_.size())
    {
-      for (int idx = 0; idx >= 0; idx = hierarchy_[idx][0])
-         drawContours(frame, contours_, idx, Scalar(0, 255, 0), 3, 8, hierarchy_);
+      for (int idx = 0; idx >= 0; idx = hierarchy_[idx][0]){
+         Moments moment = moments((Mat)contours_[idx]);
+         double area = moment.m00;
+         
+         
+         if (area > min_obj_size_ && area < max_obj_size_)
+         {
+            drawContours(frame, contours_, idx, Scalar(0, 255, 0), 3, 8, hierarchy_);
+         }else{
+            drawContours(frame, contours_, idx, Scalar(0, 0, 255), 2, 8, hierarchy_);
+         }
+      }
    }
 }
 
 void obj_detect_t::drawPosition(Mat & frame)// Центр обьекта
 {
-   circle(frame, center_, 3, Scalar(0, 0, 255), 3);
+   circle(frame, center_, 3, Scalar(255, 0, 0), 3);
 }

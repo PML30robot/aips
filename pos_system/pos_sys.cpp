@@ -10,7 +10,7 @@
 #include <opencv2/opencv.hpp>
 
 #include <vector>
-#include <QMetaType>
+#include <qt5/QtCore/QMetaType>
 
 #include "../settings/settings.h"
 
@@ -46,8 +46,6 @@ pos_system_t::pos_system_t( connector_t * connector ) :
    connect(connector_, SIGNAL(set_Marker1_Y_world_coord_sig (double)), this, SLOT(set_Marker1_Y_world_coord_slt (double)));
    connect(connector_, SIGNAL(set_Marker2_Y_world_coord_sig (double)), this, SLOT(set_Marker2_Y_world_coord_slt (double)));
    connect(connector_, SIGNAL(set_Marker3_Y_world_coord_sig (double)), this, SLOT(set_Marker3_Y_world_coord_slt (double)));
-   
-   connect(connector_, SIGNAL(NumberToPosSys_sig (int)), this, SLOT(NumberToPosSys_slt (int)));
 }
 
 pos_system_t::~pos_system_t( )
@@ -63,24 +61,17 @@ void pos_system_t::loop()
       Mat frame;
       
       camera_->get_frame(frame);
-      if (Nummm > 0)
-      {
-         Point center = obj_detect_->detect(frame);
-         
-         obj_detect_->drawContour(frame);
-         obj_detect_->drawPosition(frame);
       
-      cv::Point pointXYtest;
-      pointXYtest.x = X_test;
-      pointXYtest.y = Y_test;
-      circle(frame, pointXYtest, 2, Scalar(255, 0, 0), 2);
+      Point center = obj_detect_->detect(frame);
       
+      obj_detect_->drawContour(frame);
+      obj_detect_->drawPosition(frame);
+            
       emit send_image(cvMatToQImage(frame));
       FRAME_ = frame;
       
       
       thinking(center.x,center.y);
-      }
    }
 }
 
@@ -166,9 +157,6 @@ Q_SLOT void pos_system_t::set_color_pos_slt(int x, int y){
    int S = color_hsv.val[1];
    int V = color_hsv.val[2];
    
-   X_test = x;
-   Y_test = y;
-   
    emit send_HSV(H,S,V);
 }
 
@@ -196,9 +184,4 @@ void pos_system_t::thinking(int center_x,int center_y) // new
    
    cout << "world_pos_obj_of_null_marker_x = " << world_pos_obj_of_null_marker_x << endl
       << "world_pos_obj_of_null_marker_y = " << world_pos_obj_of_null_marker_y << endl;
-}
-
-Q_SLOT void pos_system_t::NumberToPosSys_slt (int num)
-{
-   Nummm = num;
 }

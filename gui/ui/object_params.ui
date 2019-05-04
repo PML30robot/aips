@@ -316,7 +316,7 @@
        <cursorShape>IBeamCursor</cursorShape>
       </property>
       <property name="maximum">
-       <number>10000</number>
+       <number>500000</number>
       </property>
      </widget>
     </item>
@@ -326,10 +326,10 @@
        <cursorShape>IBeamCursor</cursorShape>
       </property>
       <property name="maximum">
-       <number>10000</number>
+       <number>500000</number>
       </property>
       <property name="value">
-       <number>10000</number>
+       <number>500000</number>
       </property>
      </widget>
     </item>
@@ -442,7 +442,7 @@
        <set>Qt::ImhFormattedNumbersOnly</set>
       </property>
       <property name="maximum">
-       <number>10000</number>
+       <number>500000</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -458,10 +458,10 @@
        <set>Qt::ImhFormattedNumbersOnly</set>
       </property>
       <property name="maximum">
-       <number>10000</number>
+       <number>500000</number>
       </property>
       <property name="value">
-       <number>10000</number>
+       <number>500000</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
